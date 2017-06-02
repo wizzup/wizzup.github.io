@@ -5,7 +5,6 @@ PUBLISH=../master
 publish=cp -rv ${SITE}/* ${PUBLISH}
 
 all: clean
-	cabal build -j2
 	cabal run rebuild
 	${publish}
 

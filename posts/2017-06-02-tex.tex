@@ -1,0 +1,23 @@
+\documentclass{minimal}
+\begin{document}
+
+Using $MathJax$ with $Hakyll$
+
+\begin{verbatim}
+let readerOptions = defaultHakyllReaderOptions
+let writerOptions = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax "" }
+
+pandocCompilerWith readerOptions writerOptions
+
+\end{verbatim}
+
+and add $MathJax$ script to global html template
+
+\begin{verbatim}
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+\end{verbatim}
+
+\end{document}

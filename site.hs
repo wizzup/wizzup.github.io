@@ -23,8 +23,12 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
-    -- match (fromList ["posts/*.md", "posts/*.rst"]) $ do
-    match "posts/*" $ do
+    let postFiles :: Pattern
+        postFiles =    fromGlob "posts/*.md"
+                  .||. fromGlob "posts/*.rst"
+                  .||. fromGlob "posts/*.tex"
+
+    match postFiles $ do
         route $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
@@ -50,8 +54,9 @@ main = hakyll $ do
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let indexCtx =
-                    listField "posts" postCtx (return posts) `mappend`
+                    listField  "posts" postCtx (return posts) `mappend`
                     constField "title" "Home"                `mappend`
+                    constField "isHome" "True"          `mappend`
                     defaultContext
 
             let readerOptions = defaultHakyllReaderOptions

@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <title>My site - $title$</title>
+  <title>wizzup - $title$</title>
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,11 +12,19 @@
           integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
           crossorigin="anonymous">
 
+    <!-- sourcecode CSS -->
+    <link rel="stylesheet" href="/css/sourcecode.css">
+
+    <!-- icon -->
+    <link rel="icon" href="/images/favicon.ico">
+
+    <!-- author -->
+    <link rel="author" href="Wisut Hantanong">
+
     <!-- MathJax -->
     <script type="text/javascript" async
             src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
     </script>
-
   </head>
 
   <body>
@@ -46,11 +54,15 @@
     </nav>
 
     <!-- Title -->
+    $if(isHome)$
+        by $author$
+    $else$
     <section class="jumbotron">
       <div class="container">
         <h1 class="jumbotron-heading">$title$</h1>
       </div>
     </section>
+    $endif$
 
     <!-- Begin page content -->
     <div class="container">
