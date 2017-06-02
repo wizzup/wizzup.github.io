@@ -24,7 +24,7 @@ main = hakyll $ do
             >>= relativizeUrls
 
     -- match (fromList ["posts/*.md", "posts/*.rst"]) $ do
-    match "posts/*.rst" $ do
+    match "posts/*" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
@@ -44,20 +44,6 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
-
-    -- match "index.html" $ do
-    --     route idRoute
-    --     compile $ do
-    --         posts <- recentFirst =<< loadAll "posts/*"
-    --         let indexCtx =
-    --                 listField "posts" postCtx (return posts) `mappend`
-    --                 constField "title" "Home"                `mappend`
-    --                 defaultContext
-    --
-    --         getResourceBody
-    --             >>= applyAsTemplate indexCtx
-    --             >>= loadAndApplyTemplate "templates/default.html" indexCtx
-    --             >>= relativizeUrls
 
     match "index.tex" $ do
         route $ setExtension "html"
