@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <title>wizzup - Nix, Vim and Haskell</title>
+  <title>wizzup - Nix, Vim and Python</title>
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -53,7 +53,7 @@
     
     <section class="jumbotron">
       <div class="container">
-        <h1 class="jumbotron-heading">Nix, Vim and Haskell</h1>
+        <h1 class="jumbotron-heading">Nix, Vim and Python</h1>
       </div>
     </section>
     
@@ -62,29 +62,26 @@
     <div class="container">
       <div><div>
   <div class="text-muted">
-      Posted on May 31, 2017
+      Posted on June  2, 2017
       
   </div>
-  <div><p>This is how I setup nix-shell environments vim and hakyll.</p>
-<p>This is <em>shelll.nix</em></p>
+  <div><p>This is how I setup nix-shell environments vim and pyyaml.</p>
+<p>This is <code>shelll.nix</code></p>
 <div class="sourceCode"><pre class="sourceCode nix"><code class="sourceCode bash"><span class="kw">{</span> <span class="ex">pkgs</span> ? import <span class="op">&lt;</span>nixpkgs<span class="op">&gt;</span> <span class="dt">{}</span> <span class="kw">}</span>:
 
-<span class="bu">let</span>
-  <span class="ex">hs</span> = pkgs.haskellPackages.ghcWithHoogle (self: with self<span class="kw">;</span><span class="bu"> [</span>
-          hakyll
-        ]);
-in
-pkgs.stdenv.mkDerivation {
-  name <span class="ot">=</span> <span class="st">&quot;haskell-shell&quot;</span>;
-  buildInputs <span class="ot">=</span> with pkgs.haskellPackages; [ hs cabal-install ghc-mod hlint hspec  ];
+<span class="ex">with</span> pkgs<span class="kw">;</span>
 
-  shellHook <span class="ot">=</span> <span class="st">''</span>
-    export PS1=<span class="st">&quot;\[\033[1;32m\][ns-hs:\w]\n$ \[\033[0m\]&quot;</span>
-    eval <span class="st">&quot;</span><span class="va">$(</span><span class="fu">egrep</span> ^export <span class="st">&quot;</span><span class="va">$(</span><span class="bu">type</span> -p ghc<span class="va">)</span><span class="st">&quot;</span><span class="va">)</span><span class="st">&quot;</span>
+<span class="bu">let</span> py3s = pkgs.python3.buildEnv.override  {
+  <span class="ex">extraLibs</span> = with pkgs.python3Packages<span class="kw">;</span><span class="bu"> [</span> jedi pyyaml<span class="bu"> ]</span>;
+};
+<span class="kw">in</span> <span class="ex">stdenv.mkDerivation</span> {
+  <span class="ex">name</span> = <span class="st">&quot;python3-shell&quot;</span><span class="kw">;</span>
+  <span class="ex">buildInputs</span> = [ py3s ]<span class="kw">;</span>
+
+  <span class="ex">shellHook</span> = <span class="st">''</span>
+    <span class="bu">export</span> <span class="va">PS1=</span><span class="st">&quot;\[\033[1;32m\][nix-py3:\w]\n$ \[\033[0m\]&quot;</span>
   <span class="st">''</span>;
-}</code></pre></div>
-<p>I use cabal to do the build</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">cabal</span> build</code></pre></div></div>
+}</code></pre></div></div>
 </div>
 </div>
     </div>

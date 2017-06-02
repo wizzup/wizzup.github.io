@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <title>wizzup - Nix, Vim and Haskell</title>
+  <title>wizzup - Hakyll and MathJax</title>
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -53,7 +53,7 @@
     
     <section class="jumbotron">
       <div class="container">
-        <h1 class="jumbotron-heading">Nix, Vim and Haskell</h1>
+        <h1 class="jumbotron-heading">Hakyll and MathJax</h1>
       </div>
     </section>
     
@@ -62,29 +62,18 @@
     <div class="container">
       <div><div>
   <div class="text-muted">
-      Posted on May 31, 2017
+      Posted on June  2, 2017
       
   </div>
-  <div><p>This is how I setup nix-shell environments vim and hakyll.</p>
-<p>This is <em>shelll.nix</em></p>
-<div class="sourceCode"><pre class="sourceCode nix"><code class="sourceCode bash"><span class="kw">{</span> <span class="ex">pkgs</span> ? import <span class="op">&lt;</span>nixpkgs<span class="op">&gt;</span> <span class="dt">{}</span> <span class="kw">}</span>:
+  <div><p>Using <span class="math inline"><em>M</em><em>a</em><em>t</em><em>h</em><em>J</em><em>a</em><em>x</em></span> with <span class="math inline"><em>H</em><em>a</em><em>k</em><em>y</em><em>l</em><em>l</em></span></p>
+<pre><code>let readerOptions = defaultHakyllReaderOptions
+let writerOptions = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax &quot;&quot; }
 
-<span class="bu">let</span>
-  <span class="ex">hs</span> = pkgs.haskellPackages.ghcWithHoogle (self: with self<span class="kw">;</span><span class="bu"> [</span>
-          hakyll
-        ]);
-in
-pkgs.stdenv.mkDerivation {
-  name <span class="ot">=</span> <span class="st">&quot;haskell-shell&quot;</span>;
-  buildInputs <span class="ot">=</span> with pkgs.haskellPackages; [ hs cabal-install ghc-mod hlint hspec  ];
-
-  shellHook <span class="ot">=</span> <span class="st">''</span>
-    export PS1=<span class="st">&quot;\[\033[1;32m\][ns-hs:\w]\n$ \[\033[0m\]&quot;</span>
-    eval <span class="st">&quot;</span><span class="va">$(</span><span class="fu">egrep</span> ^export <span class="st">&quot;</span><span class="va">$(</span><span class="bu">type</span> -p ghc<span class="va">)</span><span class="st">&quot;</span><span class="va">)</span><span class="st">&quot;</span>
-  <span class="st">''</span>;
-}</code></pre></div>
-<p>I use cabal to do the build</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">cabal</span> build</code></pre></div></div>
+pandocCompilerWith readerOptions writerOptions</code></pre>
+<p>and add <span class="math inline"><em>M</em><em>a</em><em>t</em><em>h</em><em>J</em><em>a</em><em>x</em></span> script to global html template</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; async
+        src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&quot;&gt;
+&lt;/script&gt;</code></pre></div>
 </div>
 </div>
     </div>
