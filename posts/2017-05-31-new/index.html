@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <title>wizzup - Nix, Vim and Python</title>
+  <title>wizzup - Nix, Vim and Haskell</title>
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
     <!-- sourcecode CSS -->
-    <link rel="stylesheet" href="../css/sourcecode.css">
+    <link rel="stylesheet" href="../../css/sourcecode.css">
 
     <!-- icon -->
-    <link rel="icon" href="../images/favicon.ico">
+    <link rel="icon" href="../../images/favicon.ico">
 
     <!-- author -->
     <link rel="author" href="Wisut Hantanong">
@@ -30,7 +30,7 @@
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="../">Home</a>
+      <a class="navbar-brand" href="../../">Home</a>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <!-- TODO:: active item check -->
@@ -40,59 +40,75 @@
 
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../archive.html">Archive</a>
+            <a class="nav-link" href="../../archive">Archive</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../about.html">About</a>
+            <a class="nav-link" href="../../about">About</a>
           </li>
         </ul>
       </div>
     </nav>
 
     <!-- Title -->
-    
     <section class="jumbotron">
       <div class="container">
-        <h1 class="jumbotron-heading">Nix, Vim and Python</h1>
+        <h1 class="jumbotron-heading">Nix, Vim and Haskell</h1>
       </div>
     </section>
-    
 
-    <!-- Begin page content -->
-    <div class="container">
-      <div><div>
+
+    <!-- Body -->
+    <section class="main">
+      <div class="container">
+        <div class="content"><div>
   <div class="text-muted">
-      Posted on June  2, 2017
+      Posted on May 31, 2017
       
   </div>
-  <div><p>This is how I setup nix-shell environments vim and pyyaml.</p>
-<p>This is <code>shelll.nix</code></p>
+  <div><p>This is how I setup nix-shell environments vim and hakyll.</p>
+<p>This is <em>shelll.nix</em></p>
 <div class="sourceCode"><pre class="sourceCode nix"><code class="sourceCode bash"><span class="kw">{</span> <span class="ex">pkgs</span> ? import <span class="op">&lt;</span>nixpkgs<span class="op">&gt;</span> <span class="dt">{}</span> <span class="kw">}</span>:
 
-<span class="ex">with</span> pkgs<span class="kw">;</span>
+<span class="bu">let</span>
+  <span class="ex">hs</span> = pkgs.haskellPackages.ghcWithHoogle (self: with self<span class="kw">;</span><span class="bu"> [</span>
+          hakyll
+        ]);
+in
+pkgs.stdenv.mkDerivation {
+  name <span class="ot">=</span> <span class="st">&quot;haskell-shell&quot;</span>;
+  buildInputs <span class="ot">=</span> with pkgs.haskellPackages; [ hs cabal-install ghc-mod hlint hspec  ];
 
-<span class="bu">let</span> py3s = pkgs.python3.buildEnv.override  {
-  <span class="ex">extraLibs</span> = with pkgs.python3Packages<span class="kw">;</span><span class="bu"> [</span> jedi pyyaml<span class="bu"> ]</span>;
-};
-<span class="kw">in</span> <span class="ex">stdenv.mkDerivation</span> {
-  <span class="ex">name</span> = <span class="st">&quot;python3-shell&quot;</span><span class="kw">;</span>
-  <span class="ex">buildInputs</span> = [ py3s ]<span class="kw">;</span>
-
-  <span class="ex">shellHook</span> = <span class="st">''</span>
-    <span class="bu">export</span> <span class="va">PS1=</span><span class="st">&quot;\[\033[1;32m\][nix-py3:\w]\n$ \[\033[0m\]&quot;</span>
+  shellHook <span class="ot">=</span> <span class="st">''</span>
+    export PS1=<span class="st">&quot;\[\033[1;32m\][ns-hs:\w]\n$ \[\033[0m\]&quot;</span>
+    eval <span class="st">&quot;</span><span class="va">$(</span><span class="fu">egrep</span> ^export <span class="st">&quot;</span><span class="va">$(</span><span class="bu">type</span> -p ghc<span class="va">)</span><span class="st">&quot;</span><span class="va">)</span><span class="st">&quot;</span>
   <span class="st">''</span>;
-}</code></pre></div></div>
+}</code></pre></div>
+<p>I use cabal to do the build</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">cabal</span> build</code></pre></div></div>
 </div>
 </div>
-    </div>
+      </div>
+    </section>
+
+    <!-- Icons and links -->
+    <!-- <section class="icons"> -->
+    <!--   <div class="container"> -->
+    <!--     <div class="content"> -->
+    <!--       <a href="//github.com/wizzup"  target="_blank" rel="noopener"><img width="16" class="icon" src="/images/github.svg"  alt="github"/></a> -->
+    <!--       <a href="//twitter.com/wizzup" target="_blank" rel="noopener"><img width="16" class="icon" src="/images/twitter.svg" alt="twitter"/></a> -->
+    <!--       <a href="/atom.xml"><img width="16" class="icon" src="/images/rss.svg" alt="rss"/></a> -->
+    <!--     </div> -->
+    <!--   </div> -->
+    <!-- </section> -->
 
     <!-- Footer -->
     <footer class="text-muted">
       <div class="container">
         <p> Site proudly generated by
-        <a href="http://haskell.org"><img width="25" src="../images/haskell.tmb.png" /></a>
-        <a href="http://jaspervdj.be/hakyll"><img width="25" src="../images/hakyll.tmb.png" /></a>
-        <a href="https://getbootstrap.com"><img width="25" src="../images/bs.tmb.svg" /></a>
+        <a href="https://haskell.org"><img width="16" src="../../images/haskell.tmb.png" alt="haskell" /></a>
+        <a href="https://jaspervdj.be/hakyll"><img width="16" src="../../images/hakyll.tmb.png" alt="hakyll" /></a>
+        <a href="https://getbootstrap.com"><img width="16" src="../../images/bootstrap.svg" alt="bootstrap" /></a>
+        <a href="https://simpleicons.org"><img width="16" src="../../images/simpleicons.svg" alt="simpleicons" /></a>
         </p>
       </div>
     </footer>

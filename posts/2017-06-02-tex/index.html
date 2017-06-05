@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <title>wizzup - About me</title>
+  <title>wizzup - Hakyll and MathJax</title>
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
     <!-- sourcecode CSS -->
-    <link rel="stylesheet" href="./css/sourcecode.css">
+    <link rel="stylesheet" href="../../css/sourcecode.css">
 
     <!-- icon -->
-    <link rel="icon" href="./images/favicon.ico">
+    <link rel="icon" href="../../images/favicon.ico">
 
     <!-- author -->
     <link rel="author" href="Wisut Hantanong">
@@ -30,7 +30,7 @@
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="./">Home</a>
+      <a class="navbar-brand" href="../../">Home</a>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <!-- TODO:: active item check -->
@@ -40,71 +40,64 @@
 
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./archive.html">Archive</a>
+            <a class="nav-link" href="../../archive">Archive</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./about.html">About</a>
+            <a class="nav-link" href="../../about">About</a>
           </li>
         </ul>
       </div>
     </nav>
 
     <!-- Title -->
-    
     <section class="jumbotron">
       <div class="container">
-        <h1 class="jumbotron-heading">About me</h1>
+        <h1 class="jumbotron-heading">Hakyll and MathJax</h1>
       </div>
     </section>
-    
 
-    <!-- Begin page content -->
-    <div class="container">
-      <div><p>I am <em>wizzup</em>. I love programming and open source software.</p>
-<p>More details:</p>
-<ul>
-<li>my programming <a href="polygot.html">journey</a>.</li>
-<li>my open source <a href="contribution.html">contributions</a>.</li>
-</ul>
-<p>These are links to my online profiles</p>
-<table>
-<tbody>
-<tr class="odd">
-<td><a href="http://meta.stackoverflow.com/users/1664572/wizzup">stackoverflow</a></td>
-<td><a href="http://about.me/wizzup">about.me</a></td>
-<td><a href="https://www.facebook.com/wisut.hantanong">facebook</a></td>
-</tr>
-<tr class="even">
-<td><a href="https://plus.google.com/+WisutHantanong">Gplus</a></td>
-<td><a href="https://www.youtube.com/channel/UCNJFUqU6Z_amPbiJmnmmmWA">youtube</a></td>
-<td><a href="https://twitter.com/wizzup">twitter</a></td>
-</tr>
-<tr class="odd">
-<td><a href="https://github.com/wizzup">github</a></td>
-<td><a href="http://wizzup.wordpress.com">wordpress</a></td>
-<td><a href="https://www.codingame.com/profile/7556f68f1e9be72714f860c61eafdfff465993">CodinGame</a></td>
-</tr>
-</tbody>
-</table>
-<p>These are my badges.</p>
-<table>
-<tbody>
-<tr class="odd">
-<td><img src="https://www.codewars.com/users/wizzup/badges/micro" alt="imgcw" /></td>
-<td><img src="https://www.openhub.net/accounts/113067/widgets/account_detailed.gif" alt="imgop" /></td>
-<td><img src="http://projecteuler.net/profile/wizzup.png" alt="imgeu" /></td>
-</tr>
-</tbody>
-</table></div>
-    </div>
+
+    <!-- Body -->
+    <section class="main">
+      <div class="container">
+        <div class="content"><div>
+  <div class="text-muted">
+      Posted on June  2, 2017
+      
+  </div>
+  <div><p>Using <span class="math inline"><em>M</em><em>a</em><em>t</em><em>h</em><em>J</em><em>a</em><em>x</em></span> with <span class="math inline"><em>H</em><em>a</em><em>k</em><em>y</em><em>l</em><em>l</em></span></p>
+<pre><code>let readerOptions = defaultHakyllReaderOptions
+let writerOptions = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax &quot;&quot; }
+
+pandocCompilerWith readerOptions writerOptions</code></pre>
+<p>and add <span class="math inline"><em>M</em><em>a</em><em>t</em><em>h</em><em>J</em><em>a</em><em>x</em></span> script to global html template</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; async
+        src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&quot;&gt;
+&lt;/script&gt;</code></pre></div>
+</div>
+</div>
+      </div>
+    </section>
+
+    <!-- Icons and links -->
+    <!-- <section class="icons"> -->
+    <!--   <div class="container"> -->
+    <!--     <div class="content"> -->
+    <!--       <a href="//github.com/wizzup"  target="_blank" rel="noopener"><img width="16" class="icon" src="/images/github.svg"  alt="github"/></a> -->
+    <!--       <a href="//twitter.com/wizzup" target="_blank" rel="noopener"><img width="16" class="icon" src="/images/twitter.svg" alt="twitter"/></a> -->
+    <!--       <a href="/atom.xml"><img width="16" class="icon" src="/images/rss.svg" alt="rss"/></a> -->
+    <!--     </div> -->
+    <!--   </div> -->
+    <!-- </section> -->
 
     <!-- Footer -->
     <footer class="text-muted">
       <div class="container">
         <p> Site proudly generated by
-        <a href="http://haskell.org"><img width="25" src="./images/haskell.tmb.png" /></a>
-        <a href="http://jaspervdj.be/hakyll"><img width="25" src="./images/hakyll.tmb.png" /></a>
-        <a href="https://getbootstrap.com"><img width="25" src="./images/bs.tmb.svg" /></a>
+        <a href="https://haskell.org"><img width="16" src="../../images/haskell.tmb.png" alt="haskell" /></a>
+        <a href="https://jaspervdj.be/hakyll"><img width="16" src="../../images/hakyll.tmb.png" alt="hakyll" /></a>
+        <a href="https://getbootstrap.com"><img width="16" src="../../images/bootstrap.svg" alt="bootstrap" /></a>
+        <a href="https://simpleicons.org"><img width="16" src="../../images/simpleicons.svg" alt="simpleicons" /></a>
         </p>
       </div>
     </footer>
