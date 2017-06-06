@@ -4,6 +4,7 @@
 
 let
   hs = pkgs.haskellPackages.ghcWithHoogle (self: with self; [
+          filepath
           hakyll
           pandoc
         ]);

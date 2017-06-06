@@ -1,9 +1,61 @@
-<div>
-  <div class="text-muted">
-      Posted on $date$
-      $if(author)$
-          by $author$
-      $endif$
+    <div class="text-muted">
+        Posted on $date$
+        $if(author)$
+            by $author$
+        $endif$
+    </div>
+  $body$
+
+  <div>
+    <!-- Facebook like button -->
+    <div class="fb-like"
+         data-href="https://wizzup.github.io$url$"
+         data-layout="button_count"
+         data-action="like"
+         data-size="small"
+         data-show-faces="false"
+         data-share="true" />
+
+    <!-- twitter tweet button -->
+    <a href="https://twitter.com/share"
+       class="twitter-share-button"
+       data-url="https://wizzup.github.io$url$"
+       data-count="horizontal"
+       data-via="wizzup">Tweet</a>
+
+    <!-- G+ button -->
+    <g:plusone
+       size="medium"
+       href="https://wizzup.github.io$url$"/>
   </div>
-  <div>$body$</div>
-</div>
+
+  <!-- <!&#45;&#45; facebook comments &#45;&#45;> -->
+  <!-- <div style="width:100%"> -->
+  <!--   <div class="fb&#45;comments" -->
+  <!--        data&#45;href="https://wizzup.github.io$url$" -->
+  <!--        data&#45;numposts="3" /> -->
+  <!-- </div> -->
+
+  <div>
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+      this.page.url = https://wizzup.github.io$url$;
+      this.page.title = $title$;
+      this.page.identifier = $path$;
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wizzup.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
