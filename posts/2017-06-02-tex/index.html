@@ -6,6 +6,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Facebook opengraph metadata -->
+    <!-- <meta property="og:url"           content="http://www.your&#45;domain.com/your&#45;page.html" /> -->
+    <!-- <meta property="og:type"          content="website" /> -->
+    <!-- <meta property="og:title"         content="Your Website Title" /> -->
+    <!-- <meta property="og:description"   content="Your description" /> -->
+    <!-- <meta property="og:image"         content="http://www.your&#45;domain.com/path/image.jpg" /> -->
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
@@ -24,6 +31,34 @@
   </head>
 
   <body>
+
+    <!-- Facebook like api -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <style media="screen" type="text/css">
+      .fb_iframe_widget span
+      {
+        vertical-align: baseline !important;
+      }
+    </style>
+
+    <!-- Twitter widgets -->
+    <script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
+
+    <!-- G+ script -->
+    <script type="text/javascript">
+    (function() {
+      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+      po.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+    </script>
 
     <!-- Fixed navbar -->
     <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
@@ -52,30 +87,7 @@
     <!-- Title -->
     <section class="jumbotron">
       <div class="container">
-        <h1 class="jumbotron-heading">Hakyll and MathJax</h1>
-      </div>
-    </section>
-
-
-    <!-- Body -->
-    <section class="main">
-      <div class="container">
-        <div class="content"><div>
-  <div class="text-muted">
-      Posted on June  2, 2017
-      
-  </div>
-  <div><p>Using <span class="math inline"><em>M</em><em>a</em><em>t</em><em>h</em><em>J</em><em>a</em><em>x</em></span> with <span class="math inline"><em>H</em><em>a</em><em>k</em><em>y</em><em>l</em><em>l</em></span></p>
-<pre><code>let readerOptions = defaultHakyllReaderOptions
-let writerOptions = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax &quot;&quot; }
-
-pandocCompilerWith readerOptions writerOptions</code></pre>
-<p>and add <span class="math inline"><em>M</em><em>a</em><em>t</em><em>h</em><em>J</em><em>a</em><em>x</em></span> script to global html template</p>
-<pre><code>&lt;script type=&quot;text/javascript&quot; async
-        src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&quot;&gt;
-&lt;/script&gt;</code></pre></div>
-</div>
-</div>
+        <h2 class="jumbotron-heading">Hakyll and MathJax</h2>
       </div>
     </section>
 
@@ -90,8 +102,77 @@ pandocCompilerWith readerOptions writerOptions</code></pre>
     <!--   </div> -->
     <!-- </section> -->
 
+    <!-- Body -->
+    <section class="main">
+      <div class="container">
+        <!-- <div class="content"> -->
+              <div class="text-muted">
+        Posted on June  2, 2017
+        
+    </div>
+  <p>Using <span class="math inline"><em>M</em><em>a</em><em>t</em><em>h</em><em>J</em><em>a</em><em>x</em></span> with <span class="math inline"><em>H</em><em>a</em><em>k</em><em>y</em><em>l</em><em>l</em></span></p>
+<pre><code>let readerOptions = defaultHakyllReaderOptions
+let writerOptions = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax &quot;&quot; }
+
+pandocCompilerWith readerOptions writerOptions</code></pre>
+<p>and add <span class="math inline"><em>M</em><em>a</em><em>t</em><em>h</em><em>J</em><em>a</em><em>x</em></span> script to global html template</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; async
+        src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&quot;&gt;
+&lt;/script&gt;</code></pre>
+
+  <div>
+    <!-- Facebook like button -->
+    <div class="fb-like" data-href="https://wizzup.github.io/posts/2017-06-02-tex/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+
+    <!-- twitter tweet button -->
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wizzup.github.io/posts/2017-06-02-tex/" data-count="horizontal" data-via="wizzup">Tweet</a>
+
+    <!-- G+ button -->
+    <g:plusone size="medium" href="https://wizzup.github.io/posts/2017-06-02-tex/"></g:plusone>
+  </div>
+
+  <!-- <!&#45;&#45; facebook comments &#45;&#45;> -->
+  <!-- <div style="width:100%"> -->
+  <!--   <div class="fb&#45;comments" -->
+  <!--        data&#45;href="https://wizzup.github.io/posts/2017-06-02-tex/" -->
+  <!--        data&#45;numposts="3" /> -->
+  <!-- </div> -->
+
+  <div>
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+      this.page.url = https://wizzup.github.io/posts/2017-06-02-tex/;
+      this.page.title = Hakyll and MathJax;
+      this.page.identifier = posts/2017-06-02-tex.tex;
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wizzup.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+
+        <!-- </div> -->
+      </div>
+    </section>
+
+
     <!-- Footer -->
     <footer class="text-muted">
+      <!-- Facebook like button -->
+      <!-- <div class="container"> -->
+      <!--   <div class="fb&#45;like" data&#45;href="https://wizzup.githut.io" data&#45;layout="standard" data&#45;action="like" data&#45;size="small" data&#45;show&#45;faces="true" data&#45;share="true"></div> -->
+      <!-- </div> -->
       <div class="container">
         <p> Site proudly generated by
         <a href="https://haskell.org"><img width="16" src="../../images/haskell.tmb.png" alt="haskell" /></a>
@@ -107,4 +188,74 @@ pandocCompilerWith readerOptions writerOptions</code></pre>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   </body>
+
+  <pre style="display: none;">
+  <code>
+  title        Hakyll and MathJax    
+  url            /posts/2017-06-02-tex/      
+  path          posts/2017-06-02-tex.tex     
+  date          June  2, 2017     
+  author   
+  metadata 
+  missing  
+  teaser   
+  snippet  
+  body              <div class="text-muted">
+        Posted on June  2, 2017
+        
+    </div>
+  <p>Using <span class="math inline"><em>M</em><em>a</em><em>t</em><em>h</em><em>J</em><em>a</em><em>x</em></span> with <span class="math inline"><em>H</em><em>a</em><em>k</em><em>y</em><em>l</em><em>l</em></span></p>
+<pre><code>let readerOptions = defaultHakyllReaderOptions
+let writerOptions = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax &quot;&quot; }
+
+pandocCompilerWith readerOptions writerOptions</code></pre>
+<p>and add <span class="math inline"><em>M</em><em>a</em><em>t</em><em>h</em><em>J</em><em>a</em><em>x</em></span> script to global html template</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot; async
+        src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&quot;&gt;
+&lt;/script&gt;</code></pre>
+
+  <div>
+    <!-- Facebook like button -->
+    <div class="fb-like" data-href="https://wizzup.github.io/posts/2017-06-02-tex/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+
+    <!-- twitter tweet button -->
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wizzup.github.io/posts/2017-06-02-tex/" data-count="horizontal" data-via="wizzup">Tweet</a>
+
+    <!-- G+ button -->
+    <g:plusone size="medium" href="https://wizzup.github.io/posts/2017-06-02-tex/"></g:plusone>
+  </div>
+
+  <!-- <!&#45;&#45; facebook comments &#45;&#45;> -->
+  <!-- <div style="width:100%"> -->
+  <!--   <div class="fb&#45;comments" -->
+  <!--        data&#45;href="https://wizzup.github.io/posts/2017-06-02-tex/" -->
+  <!--        data&#45;numposts="3" /> -->
+  <!-- </div> -->
+
+  <div>
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+      this.page.url = https://wizzup.github.io/posts/2017-06-02-tex/;
+      this.page.title = Hakyll and MathJax;
+      this.page.identifier = posts/2017-06-02-tex.tex;
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wizzup.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+     
+  </code>
+  </pre>
 </html>
