@@ -1,3 +1,8 @@
+---
+title: Nix, Vim and Haskell
+date: 2017-05-31
+---
+
 This is how I setup nix-shell environments vim and hakyll.
 
 This is *shelll.nix*

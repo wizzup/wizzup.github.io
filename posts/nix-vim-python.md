@@ -1,3 +1,8 @@
+---
+title: Nix, Vim and Python
+date: 2017-06-02
+---
+
 This is how I setup nix-shell environments vim and pyyaml.
 
 This is `shelll.nix`
