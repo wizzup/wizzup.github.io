@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+  <title>wizzup - วิธีแก้ข้อความ commit ของ git</title>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Facebook opengraph metadata -->
+    <!-- <meta property="og:url"           content=/draft/%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B9%81%E0%B8%81%E0%B9%89%E0%B9%84%E0%B8%82%20commit%20message%20%E0%B8%82%E0%B8%AD%E0%B8%87%20git/ /> -->
+    <!-- <meta property="og:type"          content="website" /> -->
+    <!-- <meta property="og:title"         content=wizzup:วิธีแก้ข้อความ commit ของ git /> -->
+    <!-- <meta property="og:description"   content="Your description" /> -->
+    <!-- <meta property="og:image"         content="http://www.your&#45;domain.com/path/image.jpg" /> -->
+
+    <!-- Use Bootstrap CSS as basis -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <!-- override default CSS -->
+    <link rel="stylesheet" href="../../css/default.css">
+
+    <!-- override sourcecode CSS -->
+    <link rel="stylesheet" href="../../css/sourcecode.css">
+
+    <!-- icon -->
+    <link rel="icon" href="../../images/favicon.ico">
+
+    <!-- author -->
+    <link rel="author" href="Wisut Hantanong">
+
+    <!-- MathJax -->
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+  </head>
+
+  <body>
+
+    <!-- Facebook like api -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <style media="screen" type="text/css">
+      .fb_iframe_widget span
+      {
+        vertical-align: baseline !important;
+      }
+    </style>
+
+    <!-- Twitter widgets -->
+    <script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
+
+    <!-- G+ script -->
+    <script type="text/javascript">
+    (function() {
+      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+      po.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+    </script>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="../../">Home</a>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <!-- TODO:: active item check -->
+          <!-- <li class="nav&#45;item active"> -->
+          <!--   <!&#45;&#45; <a class="nav&#38;#45;link" href="/">Home</a> &#45;&#45;> -->
+          <!--   <a class="nav&#45;link" href="/archive.html">Archive <span class="sr&#45;only">(current)</span></a> -->
+          <!-- </li> -->
+
+          <li class="nav-item">
+            <a class="nav-link" href="../../archive">Archive</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../about">About</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Title -->
+    <section class="jumbotron">
+      <div class="container">
+        <h2 class="jumbotron-heading">วิธีแก้ข้อความ commit ของ git</h2>
+      </div>
+    </section>
+
+    <!-- Icons and links -->
+    <!-- <section class="icons"> -->
+    <!--   <div class="container"> -->
+    <!--     <div class="content"> -->
+    <!--       <a href="//github.com/wizzup"  target="_blank" rel="noopener"><img width="16" class="icon" src="/images/github.svg"  alt="github"/></a> -->
+    <!--       <a href="//twitter.com/wizzup" target="_blank" rel="noopener"><img width="16" class="icon" src="/images/twitter.svg" alt="twitter"/></a> -->
+    <!--       <a href="/atom.xml"><img width="16" class="icon" src="/images/rss.svg" alt="rss"/></a> -->
+    <!--     </div> -->
+    <!--   </div> -->
+    <!-- </section> -->
+
+    <!-- Body -->
+    <section class="main">
+      <div class="container">
+        <!-- <div class="content"> -->
+              <div class="text-muted">
+        Posted on July 20, 2017
+        
+    </div>
+    <div>
+        <br />
+        <p>เมื่อต้องการแก้ไข commit message</p>
+<p><strong>ระดับ 1:</strong> แก้ข้อความล่าสุด</p>
+<pre><code>git commit --amend -m &quot;ข้อความใหม่&quot;</code></pre>
+<p><strong>ระดับ 2:</strong> แก้ข้อความจำนวนน้อยทีละข้อความ</p>
+<pre><code>git rebase -i &lt;rev_before&gt;</code></pre>
+<p>จะมี rebase todo-list ขึ้นมา เลือก <code>reword</code> กับ commit ที่ต้องการแก้ไขแล้วบันทึก จากนั้น git จะเรียก editor ขึ้นมาให้แก้ข้อความเมื่อถึงคิวของ commit นั้น (แก้ใน rebase-todo ไม่ได้ จะถูกโยนทิ้งไป)</p>
+<p><strong>ระดับ 3:</strong> แก้หลายข้อความด้วยคำสั่งแทนค่าอย่างง่าย</p>
+<pre><code>git filter-branch --msg-filter &quot;&lt;คำสั่งแทนค่า&gt;&quot; &lt;rev_begin&gt;..&lt;rev_end&gt;</code></pre>
+<p><em>ตัวอย่าง</em> : เพิ่มข้อความ <code>Fix Bug::</code> ข้างหน้าข้อความ จาก commit ของ master branch ถึง commit ล่าสุด</p>
+<pre><code>git filter-branch --msg-filter 'sed &quot;s/^/Fix Bug::/&quot; master..HEAD</code></pre>
+<p><strong>ระดับ 3.5:</strong> แก้หลายข้อความด้วยคำสั่งแทนค่าแบบซับซ้อน</p>
+<pre><code>git filter-branch --msg-filter &quot;&lt;โปรแกรม&gt;&quot; &lt;rev_begin&gt;..&lt;rev_end&gt;</code></pre>
+<p>ใช้โปรแกรมหรือ script ที่รับ input จาก stdin แล้วส่ง output ออก stdout</p>
+<hr />
+<blockquote>
+<p>rev_before = revison ก่อนหน้า revison แรกที่ต้องการแก้ไขข้อความ</p>
+<p>rev_begin : revison แรกของช่วงที่ต้องการแก้</p>
+<p>rev_end : revison สุดท้ายของช่วงที่ต้องการแก้</p>
+</blockquote>
+    </div>
+
+  <div>
+    <!-- Facebook like button -->
+    <div class="fb-like" data-href="https://wizzup.github.io/draft/%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B9%81%E0%B8%81%E0%B9%89%E0%B9%84%E0%B8%82%20commit%20message%20%E0%B8%82%E0%B8%AD%E0%B8%87%20git/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+
+    <!-- twitter tweet button -->
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wizzup.github.io/draft/%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B9%81%E0%B8%81%E0%B9%89%E0%B9%84%E0%B8%82%20commit%20message%20%E0%B8%82%E0%B8%AD%E0%B8%87%20git/" data-count="horizontal" data-via="wizzup">Tweet</a>
+
+    <!-- G+ button -->
+    <g:plusone size="medium" href="https://wizzup.github.io/draft/%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B9%81%E0%B8%81%E0%B9%89%E0%B9%84%E0%B8%82%20commit%20message%20%E0%B8%82%E0%B8%AD%E0%B8%87%20git/"></g:plusone>
+  </div>
+
+  <!-- <!&#45;&#45; facebook comments &#45;&#45;> -->
+  <!-- <div style="width:100%"> -->
+  <!--   <div class="fb&#45;comments" -->
+  <!--        data&#45;href="https://wizzup.github.io/draft/%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B9%81%E0%B8%81%E0%B9%89%E0%B9%84%E0%B8%82%20commit%20message%20%E0%B8%82%E0%B8%AD%E0%B8%87%20git/" -->
+  <!--        data&#45;numposts="3" /> -->
+  <!-- </div> -->
+
+  <div>
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+      this.page.url = https://wizzup.github.io/draft/%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B9%81%E0%B8%81%E0%B9%89%E0%B9%84%E0%B8%82%20commit%20message%20%E0%B8%82%E0%B8%AD%E0%B8%87%20git/;
+      this.page.title = วิธีแก้ข้อความ commit ของ git;
+      this.page.identifier = draft/วิธีแก้ไข commit message ของ git.md;
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wizzup.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+
+        <!-- </div> -->
+      </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="text-muted">
+      <!-- Facebook like button -->
+      <!-- <div class="container"> -->
+      <!--   <div class="fb&#45;like" data&#45;href="https://wizzup.githut.io" data&#45;layout="standard" data&#45;action="like" data&#45;size="small" data&#45;show&#45;faces="true" data&#45;share="true"></div> -->
+      <!-- </div> -->
+      <div class="container">
+        <p> Site proudly generated by
+        <a href="https://haskell.org"><img width="16" src="../../images/haskell.tmb.png" alt="haskell" /></a>
+        <a href="https://jaspervdj.be/hakyll"><img width="16" src="../../images/hakyll.tmb.png" alt="hakyll" /></a>
+        <a href="https://getbootstrap.com"><img width="16" src="../../images/bootstrap.svg" alt="bootstrap" /></a>
+        <a href="https://simpleicons.org"><img width="16" src="../../images/simpleicons.svg" alt="simpleicons" /></a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  </body>
+
+  <pre style="display: none;">
+  <code>
+  title        วิธีแก้ข้อความ commit ของ git    
+  url            /draft/%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B9%81%E0%B8%81%E0%B9%89%E0%B9%84%E0%B8%82%20commit%20message%20%E0%B8%82%E0%B8%AD%E0%B8%87%20git/      
+  path          draft/วิธีแก้ไข commit message ของ git.md     
+  date          July 20, 2017     
+  author   
+  metadata 
+  missing  
+  teaser   
+  snippet  
+  body              <div class="text-muted">
+        Posted on July 20, 2017
+        
+    </div>
+    <div>
+        <br />
+        <p>เมื่อต้องการแก้ไข commit message</p>
+<p><strong>ระดับ 1:</strong> แก้ข้อความล่าสุด</p>
+<pre><code>git commit --amend -m &quot;ข้อความใหม่&quot;</code></pre>
+<p><strong>ระดับ 2:</strong> แก้ข้อความจำนวนน้อยทีละข้อความ</p>
+<pre><code>git rebase -i &lt;rev_before&gt;</code></pre>
+<p>จะมี rebase todo-list ขึ้นมา เลือก <code>reword</code> กับ commit ที่ต้องการแก้ไขแล้วบันทึก จากนั้น git จะเรียก editor ขึ้นมาให้แก้ข้อความเมื่อถึงคิวของ commit นั้น (แก้ใน rebase-todo ไม่ได้ จะถูกโยนทิ้งไป)</p>
+<p><strong>ระดับ 3:</strong> แก้หลายข้อความด้วยคำสั่งแทนค่าอย่างง่าย</p>
+<pre><code>git filter-branch --msg-filter &quot;&lt;คำสั่งแทนค่า&gt;&quot; &lt;rev_begin&gt;..&lt;rev_end&gt;</code></pre>
+<p><em>ตัวอย่าง</em> : เพิ่มข้อความ <code>Fix Bug::</code> ข้างหน้าข้อความ จาก commit ของ master branch ถึง commit ล่าสุด</p>
+<pre><code>git filter-branch --msg-filter 'sed &quot;s/^/Fix Bug::/&quot; master..HEAD</code></pre>
+<p><strong>ระดับ 3.5:</strong> แก้หลายข้อความด้วยคำสั่งแทนค่าแบบซับซ้อน</p>
+<pre><code>git filter-branch --msg-filter &quot;&lt;โปรแกรม&gt;&quot; &lt;rev_begin&gt;..&lt;rev_end&gt;</code></pre>
+<p>ใช้โปรแกรมหรือ script ที่รับ input จาก stdin แล้วส่ง output ออก stdout</p>
+<hr />
+<blockquote>
+<p>rev_before = revison ก่อนหน้า revison แรกที่ต้องการแก้ไขข้อความ</p>
+<p>rev_begin : revison แรกของช่วงที่ต้องการแก้</p>
+<p>rev_end : revison สุดท้ายของช่วงที่ต้องการแก้</p>
+</blockquote>
+    </div>
+
+  <div>
+    <!-- Facebook like button -->
+    <div class="fb-like" data-href="https://wizzup.github.io/draft/%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B9%81%E0%B8%81%E0%B9%89%E0%B9%84%E0%B8%82%20commit%20message%20%E0%B8%82%E0%B8%AD%E0%B8%87%20git/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+
+    <!-- twitter tweet button -->
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wizzup.github.io/draft/%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B9%81%E0%B8%81%E0%B9%89%E0%B9%84%E0%B8%82%20commit%20message%20%E0%B8%82%E0%B8%AD%E0%B8%87%20git/" data-count="horizontal" data-via="wizzup">Tweet</a>
+
+    <!-- G+ button -->
+    <g:plusone size="medium" href="https://wizzup.github.io/draft/%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B9%81%E0%B8%81%E0%B9%89%E0%B9%84%E0%B8%82%20commit%20message%20%E0%B8%82%E0%B8%AD%E0%B8%87%20git/"></g:plusone>
+  </div>
+
+  <!-- <!&#45;&#45; facebook comments &#45;&#45;> -->
+  <!-- <div style="width:100%"> -->
+  <!--   <div class="fb&#45;comments" -->
+  <!--        data&#45;href="https://wizzup.github.io/draft/%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B9%81%E0%B8%81%E0%B9%89%E0%B9%84%E0%B8%82%20commit%20message%20%E0%B8%82%E0%B8%AD%E0%B8%87%20git/" -->
+  <!--        data&#45;numposts="3" /> -->
+  <!-- </div> -->
+
+  <div>
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+      this.page.url = https://wizzup.github.io/draft/%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B9%81%E0%B8%81%E0%B9%89%E0%B9%84%E0%B8%82%20commit%20message%20%E0%B8%82%E0%B8%AD%E0%B8%87%20git/;
+      this.page.title = วิธีแก้ข้อความ commit ของ git;
+      this.page.identifier = draft/วิธีแก้ไข commit message ของ git.md;
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wizzup.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+     
+  </code>
+  </pre>
+</html>

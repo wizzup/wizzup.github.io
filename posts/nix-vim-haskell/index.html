@@ -7,16 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Facebook opengraph metadata -->
-    <!-- <meta property="og:url"           content=/posts/2017-05-31-new/ /> -->
+    <!-- <meta property="og:url"           content=/posts/nix-vim-haskell/ /> -->
     <!-- <meta property="og:type"          content="website" /> -->
     <!-- <meta property="og:title"         content=wizzup:Nix, Vim and Haskell /> -->
     <!-- <meta property="og:description"   content="Your description" /> -->
     <!-- <meta property="og:image"         content="http://www.your&#45;domain.com/path/image.jpg" /> -->
 
-    <!-- Bootstrap CSS -->
+    <!-- Use Bootstrap CSS as basis -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
-    <!-- sourcecode CSS -->
+    <!-- override default CSS -->
+    <link rel="stylesheet" href="../../css/default.css">
+
+    <!-- override sourcecode CSS -->
     <link rel="stylesheet" href="../../css/sourcecode.css">
 
     <!-- icon -->
@@ -28,6 +31,7 @@
     <!-- MathJax -->
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
     </script>
+
   </head>
 
   <body>
@@ -72,8 +76,8 @@
           <!-- <li class="nav&#45;item active"> -->
           <!--   <!&#45;&#45; <a class="nav&#38;#45;link" href="/">Home</a> &#45;&#45;> -->
           <!--   <a class="nav&#45;link" href="/archive.html">Archive <span class="sr&#45;only">(current)</span></a> -->
+          <!-- </li> -->
 
-          </li>
           <li class="nav-item">
             <a class="nav-link" href="../../archive">Archive</a>
           </li>
@@ -110,7 +114,9 @@
         Posted on May 31, 2017
         
     </div>
-  <p>This is how I setup nix-shell environments vim and hakyll.</p>
+    <div>
+        <br />
+        <p>This is how I setup nix-shell environments vim and hakyll.</p>
 <p>This is <em>shelll.nix</em></p>
 <div class="sourceCode"><pre class="sourceCode nix"><code class="sourceCode bash"><span class="kw">{</span> <span class="ex">pkgs</span> ? import <span class="op">&lt;</span>nixpkgs<span class="op">&gt;</span> <span class="dt">{}</span> <span class="kw">}</span>:
 
@@ -130,22 +136,23 @@ pkgs.stdenv.mkDerivation {
 }</code></pre></div>
 <p>I use cabal to do the build</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">cabal</span> build</code></pre></div>
+    </div>
 
   <div>
     <!-- Facebook like button -->
-    <div class="fb-like" data-href="https://wizzup.github.io/posts/2017-05-31-new/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+    <div class="fb-like" data-href="https://wizzup.github.io/posts/nix-vim-haskell/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
 
     <!-- twitter tweet button -->
-    <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wizzup.github.io/posts/2017-05-31-new/" data-count="horizontal" data-via="wizzup">Tweet</a>
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wizzup.github.io/posts/nix-vim-haskell/" data-count="horizontal" data-via="wizzup">Tweet</a>
 
     <!-- G+ button -->
-    <g:plusone size="medium" href="https://wizzup.github.io/posts/2017-05-31-new/"></g:plusone>
+    <g:plusone size="medium" href="https://wizzup.github.io/posts/nix-vim-haskell/"></g:plusone>
   </div>
 
   <!-- <!&#45;&#45; facebook comments &#45;&#45;> -->
   <!-- <div style="width:100%"> -->
   <!--   <div class="fb&#45;comments" -->
-  <!--        data&#45;href="https://wizzup.github.io/posts/2017-05-31-new/" -->
+  <!--        data&#45;href="https://wizzup.github.io/posts/nix-vim-haskell/" -->
   <!--        data&#45;numposts="3" /> -->
   <!-- </div> -->
 
@@ -158,9 +165,9 @@ pkgs.stdenv.mkDerivation {
     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
     /*
     var disqus_config = function () {
-      this.page.url = https://wizzup.github.io/posts/2017-05-31-new/;
+      this.page.url = https://wizzup.github.io/posts/nix-vim-haskell/;
       this.page.title = Nix, Vim and Haskell;
-      this.page.identifier = posts/2017-05-31-new.rst;
+      this.page.identifier = posts/nix-vim-haskell.rst;
     };
     */
     (function() { // DON'T EDIT BELOW THIS LINE
@@ -203,8 +210,8 @@ pkgs.stdenv.mkDerivation {
   <pre style="display: none;">
   <code>
   title        Nix, Vim and Haskell    
-  url            /posts/2017-05-31-new/      
-  path          posts/2017-05-31-new.rst     
+  url            /posts/nix-vim-haskell/      
+  path          posts/nix-vim-haskell.rst     
   date          May 31, 2017     
   author   
   metadata 
@@ -215,7 +222,9 @@ pkgs.stdenv.mkDerivation {
         Posted on May 31, 2017
         
     </div>
-  <p>This is how I setup nix-shell environments vim and hakyll.</p>
+    <div>
+        <br />
+        <p>This is how I setup nix-shell environments vim and hakyll.</p>
 <p>This is <em>shelll.nix</em></p>
 <div class="sourceCode"><pre class="sourceCode nix"><code class="sourceCode bash"><span class="kw">{</span> <span class="ex">pkgs</span> ? import <span class="op">&lt;</span>nixpkgs<span class="op">&gt;</span> <span class="dt">{}</span> <span class="kw">}</span>:
 
@@ -235,22 +244,23 @@ pkgs.stdenv.mkDerivation {
 }</code></pre></div>
 <p>I use cabal to do the build</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">cabal</span> build</code></pre></div>
+    </div>
 
   <div>
     <!-- Facebook like button -->
-    <div class="fb-like" data-href="https://wizzup.github.io/posts/2017-05-31-new/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+    <div class="fb-like" data-href="https://wizzup.github.io/posts/nix-vim-haskell/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
 
     <!-- twitter tweet button -->
-    <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wizzup.github.io/posts/2017-05-31-new/" data-count="horizontal" data-via="wizzup">Tweet</a>
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wizzup.github.io/posts/nix-vim-haskell/" data-count="horizontal" data-via="wizzup">Tweet</a>
 
     <!-- G+ button -->
-    <g:plusone size="medium" href="https://wizzup.github.io/posts/2017-05-31-new/"></g:plusone>
+    <g:plusone size="medium" href="https://wizzup.github.io/posts/nix-vim-haskell/"></g:plusone>
   </div>
 
   <!-- <!&#45;&#45; facebook comments &#45;&#45;> -->
   <!-- <div style="width:100%"> -->
   <!--   <div class="fb&#45;comments" -->
-  <!--        data&#45;href="https://wizzup.github.io/posts/2017-05-31-new/" -->
+  <!--        data&#45;href="https://wizzup.github.io/posts/nix-vim-haskell/" -->
   <!--        data&#45;numposts="3" /> -->
   <!-- </div> -->
 
@@ -263,9 +273,9 @@ pkgs.stdenv.mkDerivation {
     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
     /*
     var disqus_config = function () {
-      this.page.url = https://wizzup.github.io/posts/2017-05-31-new/;
+      this.page.url = https://wizzup.github.io/posts/nix-vim-haskell/;
       this.page.title = Nix, Vim and Haskell;
-      this.page.identifier = posts/2017-05-31-new.rst;
+      this.page.identifier = posts/nix-vim-haskell.rst;
     };
     */
     (function() { // DON'T EDIT BELOW THIS LINE
