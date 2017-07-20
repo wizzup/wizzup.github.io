@@ -3,3 +3,6 @@ _cache/
 
 ## cabal build
 dist/
+
+## draft posts
+draft/
