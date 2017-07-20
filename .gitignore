@@ -1,0 +1,8 @@
+## output cache
+_cache/
+
+## cabal build
+dist/
+
+## draft posts
+draft/
