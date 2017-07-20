@@ -4,11 +4,16 @@
 
 TITLE=${1?title missing}
 
-TEXFILE=./posts/${TITLE}.tex
-METAFILE=${TEXFILE}.metadata
+TEXFILE=./draft/${TITLE}.tex
 
 echo ${TITLE}
 touch ${TEXFILE}
-touch ${METAFILE}
-echo title: ${TITLE} > ${METAFILE}
-echo date: `date -I` >> ${METAFILE}
+
+echo --- > ${TEXFILE}
+echo title: ${TITLE} >> ${TEXFILE}
+echo date: `date -I` >> ${TEXFILE}
+echo --- >> ${TEXFILE}
+echo >> ${TEXFILE}
+echo \\begin{document} >> ${TEXFILE}
+echo ${TITLE} >> ${TEXFILE}
+echo \\end{document} >> ${TEXFILE}
