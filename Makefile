@@ -17,6 +17,7 @@ deep_clean: clean
 publish: rebuild
 	rm -rv ${PUBLISH}/*
 	cp -rv ${SITE}/* ${PUBLISH}
+	cp .gitignore ${PUBLISH}
 
 build:
 	cabal run build
