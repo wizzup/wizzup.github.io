@@ -25,9 +25,9 @@ main = hakyll $ do
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= cleanUrls
+            >>= relativizeUrls
 
-    let postFiles :: Pattern
-        postFiles =    fromGlob "posts/*.md"
+    let postFiles =    fromGlob "posts/*.md"
                   .||. fromGlob "posts/*.rst"
                   .||. fromGlob "posts/*.tex"
 
@@ -38,6 +38,34 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= cleanUrls
+
+
+    let draftFiles =   fromGlob "draft/*.md"
+                  .||. fromGlob "draft/*.rst"
+                  .||. fromGlob "draft/*.tex"
+
+    -- draft blog posts :: /draft/<page>/index.html
+    match draftFiles $ do
+        route cleanRoute
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/post.html"    postCtx
+            >>= loadAndApplyTemplate "templates/default.html" postCtx
+            >>= cleanUrls
+
+    -- top-level pages :: /archive/index.html
+    create ["draft.html"] $ do
+        route cleanRoute
+        compile $ do
+            posts <- recentFirst =<< loadAll "draft/*"
+            let archiveCtx =
+                    listField "posts" postCtx (return posts) `mappend`
+                    constField "title" "Draft"            `mappend`
+                    defaultContext
+
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
+                >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+                >>= cleanUrls
 
     -- top-level pages :: /archive/index.html
     create ["archive.html"] $ do
@@ -61,7 +89,6 @@ main = hakyll $ do
             let indexCtx =
                     listField  "posts"  postCtx (return posts) `mappend`
                     constField "title"  "Home"                 `mappend`
-                    constField "isHome" "True"                 `mappend`
                     defaultContext
 
             let readerOptions = defaultHakyllReaderOptions
