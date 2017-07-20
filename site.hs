@@ -20,7 +20,7 @@ main = hakyll $ do
     match "templates/*" $ compile templateBodyCompiler
 
     -- top-level pages :: /<page>/index.html
-    match (fromList ["about.tex", "polyglot.rst", "contribution.tex"]) $ do
+    match (fromList ["about.tex", "journey.rst", "contribution.tex"]) $ do
         route cleanRoute
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext

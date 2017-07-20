@@ -5,3 +5,21 @@ blockquote {
     border-radius: 5px;
     background-color: #f0f0f0;
 }
+
+table {
+   border-collapse: collapse;
+}
+
+th, td {
+   border: 1px solid gray;
+}
+
+th {
+   text-align: center;
+   padding: 4px;
+}
+
+td {
+   text-align: left;
+   padding: 2px;
+}
