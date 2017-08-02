@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <title>Nix, Vim and Haskell</title>
+  <body><p>This is how I setup nix-shell environments vim and hakyll.</p>
+<p>This is <em>shelll.nix</em></p>
+<div class="sourceCode"><pre class="sourceCode nix"><code class="sourceCode bash"><span class="kw">{</span> <span class="ex">pkgs</span> ? import <span class="op">&lt;</span>nixpkgs<span class="op">&gt;</span> <span class="dt">{}</span> <span class="kw">}</span>:
+
+<span class="bu">let</span>
+  <span class="ex">hs</span> = pkgs.haskellPackages.ghcWithHoogle (self: with self<span class="kw">;</span><span class="bu"> [</span>
+          hakyll
+        ]);
+in
+pkgs.stdenv.mkDerivation {
+  name <span class="ot">=</span> <span class="st">&quot;haskell-shell&quot;</span>;
+  buildInputs <span class="ot">=</span> with pkgs.haskellPackages; [ hs cabal-install ghc-mod hlint hspec  ];
+
+  shellHook <span class="ot">=</span> <span class="st">''</span>
+    export PS1=<span class="st">&quot;\[\033[1;32m\][ns-hs:\w]\n$ \[\033[0m\]&quot;</span>
+    eval <span class="st">&quot;</span><span class="va">$(</span><span class="fu">egrep</span> ^export <span class="st">&quot;</span><span class="va">$(</span><span class="bu">type</span> -p ghc<span class="va">)</span><span class="st">&quot;</span><span class="va">)</span><span class="st">&quot;</span>
+  <span class="st">''</span>;
+}</code></pre></div>
+<p>I use cabal to do the build</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">cabal</span> build</code></pre></div></body>
+</html>
