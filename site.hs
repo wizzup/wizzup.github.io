@@ -39,6 +39,12 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= cleanUrls
 
+    -- blog posts without templates :: /posts/<page>/raw.html
+    match postFiles $ version "raw" $ do
+        route cleanRouteRaw
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/raw.html"    postCtx
+            >>= cleanUrls
 
     let draftFiles =   fromGlob "draft/*.md"
                   .||. fromGlob "draft/*.rst"
@@ -71,7 +77,7 @@ main = hakyll $ do
     create ["archive.html"] $ do
         route cleanRoute
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
+            posts <- recentFirst =<< loadAll ("posts/*" .&&. hasNoVersion) 
             let archiveCtx =
                     listField "posts" postCtx (return posts) `mappend`
                     constField "title" "Archives"            `mappend`
@@ -85,7 +91,7 @@ main = hakyll $ do
     match "index.tex" $ do
         route $ setExtension "html"
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
+            posts <- recentFirst =<< loadAll ("posts/*" .&&. hasNoVersion) 
             let indexCtx =
                     listField  "posts"  postCtx (return posts) `mappend`
                     constField "title"  "Home"                 `mappend`
@@ -109,6 +115,12 @@ cleanRoute :: Routes
 cleanRoute = customRoute createIndexRoute
   where
     createIndexRoute ident = takeDirectory p </> takeBaseName p </> "index.html"
+                            where p = toFilePath ident
+
+cleanRouteRaw :: Routes
+cleanRouteRaw = customRoute createIndexRoute
+  where
+    createIndexRoute ident = takeDirectory p </> takeBaseName p </> "raw.html"
                             where p = toFilePath ident
 
 cleanUrls x =   relativizeUrls x
