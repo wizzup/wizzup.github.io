@@ -52,14 +52,14 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= cleanUrls
 
-    -- top-level pages :: /archive/index.html
+    -- top-level pages :: /draft/index.html
     create ["draft.html"] $ do
         route cleanRoute
         compile $ do
             posts <- recentFirst =<< loadAll "draft/*"
             let archiveCtx =
                     listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Draft"            `mappend`
+                    constField "title" "Draft"               `mappend`
                     defaultContext
 
             makeItem ""
