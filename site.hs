@@ -77,7 +77,7 @@ main = hakyll $ do
     create ["archive.html"] $ do
         route cleanRoute
         compile $ do
-            posts <- recentFirst =<< loadAll ("posts/*" .&&. hasNoVersion) 
+            posts <- recentFirst =<< loadAll ("posts/*" .&&. hasNoVersion)
             let archiveCtx =
                     listField "posts" postCtx (return posts) `mappend`
                     constField "title" "Archives"            `mappend`
@@ -88,10 +88,21 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= cleanUrls
 
+    create ["sitemap.xml"] $ do
+            route idRoute
+            compile $ do
+                posts <- recentFirst =<< loadAll ("posts/*" .&&. hasNoVersion)
+                let sitemapCtx = listField "entries" postCtx (return posts) `mappend`
+                                 defaultContext
+
+                makeItem ""
+                    >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
+
+
     match "index.tex" $ do
         route $ setExtension "html"
         compile $ do
-            posts <- recentFirst =<< loadAll ("posts/*" .&&. hasNoVersion) 
+            posts <- recentFirst =<< loadAll ("posts/*" .&&. hasNoVersion)
             let indexCtx =
                     listField  "posts"  postCtx (return posts) `mappend`
                     constField "title"  "Home"                 `mappend`

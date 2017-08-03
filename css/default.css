@@ -23,3 +23,8 @@ td {
    text-align: left;
    padding: 2px;
 }
+
+td.borderless {
+  border: none;
+}
+
