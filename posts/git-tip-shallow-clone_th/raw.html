@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <title>clone git อย่างเร็วด้วย shallow clone</title>
-  <body><p>หากต้องการแค่ใช้ code ล่าสุดโดยไม่สนใจประวัติการแก้ไขก่อนหน้านั้น หรือต้องการใช้กับ Continuious Integration (CI) เราสามาถเลือกความลึกของประวัิตได้ ด้วย <code>--depth n</code></p>
+  <body><p>หากต้องการแค่ใช้ code ล่าสุดโดยไม่สนใจประวัติการแก้ไขก่อนหน้านั้น หรือต้องการใช้กับ Continuous Integration (CI) เราสามาถเลือกความลึกของประวัิตได้ ด้วย <code>--depth n</code></p>
 <p><strong>ตัวอย่าง</strong>: ความลึกเท่ากับ 1 จะได้ commit ล่าสุดเพียง commit เดียว ด้วยขนาด 14MiB</p>
 <pre><code>$ git clone --depth 1 https://github.com/NixOS/nixpkgs
 Cloning into 'nixpkgs'...
