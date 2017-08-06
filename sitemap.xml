@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <url>
+        <loc>/posts/git-tip-shallow-clone_th/index.html</loc>
+        <lastmod>2017-08-02</lastmod>
+    </url>
+
+    <url>
+        <loc>/posts/nix-shell-haskell-invocation/index.html</loc>
+        <lastmod>2017-07-29</lastmod>
+    </url>
+
+    <url>
+        <loc>/posts/git-commit-msg_th/index.html</loc>
+        <lastmod>2017-07-20</lastmod>
+    </url>
+
+    <url>
+        <loc>/posts/nix-shell-virtualenv/index.html</loc>
+        <lastmod>2017-06-07</lastmod>
+    </url>
+
+    <url>
+        <loc>/posts/nix-vim-python/index.html</loc>
+        <lastmod>2017-06-02</lastmod>
+    </url>
+
+    <url>
+        <loc>/posts/hakyll-mathjax/index.html</loc>
+        <lastmod>2017-06-02</lastmod>
+    </url>
+
+    <url>
+        <loc>/posts/nix-vim-haskell/index.html</loc>
+        <lastmod>2017-05-31</lastmod>
+    </url>
+
+</urlset>
+
