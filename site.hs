@@ -17,6 +17,11 @@ main = hakyll $ do
         route   idRoute
         compile compressCssCompiler
 
+    match "style-test.html" $ do
+        route   idRoute
+        compile $ getResourceString
+            >>= loadAndApplyTemplate "templates/default.html" defaultContext
+
     match "templates/*" $ compile templateBodyCompiler
 
     -- top-level pages :: /<page>/index.html
