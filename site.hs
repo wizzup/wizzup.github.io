@@ -125,6 +125,7 @@ main = hakyll $ do
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
+    dateField "dateNum" "%F" `mappend`
     defaultContext
 
 cleanRoute :: Routes
