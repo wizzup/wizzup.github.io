@@ -1,8 +1,3 @@
----
-title: clone git อย่างเร็วด้วย shallow clone
-date: 2017-08-02
----
-
 หากต้องการแค่ใช้ code ล่าสุดโดยไม่สนใจประวัติการแก้ไขก่อนหน้านั้น หรือต้องการใช้กับ Continuous Integration (CI) เราสามาถเลือกความลึกของประวัิตได้ ด้วย `--depth n`
 
 **ตัวอย่าง**: ความลึกเท่ากับ 1 จะได้ commit ล่าสุดเพียง commit เดียว ด้วยขนาด 14MiB
@@ -27,3 +22,15 @@ date: 2017-08-02
     remote: Total 959262 (delta 5), reused 3 (delta 3), pack-reused 959244
     Receiving objects: 100% (959262/959262), 513.09 MiB | 35.00 KiB/s, done.
     Resolving deltas: 100% (641363/641363), done.
+
+หรือถ้าต้องการแค่ไฟล์ ไม่รวมประวัติของ git ก็สามารถดาวน์โหลด ได้เลยโดยตรงผ่าน url
+
+* master branch @ HEAD
+
+    https://github.com/NixOS/nixpkgs/archive/master.zip
+    https://github.com/NixOS/nixpkgs/archive/master.tar.gz
+
+* commit 70f35a99a4f7d17f8b82105e648efb3de681ab8e
+
+    https://github.com/NixOS/nixpkgs/archive/70f35a99a4f7d17f8b82105e648efb3de681ab8e.zip
+    https://github.com/NixOS/nixpkgs/archive/70f35a99a4f7d17f8b82105e648efb3de681ab8e.tar.gz

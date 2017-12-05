@@ -1,17 +1,20 @@
-# shell.nix for nix-shell
-#
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {}, compiler ? "ghc821" }:
+with pkgs;
+with haskellPackages;
 
 let
-  hs = pkgs.haskellPackages.ghcWithHoogle (self: with self; [
+  hs = haskell.packages.${compiler}.ghcWithPackages (self: with self; [
           filepath
           hakyll
           pandoc
         ]);
 in
-pkgs.stdenv.mkDerivation {
-  name = "haskell-shell";
-  buildInputs = with pkgs.haskellPackages; [ hs cabal-install ghc-mod hlint hspec  ];
+stdenv.mkDerivation {
+  name = "wizzup-github-io";
+
+  src = ./.;
+
+  buildInputs = [ cabal-install ghc-mod hlint hspec ];
 
   shellHook = ''
     export PS1="\[\033[1;32m\][ns-hs:\w]\n$ \[\033[0m\]"
