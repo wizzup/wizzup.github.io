@@ -1,8 +1,19 @@
-## output cache
+## site output
 _cache/
+_site/
 
-## cabal build
-dist/
+## nix-build result
+result
 
 ## draft posts
 draft/
+
+## use hpack to generate cabal file
+*.cabal
+
+## build artifacts
+.ghc.environment.x86_64-linux-8.4.4
+dist-newstyle/
+
+## old files
+*.old
