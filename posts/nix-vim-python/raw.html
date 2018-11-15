@@ -3,19 +3,8 @@
   <title>Nix, Vim and Python</title>
   <body><p>This is how I setup nix-shell environments vim and pyyaml.</p>
 <p>This is <code>shelll.nix</code></p>
-<div class="sourceCode"><pre class="sourceCode nix"><code class="sourceCode bash"><span class="kw">{</span> <span class="ex">pkgs</span> ? import <span class="op">&lt;</span>nixpkgs<span class="op">&gt;</span> <span class="dt">{}</span> <span class="kw">}</span>:
-
-<span class="ex">with</span> pkgs<span class="kw">;</span>
-
-<span class="bu">let</span> py3s = pkgs.python3.buildEnv.override  {
-  <span class="ex">extraLibs</span> = with pkgs.python3Packages<span class="kw">;</span><span class="bu"> [</span> jedi pyyaml<span class="bu"> ]</span>;
-};
-<span class="kw">in</span> <span class="ex">stdenv.mkDerivation</span> {
-  <span class="ex">name</span> = <span class="st">&quot;python3-shell&quot;</span><span class="kw">;</span>
-  <span class="ex">buildInputs</span> = [ py3s ]<span class="kw">;</span>
-
-  <span class="ex">shellHook</span> = <span class="st">''</span>
-    <span class="bu">export</span> <span class="va">PS1=</span><span class="st">&quot;\[\033[1;32m\][nix-py3:\w]\n$ \[\033[0m\]&quot;</span>
-  <span class="st">''</span>;
-}</code></pre></div></body>
+<p>``` nix { pkgs ? import &lt;nixpkgs&gt; {} }:</p>
+<p>with pkgs;</p>
+<p>let py3s = pkgs.python3.buildEnv.override { extraLibs = with pkgs.python3Packages; [ jedi pyyaml ]; }; in stdenv.mkDerivation { name = &quot;python3-shell&quot;; buildInputs = [ py3s ];</p>
+<p>shellHook = '' export PS1=&quot;[\033[1;32m][nix-py3:\w]\n$ [\033[0m]&quot; ''; } ```</p></body>
 </html>

@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en">
   <title>Hakyll and MathJax</title>
-  <body><p>Using <span class="math inline"><em>M</em><em>a</em><em>t</em><em>h</em><em>J</em><em>a</em><em>x</em></span> with <span class="math inline"><em>H</em><em>a</em><em>k</em><em>y</em><em>l</em><em>l</em></span></p>
+  <body><p>Using <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>a</mi><mi>t</mi><mi>h</mi><mi>J</mi><mi>a</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">MathJax</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mi>a</mi><mi>k</mi><mi>y</mi><mi>l</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">Hakyll</annotation></semantics></math></p>
 <pre><code>let readerOptions = defaultHakyllReaderOptions
 let writerOptions = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax &quot;&quot; }
 
 pandocCompilerWith readerOptions writerOptions</code></pre>
-<p>and add <span class="math inline"><em>M</em><em>a</em><em>t</em><em>h</em><em>J</em><em>a</em><em>x</em></span> script to global html template</p>
+<p>and add <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>a</mi><mi>t</mi><mi>h</mi><mi>J</mi><mi>a</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">MathJax</annotation></semantics></math> script to global html template</p>
 <pre><code>&lt;script type=&quot;text/javascript&quot; async
         src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&quot;&gt;
 &lt;/script&gt;</code></pre></body>
