@@ -1,10 +1,11 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
-import           Data.List
-import           Data.Monoid         (mappend)
-import           Hakyll
-import           System.FilePath
-import           Text.Pandoc.Options
+import Data.List           (isSuffixOf)
+import Data.Monoid         (mappend)
+-- import Data.Set            (insert, delete)
+import Hakyll
+import System.FilePath
+import Text.Pandoc.Options
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -15,7 +16,12 @@ main = hakyll $ do
 
     match "css/*" $ do
         route   idRoute
-        compile compressCssCompiler
+        -- compile compressCssCompiler
+        compile copyFileCompiler
+
+    match "js/*" $ do
+        route   idRoute
+        compile copyFileCompiler
 
     match "style-test.html" $ do
         route   idRoute
@@ -27,19 +33,17 @@ main = hakyll $ do
     -- top-level pages :: /<page>/index.html
     match (fromList ["about.tex", "journey.rst", "contribution.tex"]) $ do
         route cleanRoute
-        compile $ pandocCompiler
+        compile $ pandocCompilerWith pandocReaderOptions pandocWriterOptions
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= cleanUrls
             >>= relativizeUrls
 
-    let postFiles =    fromGlob "posts/*.md"
-                  .||. fromGlob "posts/*.rst"
-                  .||. fromGlob "posts/*.tex"
+    let postFiles = listFiles "posts"
 
     -- blog posts :: /posts/<page>/index.html
     match postFiles $ do
         route cleanRoute
-        compile $ pandocCompiler
+        compile $ pandocCompilerWith pandocReaderOptions pandocWriterOptions
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= cleanUrls
@@ -47,18 +51,16 @@ main = hakyll $ do
     -- blog posts without templates :: /posts/<page>/raw.html
     match postFiles $ version "raw" $ do
         route cleanRouteRaw
-        compile $ pandocCompiler
+        compile $ pandocCompilerWith pandocReaderOptions pandocWriterOptions
             >>= loadAndApplyTemplate "templates/raw.html"    postCtx
             >>= cleanUrls
 
-    let draftFiles =   fromGlob "draft/*.md"
-                  .||. fromGlob "draft/*.rst"
-                  .||. fromGlob "draft/*.tex"
+    let draftFiles = listFiles "draft"
 
     -- draft blog posts :: /draft/<page>/index.html
     match draftFiles $ do
         route cleanRoute
-        compile $ pandocCompiler
+        compile $ pandocCompilerWith pandocReaderOptions pandocWriterOptions
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= cleanUrls
@@ -104,6 +106,7 @@ main = hakyll $ do
                     >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
 
 
+    -- main index.html
     match "index.tex" $ do
         route $ setExtension "html"
         compile $ do
@@ -113,15 +116,37 @@ main = hakyll $ do
                     constField "title"  "Home"                 `mappend`
                     defaultContext
 
-            let readerOptions = defaultHakyllReaderOptions
-            let writerOptions = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax "" }
-
-            pandocCompilerWith readerOptions writerOptions
+            pandocCompilerWith pandocReaderOptions pandocWriterOptions
                 >>= loadAndApplyTemplate "templates/home.html"    indexCtx
                 >>= loadAndApplyTemplate "templates/default.html" indexCtx
                 >>= cleanUrls
 
 --------------------------------------------------------------------------------
+-- readerOptions = defaultHakyllReaderOptions
+--
+-- writerOptions = defaultHakyllWriterOptions
+--                   { writerHTMLMathMethod = MathJax "" }
+
+pandocReaderOptions :: ReaderOptions
+pandocReaderOptions = def readerExtensions
+  -- {
+  --   -- readerSmart      = True,
+  --   -- Yes, HTML5 figures are fancy, but I prefer a simple p > img.
+  --   -- I also need fenced code blocks.
+  --   -- readerExtensions = delete Ext_implicit_figures     $
+  --   --                    insert Ext_backtick_code_blocks $
+  --   --                    readerExtensions def
+  -- }
+
+pandocWriterOptions :: WriterOptions
+pandocWriterOptions = def
+  {
+    -- writerHtml5          = True,
+    -- writerHighlight      = True,
+    writerHTMLMathMethod = MathML,
+    writerReferenceLinks = True
+  }
+
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
@@ -140,6 +165,7 @@ cleanRouteRaw = customRoute createIndexRoute
     createIndexRoute ident = takeDirectory p </> takeBaseName p </> "raw.html"
                             where p = toFilePath ident
 
+cleanUrls :: Item String -> Compiler (Item String)
 cleanUrls x =   relativizeUrls x
             >>= cleanIndexUrls
             >>= cleanIndexHtmls
@@ -157,3 +183,9 @@ cleanIndex url
     | idx `isSuffixOf` url = take (length url - length idx) url
     | otherwise            = url
   where idx = "index.html"
+
+listFiles :: String -> Pattern
+listFiles dir = fromGlob (dir ++ "/*.md")
+           .||. fromGlob (dir ++ "/*.rst")
+           .||. fromGlob (dir ++ "/*.tex")
+           -- .||. fromGlob (dir ++ "/*.txt")
