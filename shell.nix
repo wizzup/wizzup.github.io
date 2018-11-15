@@ -1,23 +1,23 @@
-{ pkgs ? import <nixpkgs> {}, compiler ? "ghc821" }:
+# shell.nix
+# NOTE: use hpack to generate .cabal file
+
+{ pkgs ? import <nixpkgs>{} }:
 with pkgs;
 with haskellPackages;
 
 let
-  hs = haskell.packages.${compiler}.ghcWithPackages (self: with self; [
-          filepath
-          hakyll
-          pandoc
-        ]);
-in
-stdenv.mkDerivation {
-  name = "wizzup-github-io";
+  site = import ./. {};
 
-  src = ./.;
+  dev = site.overrideAttrs(attr: {
+    buildInputs = attr.buildInputs
+               ++ [ cabal-install hpack
+                    hlint hie84 ghc-mod84
+                  ];
+  });
 
-  buildInputs = [ cabal-install ghc-mod hlint hspec ];
+in dev
 
-  shellHook = ''
-    export PS1="\[\033[1;32m\][ns-hs:\w]\n$ \[\033[0m\]"
-    eval "$(egrep ^export "$(type -p ghc)")"
-  '';
-}
+# (import ./.).shellFor {
+#   packages = p: with p; [ site cabal-install stack hlint hie84 ghc-mod84];
+#   withHoogle = true;
+# }

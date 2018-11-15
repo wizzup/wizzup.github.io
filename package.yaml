@@ -1,0 +1,25 @@
+name: wizzup-github-io
+version: 1.0.0
+synopsis: wizzup website
+maintainer: Wisut Hantanong
+author: Wisut Hantanong
+copyright: 2018 Wisut Hantanong
+github: wizzup/wizzup-github-io
+
+ghc-options:
+- -Wall
+- -Wno-type-defaults
+
+dependencies:
+  - base >= 4.7 && < 5
+
+executables:
+  site:
+    main: site.hs
+    ghc-options:
+    - -threaded
+    dependencies:
+    - hakyll
+    - containers
+    - filepath
+    - pandoc
