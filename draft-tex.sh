@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# usage newpost.sh title
+# usage draft-tex.sh title
 
 TITLE=${1?title missing}
 
