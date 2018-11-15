@@ -1,18 +1,25 @@
 # shell.nix
-# NOTE: use hpack to generate .cabal file
+# NOTE: use `hpack` to generate .cabal file and `cabal new-build` to build
+#       use `site watch --no-server` to auto update `_site`
+#       use `livereload` to watch `_site`
 
 { pkgs ? import <nixpkgs>{} }:
 with pkgs;
-with haskellPackages;
 
 let
   site = import ./. {};
 
+  hsPcks = with haskellPackages;
+         [ cabal-install hpack
+           hlint hie84 ghc-mod84
+         ];
+
+  pyPcks = with python3Packages;
+         [ livereload ];
+
   dev = site.overrideAttrs(attr: {
     buildInputs = attr.buildInputs
-               ++ [ cabal-install hpack
-                    hlint hie84 ghc-mod84
-                  ];
+                ++ hsPcks ++ pyPcks;
   });
 
 in dev
