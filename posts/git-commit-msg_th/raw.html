@@ -7,18 +7,20 @@
 <p><strong>ระดับ 2:</strong> แก้ข้อความจำนวนน้อยทีละข้อความ</p>
 <pre><code>git rebase -i &lt;rev_before&gt;</code></pre>
 <p>จะมี rebase todo-list ขึ้นมา เลือก <code>reword</code> กับ commit ที่ต้องการแก้ไขแล้วบันทึก จากนั้น git จะเรียก editor ขึ้นมาให้แก้ข้อความเมื่อถึงคิวของ commit นั้น (แก้ใน rebase-todo ไม่ได้ จะถูกโยนทิ้งไป)</p>
-<p>```git pick db96dee move newpost.sh out from posts reword 4cd9e33 2017-06-02 pick f19d2af add socials features</p>
-<h1>Rebase e01466e..f19d2af onto e01466e (3 commands)</h1>
-<h1></h1>
-<h1>Commands:</h1>
-<h1>p, pick = use commit</h1>
-<h1>r, reword = use commit, but edit the commit message</h1>
-<h1>e, edit = use commit, but stop for amending</h1>
-<h1>s, squash = use commit, but meld into previous commit</h1>
-<h1>f, fixup = like &quot;squash&quot;, but discard this commit's log message</h1>
-<h1>x, exec = run command (the rest of the line) using shell</h1>
-<h1>d, drop = remove commit</h1>
-<p>```</p>
+<pre><code>pick db96dee move newpost.sh out from posts
+reword 4cd9e33 2017-06-02
+pick f19d2af add socials features
+
+# Rebase e01466e..f19d2af onto e01466e (3 commands)
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like &quot;squash&quot;, but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+# d, drop = remove commit</code></pre>
 <p><strong>ระดับ 3:</strong> แก้หลายข้อความด้วยคำสั่งแทนค่าอย่างง่าย</p>
 <pre><code>git filter-branch --msg-filter &quot;&lt;คำสั่งแทนค่า&gt;&quot; &lt;rev_begin&gt;..&lt;rev_end&gt;</code></pre>
 <p><em>ตัวอย่าง</em> : เพิ่มข้อความ <code>Fix Bug::</code> ข้างหน้าข้อความ จาก commit ของ master branch ถึง commit ล่าสุด</p>
@@ -27,5 +29,7 @@
 <pre><code>git filter-branch --msg-filter &quot;&lt;โปรแกรม&gt;&quot; &lt;rev_begin&gt;..&lt;rev_end&gt;</code></pre>
 <p>ใช้โปรแกรมหรือ script รับข้อความเก่า จาก stdin แล้วส่งขัอความใหม่ ออก stdout</p>
 <hr />
-<p><code>text rev_before: revison ก่อนหน้า revison แรกที่ต้องการแก้ไขข้อความ rev_begin:  revison แรกของช่วงที่ต้องการแก้ข้อความ rev_end:    revison สุดท้ายของช่วงที่ต้องการแก้ข้อความ</code></p></body>
+<pre class="text"><code>rev_before: revison ก่อนหน้า revison แรกที่ต้องการแก้ไขข้อความ
+rev_begin:  revison แรกของช่วงที่ต้องการแก้ข้อความ
+rev_end:    revison สุดท้ายของช่วงที่ต้องการแก้ข้อความ</code></pre></body>
 </html>

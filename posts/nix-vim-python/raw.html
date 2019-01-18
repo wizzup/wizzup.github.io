@@ -2,9 +2,20 @@
 <html lang="en">
   <title>Nix, Vim and Python</title>
   <body><p>This is how I setup nix-shell environments vim and pyyaml.</p>
-<p>This is <code>shelll.nix</code></p>
-<p>``` nix { pkgs ? import &lt;nixpkgs&gt; {} }:</p>
-<p>with pkgs;</p>
-<p>let py3s = pkgs.python3.buildEnv.override { extraLibs = with pkgs.python3Packages; [ jedi pyyaml ]; }; in stdenv.mkDerivation { name = &quot;python3-shell&quot;; buildInputs = [ py3s ];</p>
-<p>shellHook = '' export PS1=&quot;[\033[1;32m][nix-py3:\w]\n$ [\033[0m]&quot; ''; } ```</p></body>
+<p>This is <code>shelll.nix</code> contents</p>
+<pre class="{.haskell}"><code>{ pkgs ? import &lt;nixpkgs&gt; {} }:
+
+with pkgs;
+
+let py3s = pkgs.python3.buildEnv.override  {
+  extraLibs = with pkgs.python3Packages; [ jedi pyyaml ];
+};
+in stdenv.mkDerivation {
+  name = &quot;python3-shell&quot;;
+  buildInputs = [ py3s ];
+
+  shellHook = ''
+    export PS1=&quot;\[\033[1;32m\][nix-py3:\w]\n$ \[\033[0m\]&quot;
+  '';
+}</code></pre></body>
 </html>

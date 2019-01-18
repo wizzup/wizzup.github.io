@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>wizzup : Nix, Vim and Python</title>
+    <title>wizzup: Nix, Vim and Python</title>
 
     <!-- icon -->
     <link rel="icon" href="../../images/favicon.ico">
@@ -16,72 +16,73 @@
     <!-- Facebook opengraph metadata -->
     <meta property="og:url" content="/posts/nix-vim-python/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="wizzup:Nix," Vim and Python />
+    <meta property="og:title" content="wizzup: Nix, Vim and Python" />
     <meta property="og:description" content="wisut hantanong (wizzup)" />
     <!-- <meta property="og:image"         content="http://www.your&#45;domain.com/path/image.jpg" /> -->
 
-    <!-- Use Bootstrap CSS as basis -->
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- override default CSS -->
-    <!-- <link rel="stylesheet" href="/css/default.css"> -->
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/default.css">
 
     <!-- override sourcecode CSS -->
-    <!-- <link rel="stylesheet" href="/css/sourcecode.css"> -->
+    <link rel="stylesheet" href="../../css/sourcecode.css">
 
   </head>
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="../../">
-            <img src="../../images/home-sketch.png" alt="Home">
-          </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <!-- <a class="nav&#45;item nav&#45;link active" href="#">Home <span class="sr&#45;only">(current)</span></a> -->
-            <a class="nav-item nav-link" href="../../archive">Archive</a>
-            <a class="nav-item nav-link" href="../../about">About</a>
+      <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="../../">
+          <img src="../../images/home-sketch.png" alt="Home">
+        </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <!-- <a class="nav&#45;item nav&#45;link active" href="#">Home <span class="sr&#45;only">(current)</span></a> -->
+              <a class="nav-item nav-link" href="../../archive">Archive</a>
+              <a class="nav-item nav-link" href="../../about">About</a>
+            </div>
           </div>
-        </div>
       </nav>
     </header>
 
     <!-- External api -->
     <section>
       <!-- Facebook like api -->
-      <div id="fb-root"></div>
-      <script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));</script>
-      <style media="screen" type="text/css">
-        .fb_iframe_widget span
-        {
-          vertical-align: baseline !important;
-        }
-      </style>
+      <!-- <div id="fb&#45;root"></div> -->
+      <!-- <script>(function(d, s, id) { -->
+        <!--   var js, fjs = d.getElementsByTagName(s)[0]; -->
+          <!--   if (d.getElementById(id)) return; -->
+          <!--   js = d.createElement(s); js.id = id; -->
+          <!--   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&#38;version=v2.9"; -->
+          <!--   fjs.parentNode.insertBefore(js, fjs); -->
+          <!-- }(document, 'script', 'facebook&#45;jssdk'));</script> -->
+      <!-- <style media="screen"> -->
+<!--   .fb_iframe_widget span -->
+<!--   { -->
+  <!--     vertical&#45;align: baseline !important; -->
+  <!--   } -->
+  <!-- </style> -->
 
       <!-- Twitter widgets -->
-      <script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
+      <!-- <script src="https://platform.twitter.com/widgets.js"></script> -->
 
       <!-- G+ script -->
-      <script type="text/javascript">
-      (function() {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/plusone.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-      })();
-      </script>
+      <!-- <script> -->
+      <!--   (function() { -->
+      <!--     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; -->
+      <!--     po.src = 'https://apis.google.com/js/plusone.js'; -->
+      <!--     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); -->
+      <!--   })(); -->
+      <!-- </script> -->
 
       <!-- pocket script -->
-      <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+      <!-- <script>!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket&#45;btn&#45;js");</script> -->
 
     </section>
 
@@ -102,69 +103,94 @@
     <div>
         <br />
         <p>This is how I setup nix-shell environments vim and pyyaml.</p>
-<p>This is <code>shelll.nix</code></p>
-<p>``` nix { pkgs ? import &lt;nixpkgs&gt; {} }:</p>
-<p>with pkgs;</p>
-<p>let py3s = pkgs.python3.buildEnv.override { extraLibs = with pkgs.python3Packages; [ jedi pyyaml ]; }; in stdenv.mkDerivation { name = &quot;python3-shell&quot;; buildInputs = [ py3s ];</p>
-<p>shellHook = '' export PS1=&quot;[\033[1;32m][nix-py3:\w]\n$ [\033[0m]&quot; ''; } ```</p>
+<p>This is <code>shelll.nix</code> contents</p>
+<pre class="{.haskell}"><code>{ pkgs ? import &lt;nixpkgs&gt; {} }:
+
+with pkgs;
+
+let py3s = pkgs.python3.buildEnv.override  {
+  extraLibs = with pkgs.python3Packages; [ jedi pyyaml ];
+};
+in stdenv.mkDerivation {
+  name = &quot;python3-shell&quot;;
+  buildInputs = [ py3s ];
+
+  shellHook = ''
+    export PS1=&quot;\[\033[1;32m\][nix-py3:\w]\n$ \[\033[0m\]&quot;
+  '';
+}</code></pre>
     </div>
 
-  <div>
-    <table>
-      <tr>
-        <td class="borderless">
-          <!-- Facebook like button -->
-          <div class="fb-like" data-href="https://wizzup.github.io/posts/nix-vim-python/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
-        </td>
+  <!-- socials -->
+  <!-- <div> -->
+  <!--   <table> -->
+  <!--     <tr> -->
+  <!--       <td class="borderless" > -->
+  <!--         <!&#45;&#45; Facebook like button &#45;&#45;> -->
+  <!--         <div class="fb&#45;like" -->
+  <!--             data&#45;href="https://wizzup.github.io/posts/nix-vim-python/" -->
+  <!--             data&#45;layout="button_count" -->
+  <!--             data&#45;action="like" -->
+  <!--             data&#45;size="small" -->
+  <!--             data&#45;show&#45;faces="false" -->
+  <!--             data&#45;share="false" /> -->
+  <!--       </td> -->
+  <!--  -->
+  <!--       <td class="borderless" > -->
+  <!--       <!&#45;&#45; twitter tweet button &#45;&#45;> -->
+  <!--       <a href="https://twitter.com/share" -->
+  <!--         class="twitter&#45;share&#45;button" -->
+  <!--         data&#45;url="https://wizzup.github.io/posts/nix-vim-python/" -->
+  <!--         data&#45;count="horizontal" -->
+  <!--         data&#45;via="wizzup">Tweet</a> -->
+  <!--       </td> -->
+  <!--  -->
+  <!--       <td class="borderless" > -->
+  <!--       <!&#45;&#45; G+ button &#45;&#45;> -->
+  <!--       <g:plusone -->
+  <!--         size="medium" -->
+  <!--         href="https://wizzup.github.io/posts/nix-vim-python/"/> -->
+  <!--       </td> -->
+  <!--  -->
+  <!--       <td class="borderless" > -->
+  <!--       <!&#45;&#45; pocket button &#45;&#45;> -->
+  <!--       <a data&#45;pocket&#45;label="pocket" data&#45;pocket&#45;count="horizontal" class="pocket&#45;btn" data&#45;lang="en"></a> -->
+  <!--       </td> -->
+  <!--     </tr> -->
+  <!--   </table> -->
+  <!-- </div> -->
 
-        <td class="borderless">
-        <!-- twitter tweet button -->
-        <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wizzup.github.io/posts/nix-vim-python/" data-count="horizontal" data-via="wizzup">Tweet</a>
-        </td>
-
-        <td class="borderless">
-        <!-- G+ button -->
-        <g:plusone size="medium" href="https://wizzup.github.io/posts/nix-vim-python/"></g:plusone>
-        </td>
-
-        <td class="borderless">
-        <!-- pocket button -->
-        <a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-lang="en"></a>
-        </td>
-      </tr>
-    </table>
-  </div>
-
-  <!-- <!&#45;&#45; facebook comments &#45;&#45;> -->
+  <!-- facebook comments -->
   <!-- <div style="width:100%"> -->
   <!--   <div class="fb&#45;comments" -->
   <!--        data&#45;href="https://wizzup.github.io/posts/nix-vim-python/" -->
   <!--        data&#45;numposts="3" /> -->
   <!-- </div> -->
 
-  <div>
-    <div id="disqus_thread"></div>
-    <script>
-
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-    /*
-    var disqus_config = function () {
-      this.page.url = https://wizzup.github.io/posts/nix-vim-python/;
-      this.page.title = Nix, Vim and Python;
-      this.page.identifier = posts/nix-vim-python.md;
-    };
-    */
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://wizzup.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
+  <!-- disqus comments -->
+  <!-- <div> -->
+  <!--   <div id="disqus_thread"></div> -->
+  <!--   <script> -->
+  <!--  -->
+  <!--   /** -->
+  <!--   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS. -->
+  <!--   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration&#45;variables*/ -->
+  <!--  -->
+  <!--   var disqus_config = function () { -->
+  <!--     this.page.url = "https://wizzup.github.io/posts/nix-vim-python/"; -->
+  <!--     this.page.title = "Nix, Vim and Python"; -->
+  <!--     this.page.identifier = "posts/nix-vim-python.md"; -->
+  <!--   }; -->
+  <!--  -->
+  <!--   (function() { // DON'T EDIT BELOW THIS LINE -->
+  <!--   var d = document, s = d.createElement('script'); -->
+  <!--   s.src = 'https://wizzup.disqus.com/embed.js'; -->
+  <!--   s.setAttribute('data&#45;timestamp', +new Date()); -->
+  <!--   (d.head || d.body).appendChild(s); -->
+  <!--   })(); -->
+  <!--   </script> -->
+  <!--   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+  <!-- </div> -->
 
       </div>
     </section>
@@ -175,8 +201,9 @@
       <div class="container">
         <div>
           <!-- TODO: image icon as a class and sizing using css -->
-          <p>
-          Site generated using
+          <small>
+            <p>
+            Site generated using
             <a href="https://haskell.org">
               <img height="16" width="16" alt="haskell" src="https://unpkg.com/simple-icons@latest/icons/haskell.svg" /></a>
             <a href="https://jaspervdj.be/hakyll">
@@ -187,11 +214,11 @@
               <img height="16" width="16" alt="simpleicons" src="https://unpkg.com/simple-icons@latest/icons/simpleicons.svg" /></a>
             <a href="http://www.iconarchive.com">
               <img height="16" width="16" alt="iconarchive" src="http://www.iconarchive.com/favicon-16x16.png" /></a>
-          , license:
+            , license:
             <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
               <img height="16" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a>
-          </p>
-       </div>
+            </p></small>
+        </div>
       </div>
     </footer>
 
@@ -212,13 +239,14 @@
 
     <!-- Scripts that loaded after page contents -->
     <!-- MathJax -->
-    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
     </script>
 
-    <!-- jQuery, then Popper and Bootstrap JS. -->
-    <script src="../../js/jquery-3.3.1.slim.min.js"></script>
-    <script src="../../js/popper.min.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  
 
   </body>
 </html>
