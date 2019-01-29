@@ -1,12 +1,24 @@
 <!doctype html>
 <html lang="en">
   <title>Various ways to use GHC in nix-shell</title>
-  <body><p>There are vairous ways to use GHC in nix-shell</p>
-<ol>
-<li>System's default GHC</li>
+  <body><style>
+  /* Icon when the collapsible content is shown */
+  .btn:after {
+    content: "less";
+  }
+  /* Icon when the collapsible content is hidden */
+  .btn.collapsed:after {
+    content: "more";
+  }
+</style>
+<p>There are many ways to use GHC in nix-shell</p>
+<ol style="list-style-type: decimal">
+<li>System’s default GHC</li>
 </ol>
 <pre><code>$ nix-shell -p ghc</code></pre>
-<pre><code>[nix-shell:~]$ ghc --version
+<button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse1">
+</button>
+<pre id="collapse1" class="collapsing"><code>[nix-shell:~]$ ghc --version
 The Glorious Glasgow Haskell Compilation System, version 8.0.2
 
 [nix-shell:~]$ ghc-pkg list
@@ -38,11 +50,13 @@ The Glorious Glasgow Haskell Compilation System, version 8.0.2
     transformers-0.5.2.0
     unix-2.7.2.1
     xhtml-3000.2.1</code></pre>
-<ol>
-<li>System's default GHC with additional libraries</li>
+<ol start="2" style="list-style-type: decimal">
+<li>System’s default GHC with additional libraries</li>
 </ol>
 <pre><code>$ nix-shell -p 'haskellPackages.ghcWithPackages (self: with self; [ random ])'</code></pre>
-<pre><code>[nix-shell:~]$ ghc-pkg list
+<button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse2">
+</button>
+<pre id="collapse2" class="collapsing"><code>[nix-shell:~]$ ghc-pkg list
 /nix/store/d58zrdfijpj60pbwvg4cqmv8n9qcdq0d-ghc-8.0.2-with-packages/lib/ghc-8.0.2/package.conf.d
     Cabal-1.24.2.0
     array-0.5.1.1
@@ -72,11 +86,13 @@ The Glorious Glasgow Haskell Compilation System, version 8.0.2
     transformers-0.5.2.0
     unix-2.7.2.1
     xhtml-3000.2.1</code></pre>
-<ol>
-<li>Specific <code>ghc</code> version with specific libraries</li>
+<ol start="3" style="list-style-type: decimal">
+<li>Specific version with libraries</li>
 </ol>
 <pre><code>$ nix-shell -p 'haskell.packages.ghc7103.ghcWithPackages (self: with self; [ random ])'</code></pre>
-<pre><code>[nix-shell:~]$ ghc-pkg list
+<button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse3">
+</button>
+<pre id="collapse3" class="collapsing"><code>[nix-shell:~]$ ghc-pkg list
 /nix/store/r17mbj8100rp15v8xfq899lvjx7g80ir-ghc-7.10.3-with-packages/lib/ghc-7.10.3/package.conf.d
    Cabal-1.22.5.0
    array-0.5.1.0
@@ -104,8 +120,8 @@ The Glorious Glasgow Haskell Compilation System, version 8.0.2
    transformers-0.4.2.0
    unix-2.7.1.0
    xhtml-3000.2.1</code></pre>
-<ol>
-<li>Writing <code>shell.nix</code> for more complex usage</li>
+<ol start="4" style="list-style-type: decimal">
+<li>with <code>shell.nix</code></li>
 </ol>
 <pre><code># shell.nix for nix-shell (haskell)
 
@@ -117,7 +133,7 @@ let
           split
         ]);
 in
-pkgs.mkShell {
+pkgs.stdenv.mkDerivation {
   name = &quot;haskell-shell&quot;;
   buildInputs = with pkgs.haskellPackages; [ ghc cabal-install ghc-mod hlint ];
 

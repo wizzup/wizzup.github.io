@@ -3,7 +3,7 @@
   <title>clone git อย่างเร็วด้วย shallow clone</title>
   <body><p>หากต้องการแค่ใช้ code ล่าสุดโดยไม่สนใจประวัติการแก้ไขก่อนหน้านั้น หรือต้องการใช้กับ Continuous Integration (CI) เราสามาถเลือกความลึกของประวัิตได้ ด้วย <code>--depth n</code></p>
 <p><strong>ตัวอย่าง</strong>: ความลึกเท่ากับ 1 จะได้ commit ล่าสุดเพียง commit เดียว ด้วยขนาด 14MiB</p>
-<pre><code>$ git clone --depth 1 https://github.com/NixOS/nixpkgs
+<pre><code>$ lgit clone --depth 1 https://github.com/NixOS/nixpkgs
 Cloning into 'nixpkgs'...
 remote: Counting objects: 20622, done.
 remote: Compressing objects: 100% (14606/14606), done.
@@ -22,10 +22,13 @@ remote: Total 959262 (delta 5), reused 3 (delta 3), pack-reused 959244
 Receiving objects: 100% (959262/959262), 513.09 MiB | 35.00 KiB/s, done.
 Resolving deltas: 100% (641363/641363), done.</code></pre>
 <p>หรือถ้าต้องการแค่ไฟล์ ไม่รวมประวัติของ git ก็สามารถดาวน์โหลด ได้เลยโดยตรงผ่าน url</p>
-<ul>
-<li><p>master branch @ HEAD</p>
-<p>https://github.com/NixOS/nixpkgs/archive/master.zip https://github.com/NixOS/nixpkgs/archive/master.tar.gz</p></li>
-<li><p>commit 70f35a99a4f7d17f8b82105e648efb3de681ab8e</p>
-<p>https://github.com/NixOS/nixpkgs/archive/70f35a99a4f7d17f8b82105e648efb3de681ab8e.zip https://github.com/NixOS/nixpkgs/archive/70f35a99a4f7d17f8b82105e648efb3de681ab8e.tar.gz</p></li>
-</ul></body>
+<pre><code>* master branch @ HEAD
+
+    https://github.com/NixOS/nixpkgs/archive/master.zip
+    https://github.com/NixOS/nixpkgs/archive/master.tar.gz
+
+* commit 70f35a99a4f7d17f8b82105e648efb3de681ab8e
+
+    https://github.com/NixOS/nixpkgs/archive/70f35a99a4f7d17f8b82105e648efb3de681ab8e.zip
+    https://github.com/NixOS/nixpkgs/archive/70f35a99a4f7d17f8b82105e648efb3de681ab8e.tar.gz</code></pre></body>
 </html>

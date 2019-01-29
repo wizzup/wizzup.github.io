@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- override default CSS -->
-    <link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono|Fira+Sans" rel="stylesheet">
     <link rel="stylesheet" href="../../css/default.css">
 
     <!-- override sourcecode CSS -->
@@ -34,6 +34,7 @@
 
   <body>
     <header>
+      <!-- Navbar -->
       <nav class="navbar navbar-expand-md navbar-light bg-light">
         <a class="navbar-brand" href="../../">
           <img src="../../images/home-sketch.png" alt="Home">
@@ -49,54 +50,20 @@
             </div>
           </div>
       </nav>
+
+      <!-- Main title -->
+      <section class="jumbotron">
+        <div class="container">
+          <h2 class="jumbotron-heading">Nix, Vim and Haskell</h2>
+        </div>
+      </section>
     </header>
 
-    <!-- External api -->
-    <section>
-      <!-- Facebook like api -->
-      <!-- <div id="fb&#45;root"></div> -->
-      <!-- <script>(function(d, s, id) { -->
-        <!--   var js, fjs = d.getElementsByTagName(s)[0]; -->
-          <!--   if (d.getElementById(id)) return; -->
-          <!--   js = d.createElement(s); js.id = id; -->
-          <!--   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&#38;version=v2.9"; -->
-          <!--   fjs.parentNode.insertBefore(js, fjs); -->
-          <!-- }(document, 'script', 'facebook&#45;jssdk'));</script> -->
-      <!-- <style media="screen"> -->
-<!--   .fb_iframe_widget span -->
-<!--   { -->
-  <!--     vertical&#45;align: baseline !important; -->
-  <!--   } -->
-  <!-- </style> -->
-
-      <!-- Twitter widgets -->
-      <!-- <script src="https://platform.twitter.com/widgets.js"></script> -->
-
-      <!-- G+ script -->
-      <!-- <script> -->
-      <!--   (function() { -->
-      <!--     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; -->
-      <!--     po.src = 'https://apis.google.com/js/plusone.js'; -->
-      <!--     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); -->
-      <!--   })(); -->
-      <!-- </script> -->
-
-      <!-- pocket script -->
-      <!-- <script>!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket&#45;btn&#45;js");</script> -->
-
-    </section>
-
-    <!-- Title -->
-    <section class="jumbotron">
-      <div class="container">
-        <h2 class="jumbotron-heading">Nix, Vim and Haskell</h2>
-      </div>
-    </section>
-
     <!-- Body -->
-    <section class="main">
-      <div class="container">
-            <div class="text-muted">
+    <main>
+      <section class="main">
+        <div class="container">
+              <div class="text-muted">
         Posted on May 31, 2017
         
     </div>
@@ -120,7 +87,7 @@
 <a class="sourceLine" id="cb1-14" title="14">    eval <span class="st">&quot;</span><span class="va">$(</span><span class="fu">egrep</span> ^export <span class="st">&quot;</span><span class="va">$(</span><span class="bu">type</span> -p ghc<span class="va">)</span><span class="st">&quot;</span><span class="va">)</span><span class="st">&quot;</span></a>
 <a class="sourceLine" id="cb1-15" title="15">  <span class="st">''</span>;</a>
 <a class="sourceLine" id="cb1-16" title="16">}</a></code></pre></div>
-<p>I use cabal to do the build</p>
+<p>I use <span class="title-ref">cabal</span> to do the build</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1">$ <span class="ex">cabal</span> build</a></code></pre></div>
     </div>
 
@@ -195,12 +162,14 @@
   <!--   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
   <!-- </div> -->
 
-      </div>
-    </section>
+        </div>
+      </section>
+    </main>
+
+    <hr>
 
     <!-- Footer -->
     <footer class="text-muted">
-      <hr>
       <div class="container">
         <div>
           <!-- TODO: image icon as a class and sizing using css -->
@@ -208,48 +177,91 @@
             <p>
             Site generated using
             <a href="https://haskell.org">
-              <img height="16" width="16" alt="haskell" src="https://unpkg.com/simple-icons@latest/icons/haskell.svg" /></a>
+              <img height="16" width="16" alt="haskell" src="https://unpkg.com/simple-icons@latest/icons/haskell.svg" />
+            </a>
             <a href="https://jaspervdj.be/hakyll">
-              <img height="16" width="16" alt="hakyll" src="../../images/hakyll.tmb.png" /></a>
+              <img height="16" width="16" alt="hakyll" src="../../images/hakyll.tmb.png" />
+            </a>
             <a href="https://getbootstrap.com">
-              <img height="16" width="16" alt="bootstrap" src="https://unpkg.com/simple-icons@latest/icons/bootstrap.svg" /></a>
+              <img height="16" width="16" alt="bootstrap" src="https://unpkg.com/simple-icons@latest/icons/bootstrap.svg" />
+            </a>
             <a href="https://simpleicons.org">
-              <img height="16" width="16" alt="simpleicons" src="https://unpkg.com/simple-icons@latest/icons/simpleicons.svg" /></a>
+              <img height="16" width="16" alt="simpleicons" src="https://unpkg.com/simple-icons@latest/icons/simpleicons.svg" />
+            </a>
+            <!-- FIXME:: find https alternatives for icons site-->
             <a href="http://www.iconarchive.com">
-              <img height="16" width="16" alt="iconarchive" src="http://www.iconarchive.com/favicon-16x16.png" /></a>
+              <img height="16" width="16" alt="iconarchive" src="http://www.iconarchive.com/favicon-16x16.png" />
+            </a>
             , license:
             <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
-              <img height="16" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a>
+              <img height="16" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+            </a>
             </p></small>
         </div>
       </div>
     </footer>
 
     <!-- (debug) hakyll templates values -->
-    <pre style="display: none;">
-      <code>
-      title        Nix, Vim and Haskell    
-      url            /posts/nix-vim-haskell/      
-      path          posts/nix-vim-haskell.rst     
-      date          May 31, 2017     
-      author   
-      metadata 
-      missing  
-      teaser   
-      snippet  
-      </code>
-    </pre>
+    <section>
+      <pre style="display: none;">
+        <code>
+        title        Nix, Vim and Haskell    
+        url            /posts/nix-vim-haskell/      
+        path          posts/nix-vim-haskell.rst     
+        date          May 31, 2017     
+        author   
+        metadata 
+        missing  
+        teaser   
+        snippet  
+        </code>
+      </pre>
+    </section>
 
-    <!-- Scripts that loaded after page contents -->
-    <!-- MathJax -->
-    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
-    </script>
+    <!-- External api -->
+    <section>
+      <!-- Facebook like api -->
+      <!-- <div id="fb&#45;root"></div> -->
+      <!-- <script>(function(d, s, id) { -->
+      <!--   var js, fjs = d.getElementsByTagName(s)[0]; -->
+      <!--   if (d.getElementById(id)) return; -->
+      <!--   js = d.createElement(s); js.id = id; -->
+      <!--   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&#38;version=v2.9"; -->
+      <!--   fjs.parentNode.insertBefore(js, fjs); -->
+      <!-- }(document, 'script', 'facebook&#45;jssdk'));</script> -->
+      <!-- <style media="screen"> -->
+      <!--   .fb_iframe_widget span -->
+      <!--     { -->
+      <!--     vertical&#45;align: baseline !important; -->
+      <!--   } -->
+      <!-- </style> -->
 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  
+      <!-- Twitter widgets -->
+      <!-- <script src="https://platform.twitter.com/widgets.js"></script> -->
 
+      <!-- G+ script -->
+      <!-- <script> -->
+      <!--   (function() { -->
+      <!--     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; -->
+      <!--     po.src = 'https://apis.google.com/js/plusone.js'; -->
+      <!--     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); -->
+      <!--   })(); -->
+      <!-- </script> -->
+
+      <!-- pocket script -->
+      <!-- <script>!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket&#45;btn&#45;js");</script> -->
+    </section>
+
+    <section>
+      <!-- Scripts that loaded after page contents -->
+      <!-- MathJax -->
+      <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+      </script>
+
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </section>
   </body>
 </html>

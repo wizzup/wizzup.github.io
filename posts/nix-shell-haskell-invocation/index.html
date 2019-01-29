@@ -1,12 +1,8 @@
 <!doctype html>
 <html lang="en">
+  <title>wizzup : Various ways to use GHC in nix-shell</title>
   <head>
-    <title>wizzup: Various ways to use GHC in nix-shell</title>
-
-    <!-- icon -->
-    <link rel="icon" href="../../images/favicon.ico">
-
-    <!-- Required meta tags for site -->
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="author" content="Wisut Hantanong">
     <meta name="description" content="wisut hantanong (wizzup)'s website.">
@@ -16,75 +12,84 @@
     <!-- Facebook opengraph metadata -->
     <meta property="og:url" content="/posts/nix-shell-haskell-invocation/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="wizzup: Various ways to use GHC in nix-shell" />
+    <meta property="og:title" content="wizzup:Various" ways to use GHC in nix-shell />
     <meta property="og:description" content="wisut hantanong (wizzup)" />
     <!-- <meta property="og:image"         content="http://www.your&#45;domain.com/path/image.jpg" /> -->
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Use Bootstrap CSS as basis -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
     <!-- override default CSS -->
-    <link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/default.css">
+    <!-- <link rel="stylesheet" href="/css/default.css"> -->
 
     <!-- override sourcecode CSS -->
-    <link rel="stylesheet" href="../../css/sourcecode.css">
+    <!-- <link rel="stylesheet" href="/css/sourcecode.css"> -->
+
+    <!-- icon -->
+    <link rel="icon" href="../../images/favicon.ico">
+
+    <!-- MathJax -->
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
 
   </head>
 
   <body>
-    <header>
-      <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a class="navbar-brand" href="../../">
-          <img src="../../images/home-sketch.png" alt="Home">
-        </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <!-- <a class="nav&#45;item nav&#45;link active" href="#">Home <span class="sr&#45;only">(current)</span></a> -->
-              <a class="nav-item nav-link" href="../../archive">Archive</a>
-              <a class="nav-item nav-link" href="../../about">About</a>
-            </div>
-          </div>
-      </nav>
-    </header>
 
-    <!-- External api -->
-    <section>
-      <!-- Facebook like api -->
-      <!-- <div id="fb&#45;root"></div> -->
-      <!-- <script>(function(d, s, id) { -->
-        <!--   var js, fjs = d.getElementsByTagName(s)[0]; -->
-          <!--   if (d.getElementById(id)) return; -->
-          <!--   js = d.createElement(s); js.id = id; -->
-          <!--   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&#38;version=v2.9"; -->
-          <!--   fjs.parentNode.insertBefore(js, fjs); -->
-          <!-- }(document, 'script', 'facebook&#45;jssdk'));</script> -->
-      <!-- <style media="screen"> -->
-<!--   .fb_iframe_widget span -->
-<!--   { -->
-  <!--     vertical&#45;align: baseline !important; -->
-  <!--   } -->
-  <!-- </style> -->
+    <!-- Facebook like api -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <style media="screen" type="text/css">
+      .fb_iframe_widget span
+      {
+        vertical-align: baseline !important;
+      }
+    </style>
 
-      <!-- Twitter widgets -->
-      <!-- <script src="https://platform.twitter.com/widgets.js"></script> -->
+    <!-- Twitter widgets -->
+    <script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>
 
-      <!-- G+ script -->
-      <!-- <script> -->
-      <!--   (function() { -->
-      <!--     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; -->
-      <!--     po.src = 'https://apis.google.com/js/plusone.js'; -->
-      <!--     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); -->
-      <!--   })(); -->
-      <!-- </script> -->
+    <!-- G+ script -->
+    <script type="text/javascript">
+    (function() {
+      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+      po.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+    </script>
 
-      <!-- pocket script -->
-      <!-- <script>!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket&#45;btn&#45;js");</script> -->
+    <!-- pocket script -->
+    <script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
 
-    </section>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="../../">Home</a>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <!-- TODO:: active item check -->
+          <!-- <li class="nav&#45;item active"> -->
+          <!--   <!&#45;&#45; <a class="nav&#38;#45;link" href="/">Home</a> &#45;&#45;> -->
+          <!--   <a class="nav&#45;link" href="/archive.html">Archive <span class="sr&#45;only">(current)</span></a> -->
+          <!-- </li> -->
+
+          <li class="nav-item">
+            <a class="nav-link" href="../../archive">Archive</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../about">About</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
     <!-- Title -->
     <section class="jumbotron">
@@ -96,18 +101,31 @@
     <!-- Body -->
     <section class="main">
       <div class="container">
-            <div class="text-muted">
+        <!-- <div class="content"> -->
+              <div class="text-muted">
         Posted on July 29, 2017
         
     </div>
     <div>
         <br />
-        <p>There are vairous ways to use GHC in nix-shell</p>
-<ol>
-<li>System's default GHC</li>
+        <style>
+  /* Icon when the collapsible content is shown */
+  .btn:after {
+    content: "less";
+  }
+  /* Icon when the collapsible content is hidden */
+  .btn.collapsed:after {
+    content: "more";
+  }
+</style>
+<p>There are many ways to use GHC in nix-shell</p>
+<ol style="list-style-type: decimal">
+<li>System’s default GHC</li>
 </ol>
 <pre><code>$ nix-shell -p ghc</code></pre>
-<pre><code>[nix-shell:~]$ ghc --version
+<button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse1">
+</button>
+<pre id="collapse1" class="collapsing"><code>[nix-shell:~]$ ghc --version
 The Glorious Glasgow Haskell Compilation System, version 8.0.2
 
 [nix-shell:~]$ ghc-pkg list
@@ -139,11 +157,13 @@ The Glorious Glasgow Haskell Compilation System, version 8.0.2
     transformers-0.5.2.0
     unix-2.7.2.1
     xhtml-3000.2.1</code></pre>
-<ol>
-<li>System's default GHC with additional libraries</li>
+<ol start="2" style="list-style-type: decimal">
+<li>System’s default GHC with additional libraries</li>
 </ol>
 <pre><code>$ nix-shell -p 'haskellPackages.ghcWithPackages (self: with self; [ random ])'</code></pre>
-<pre><code>[nix-shell:~]$ ghc-pkg list
+<button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse2">
+</button>
+<pre id="collapse2" class="collapsing"><code>[nix-shell:~]$ ghc-pkg list
 /nix/store/d58zrdfijpj60pbwvg4cqmv8n9qcdq0d-ghc-8.0.2-with-packages/lib/ghc-8.0.2/package.conf.d
     Cabal-1.24.2.0
     array-0.5.1.1
@@ -173,11 +193,13 @@ The Glorious Glasgow Haskell Compilation System, version 8.0.2
     transformers-0.5.2.0
     unix-2.7.2.1
     xhtml-3000.2.1</code></pre>
-<ol>
-<li>Specific <code>ghc</code> version with specific libraries</li>
+<ol start="3" style="list-style-type: decimal">
+<li>Specific version with libraries</li>
 </ol>
 <pre><code>$ nix-shell -p 'haskell.packages.ghc7103.ghcWithPackages (self: with self; [ random ])'</code></pre>
-<pre><code>[nix-shell:~]$ ghc-pkg list
+<button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse3">
+</button>
+<pre id="collapse3" class="collapsing"><code>[nix-shell:~]$ ghc-pkg list
 /nix/store/r17mbj8100rp15v8xfq899lvjx7g80ir-ghc-7.10.3-with-packages/lib/ghc-7.10.3/package.conf.d
    Cabal-1.22.5.0
    array-0.5.1.0
@@ -205,8 +227,8 @@ The Glorious Glasgow Haskell Compilation System, version 8.0.2
    transformers-0.4.2.0
    unix-2.7.1.0
    xhtml-3000.2.1</code></pre>
-<ol>
-<li>Writing <code>shell.nix</code> for more complex usage</li>
+<ol start="4" style="list-style-type: decimal">
+<li>with <code>shell.nix</code></li>
 </ol>
 <pre><code># shell.nix for nix-shell (haskell)
 
@@ -218,7 +240,7 @@ let
           split
         ]);
 in
-pkgs.mkShell {
+pkgs.stdenv.mkDerivation {
   name = &quot;haskell-shell&quot;;
   buildInputs = with pkgs.haskellPackages; [ ghc cabal-install ghc-mod hlint ];
 
@@ -229,108 +251,89 @@ pkgs.mkShell {
 }</code></pre>
     </div>
 
-  <!-- socials -->
-  <!-- <div> -->
-  <!--   <table> -->
-  <!--     <tr> -->
-  <!--       <td class="borderless" > -->
-  <!--         <!&#45;&#45; Facebook like button &#45;&#45;> -->
-  <!--         <div class="fb&#45;like" -->
-  <!--             data&#45;href="https://wizzup.github.io/posts/nix-shell-haskell-invocation/" -->
-  <!--             data&#45;layout="button_count" -->
-  <!--             data&#45;action="like" -->
-  <!--             data&#45;size="small" -->
-  <!--             data&#45;show&#45;faces="false" -->
-  <!--             data&#45;share="false" /> -->
-  <!--       </td> -->
-  <!--  -->
-  <!--       <td class="borderless" > -->
-  <!--       <!&#45;&#45; twitter tweet button &#45;&#45;> -->
-  <!--       <a href="https://twitter.com/share" -->
-  <!--         class="twitter&#45;share&#45;button" -->
-  <!--         data&#45;url="https://wizzup.github.io/posts/nix-shell-haskell-invocation/" -->
-  <!--         data&#45;count="horizontal" -->
-  <!--         data&#45;via="wizzup">Tweet</a> -->
-  <!--       </td> -->
-  <!--  -->
-  <!--       <td class="borderless" > -->
-  <!--       <!&#45;&#45; G+ button &#45;&#45;> -->
-  <!--       <g:plusone -->
-  <!--         size="medium" -->
-  <!--         href="https://wizzup.github.io/posts/nix-shell-haskell-invocation/"/> -->
-  <!--       </td> -->
-  <!--  -->
-  <!--       <td class="borderless" > -->
-  <!--       <!&#45;&#45; pocket button &#45;&#45;> -->
-  <!--       <a data&#45;pocket&#45;label="pocket" data&#45;pocket&#45;count="horizontal" class="pocket&#45;btn" data&#45;lang="en"></a> -->
-  <!--       </td> -->
-  <!--     </tr> -->
-  <!--   </table> -->
-  <!-- </div> -->
+  <div>
+    <table>
+      <tr>
+        <td class="borderless">
+          <!-- Facebook like button -->
+          <div class="fb-like" data-href="https://wizzup.github.io/posts/nix-shell-haskell-invocation/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+        </td>
 
-  <!-- facebook comments -->
+        <td class="borderless">
+        <!-- twitter tweet button -->
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wizzup.github.io/posts/nix-shell-haskell-invocation/" data-count="horizontal" data-via="wizzup">Tweet</a>
+        </td>
+
+        <td class="borderless">
+        <!-- G+ button -->
+        <g:plusone size="medium" href="https://wizzup.github.io/posts/nix-shell-haskell-invocation/"></g:plusone>
+        </td>
+
+        <td class="borderless">
+        <!-- pocket button -->
+        <a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-lang="en"></a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- <!&#45;&#45; facebook comments &#45;&#45;> -->
   <!-- <div style="width:100%"> -->
   <!--   <div class="fb&#45;comments" -->
   <!--        data&#45;href="https://wizzup.github.io/posts/nix-shell-haskell-invocation/" -->
   <!--        data&#45;numposts="3" /> -->
   <!-- </div> -->
 
-  <!-- disqus comments -->
-  <!-- <div> -->
-  <!--   <div id="disqus_thread"></div> -->
-  <!--   <script> -->
-  <!--  -->
-  <!--   /** -->
-  <!--   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS. -->
-  <!--   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration&#45;variables*/ -->
-  <!--  -->
-  <!--   var disqus_config = function () { -->
-  <!--     this.page.url = "https://wizzup.github.io/posts/nix-shell-haskell-invocation/"; -->
-  <!--     this.page.title = "Various ways to use GHC in nix-shell"; -->
-  <!--     this.page.identifier = "posts/nix-shell-haskell-invocation.md"; -->
-  <!--   }; -->
-  <!--  -->
-  <!--   (function() { // DON'T EDIT BELOW THIS LINE -->
-  <!--   var d = document, s = d.createElement('script'); -->
-  <!--   s.src = 'https://wizzup.disqus.com/embed.js'; -->
-  <!--   s.setAttribute('data&#45;timestamp', +new Date()); -->
-  <!--   (d.head || d.body).appendChild(s); -->
-  <!--   })(); -->
-  <!--   </script> -->
-  <!--   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
-  <!-- </div> -->
+  <div>
+    <div id="disqus_thread"></div>
+    <script>
 
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+      this.page.url = https://wizzup.github.io/posts/nix-shell-haskell-invocation/;
+      this.page.title = Various ways to use GHC in nix-shell;
+      this.page.identifier = posts/nix-shell-haskell-invocation.md;
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wizzup.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+
+        <!-- </div> -->
       </div>
     </section>
 
     <!-- Footer -->
     <footer class="text-muted">
-      <hr>
       <div class="container">
-        <div>
-          <!-- TODO: image icon as a class and sizing using css -->
-          <small>
-            <p>
-            Site generated using
-            <a href="https://haskell.org">
-              <img height="16" width="16" alt="haskell" src="https://unpkg.com/simple-icons@latest/icons/haskell.svg" /></a>
-            <a href="https://jaspervdj.be/hakyll">
-              <img height="16" width="16" alt="hakyll" src="../../images/hakyll.tmb.png" /></a>
-            <a href="https://getbootstrap.com">
-              <img height="16" width="16" alt="bootstrap" src="https://unpkg.com/simple-icons@latest/icons/bootstrap.svg" /></a>
-            <a href="https://simpleicons.org">
-              <img height="16" width="16" alt="simpleicons" src="https://unpkg.com/simple-icons@latest/icons/simpleicons.svg" /></a>
-            <a href="http://www.iconarchive.com">
-              <img height="16" width="16" alt="iconarchive" src="http://www.iconarchive.com/favicon-16x16.png" /></a>
-            , license:
-            <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
-              <img height="16" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a>
-            </p></small>
-        </div>
+        <p>
+        Site generated by:
+        <a href="https://haskell.org"><img width="16" src="../../images/haskell.tmb.png" alt="haskell" /></a>
+        <a href="https://jaspervdj.be/hakyll"><img width="16" src="../../images/hakyll.tmb.png" alt="hakyll" /></a>
+        <a href="https://getbootstrap.com"><img width="16" src="../../images/bootstrap.svg" alt="bootstrap" /></a>
+        <a href="https://simpleicons.org"><img width="16" src="../../images/simpleicons.svg" alt="simpleicons" /></a>
+        license:
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+          <img height="16" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+        </a>
+        </p>
       </div>
     </footer>
 
-    <!-- (debug) hakyll templates values -->
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
     <pre style="display: none;">
       <code>
       title        Various ways to use GHC in nix-shell    
@@ -344,17 +347,6 @@ pkgs.mkShell {
       snippet  
       </code>
     </pre>
-
-    <!-- Scripts that loaded after page contents -->
-    <!-- MathJax -->
-    <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
-    </script>
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  
 
   </body>
 </html>
