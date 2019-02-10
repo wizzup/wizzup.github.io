@@ -2,8 +2,8 @@
 <html lang="en">
   <title>Nix, Vim and Haskell</title>
   <body><p>This is how I setup nix-shell environments vim and hakyll.</p>
-<p>This is <em>shelll.nix</em></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode nix"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">{</span> <span class="ex">pkgs</span> ? import <span class="op">&lt;</span>nixpkgs<span class="op">&gt;</span> {<span class="kw">}</span> }:</a>
+    <p>This is <em>shelll.nix</em></p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode nix"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">{</span> <span class="ex">pkgs</span> ? import <span class="op">&lt;</span>nixpkgs<span class="op">&gt;</span> {<span class="kw">}</span> }:</a>
 <a class="sourceLine" id="cb1-2" title="2"></a>
 <a class="sourceLine" id="cb1-3" title="3"><span class="bu">let</span></a>
 <a class="sourceLine" id="cb1-4" title="4">  <span class="ex">hs</span> = pkgs.haskellPackages.ghcWithHoogle (self: with self<span class="kw">;</span><span class="bu"> [</span></a>
@@ -19,6 +19,6 @@
 <a class="sourceLine" id="cb1-14" title="14">    eval <span class="st">&quot;</span><span class="va">$(</span><span class="fu">egrep</span> ^export <span class="st">&quot;</span><span class="va">$(</span><span class="bu">type</span> -p ghc<span class="va">)</span><span class="st">&quot;</span><span class="va">)</span><span class="st">&quot;</span></a>
 <a class="sourceLine" id="cb1-15" title="15">  <span class="st">''</span>;</a>
 <a class="sourceLine" id="cb1-16" title="16">}</a></code></pre></div>
-<p>I use <span class="title-ref">cabal</span> to do the build</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1">$ <span class="ex">cabal</span> build</a></code></pre></div></body>
+      <p>I use <span class="title-ref">cabal</span> to do the build</p>
+      <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1">$ <span class="ex">cabal</span> build</a></code></pre></div></body>
 </html>

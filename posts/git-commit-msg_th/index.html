@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     <title>wizzup: วิธีแก้ข้อความ commit ของ git</title>
-
-    <!-- icon -->
     <link rel="icon" href="../../images/favicon.ico">
 
     <!-- Required meta tags for site -->
@@ -39,16 +37,16 @@
         <a class="navbar-brand" href="../../">
           <img src="../../images/home-sketch.png" alt="Home">
         </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <!-- <a class="nav&#45;item nav&#45;link active" href="#">Home <span class="sr&#45;only">(current)</span></a> -->
-              <a class="nav-item nav-link" href="../../archive">Archive</a>
-              <a class="nav-item nav-link" href="../../about">About</a>
-            </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <!-- <a class="nav&#45;item nav&#45;link active" href="#">Home <span class="sr&#45;only">(current)</span></a> -->
+            <a class="nav-item nav-link" href="../../archive">Archive</a>
+            <a class="nav-item nav-link" href="../../about">About</a>
           </div>
+        </div>
       </nav>
 
       <!-- Main title -->
@@ -63,19 +61,19 @@
     <main>
       <section class="main">
         <div class="container">
-              <div class="text-muted">
-        Posted on July 20, 2017
-        
-    </div>
-    <div>
-        <br />
-        <p>เมื่อต้องการแก้ไข commit message</p>
-<p><strong>ระดับ 1:</strong> แก้ข้อความล่าสุด</p>
-<pre><code>git commit --amend -m &quot;ข้อความใหม่&quot;</code></pre>
-<p><strong>ระดับ 2:</strong> แก้ข้อความจำนวนน้อยทีละข้อความ</p>
-<pre><code>git rebase -i &lt;rev_before&gt;</code></pre>
-<p>จะมี rebase todo-list ขึ้นมา เลือก <code>reword</code> กับ commit ที่ต้องการแก้ไขแล้วบันทึก จากนั้น git จะเรียก editor ขึ้นมาให้แก้ข้อความเมื่อถึงคิวของ commit นั้น (แก้ใน rebase-todo ไม่ได้ จะถูกโยนทิ้งไป)</p>
-<pre><code>pick db96dee move newpost.sh out from posts
+          <div class="text-muted">
+            Posted on July 20, 2017
+
+          </div>
+          <div>
+            <br />
+            <p>เมื่อต้องการแก้ไข commit message</p>
+            <p><strong>ระดับ 1:</strong> แก้ข้อความล่าสุด</p>
+            <pre><code>git commit --amend -m &quot;ข้อความใหม่&quot;</code></pre>
+            <p><strong>ระดับ 2:</strong> แก้ข้อความจำนวนน้อยทีละข้อความ</p>
+            <pre><code>git rebase -i &lt;rev_before&gt;</code></pre>
+            <p>จะมี rebase todo-list ขึ้นมา เลือก <code>reword</code> กับ commit ที่ต้องการแก้ไขแล้วบันทึก จากนั้น git จะเรียก editor ขึ้นมาให้แก้ข้อความเมื่อถึงคิวของ commit นั้น (แก้ใน rebase-todo ไม่ได้ จะถูกโยนทิ้งไป)</p>
+            <pre><code>pick db96dee move newpost.sh out from posts
 reword 4cd9e33 2017-06-02
 pick f19d2af add socials features
 
@@ -89,70 +87,70 @@ pick f19d2af add socials features
 # f, fixup = like &quot;squash&quot;, but discard this commit's log message
 # x, exec = run command (the rest of the line) using shell
 # d, drop = remove commit</code></pre>
-<p><strong>ระดับ 3:</strong> แก้หลายข้อความด้วยคำสั่งแทนค่าอย่างง่าย</p>
-<pre><code>git filter-branch --msg-filter &quot;&lt;คำสั่งแทนค่า&gt;&quot; &lt;rev_begin&gt;..&lt;rev_end&gt;</code></pre>
-<p><em>ตัวอย่าง</em> : เพิ่มข้อความ <code>Fix Bug::</code> ข้างหน้าข้อความ จาก commit ของ master branch ถึง commit ล่าสุด</p>
-<pre><code>git filter-branch --msg-filter 'sed &quot;s/^/Fix Bug::/&quot; master..HEAD</code></pre>
-<p><strong>ระดับ 3.5:</strong> แก้หลายข้อความด้วยคำสั่งแทนค่าแบบซับซ้อน</p>
-<pre><code>git filter-branch --msg-filter &quot;&lt;โปรแกรม&gt;&quot; &lt;rev_begin&gt;..&lt;rev_end&gt;</code></pre>
-<p>ใช้โปรแกรมหรือ script รับข้อความเก่า จาก stdin แล้วส่งขัอความใหม่ ออก stdout</p>
-<hr />
-<pre class="text"><code>rev_before: revison ก่อนหน้า revison แรกที่ต้องการแก้ไขข้อความ
+            <p><strong>ระดับ 3:</strong> แก้หลายข้อความด้วยคำสั่งแทนค่าอย่างง่าย</p>
+            <pre><code>git filter-branch --msg-filter &quot;&lt;คำสั่งแทนค่า&gt;&quot; &lt;rev_begin&gt;..&lt;rev_end&gt;</code></pre>
+            <p><em>ตัวอย่าง</em> : เพิ่มข้อความ <code>Fix Bug::</code> ข้างหน้าข้อความ จาก commit ของ master branch ถึง commit ล่าสุด</p>
+            <pre><code>git filter-branch --msg-filter 'sed &quot;s/^/Fix Bug::/&quot; master..HEAD</code></pre>
+            <p><strong>ระดับ 3.5:</strong> แก้หลายข้อความด้วยคำสั่งแทนค่าแบบซับซ้อน</p>
+            <pre><code>git filter-branch --msg-filter &quot;&lt;โปรแกรม&gt;&quot; &lt;rev_begin&gt;..&lt;rev_end&gt;</code></pre>
+            <p>ใช้โปรแกรมหรือ script รับข้อความเก่า จาก stdin แล้วส่งขัอความใหม่ ออก stdout</p>
+            <hr />
+            <pre class="text"><code>rev_before: revison ก่อนหน้า revison แรกที่ต้องการแก้ไขข้อความ
 rev_begin:  revison แรกของช่วงที่ต้องการแก้ข้อความ
 rev_end:    revison สุดท้ายของช่วงที่ต้องการแก้ข้อความ</code></pre>
-    </div>
+          </div>
 
-  <!-- socials -->
-  <!-- <div> -->
-  <!--   <table> -->
-  <!--     <tr> -->
-  <!--       <td class="borderless" > -->
-  <!--         <!&#45;&#45; Facebook like button &#45;&#45;> -->
-  <!--         <div class="fb&#45;like" -->
-  <!--             data&#45;href="https://wizzup.github.io/posts/git-commit-msg_th/" -->
-  <!--             data&#45;layout="button_count" -->
-  <!--             data&#45;action="like" -->
-  <!--             data&#45;size="small" -->
-  <!--             data&#45;show&#45;faces="false" -->
-  <!--             data&#45;share="false" /> -->
-  <!--       </td> -->
-  <!--  -->
-  <!--       <td class="borderless" > -->
-  <!--       <!&#45;&#45; twitter tweet button &#45;&#45;> -->
-  <!--       <a href="https://twitter.com/share" -->
-  <!--         class="twitter&#45;share&#45;button" -->
-  <!--         data&#45;url="https://wizzup.github.io/posts/git-commit-msg_th/" -->
-  <!--         data&#45;count="horizontal" -->
-  <!--         data&#45;via="wizzup">Tweet</a> -->
-  <!--       </td> -->
-  <!--  -->
-  <!--       <td class="borderless" > -->
-  <!--       <!&#45;&#45; G+ button &#45;&#45;> -->
-  <!--       <g:plusone -->
-  <!--         size="medium" -->
-  <!--         href="https://wizzup.github.io/posts/git-commit-msg_th/"/> -->
-  <!--       </td> -->
-  <!--  -->
-  <!--       <td class="borderless" > -->
-  <!--       <!&#45;&#45; pocket button &#45;&#45;> -->
-  <!--       <a data&#45;pocket&#45;label="pocket" data&#45;pocket&#45;count="horizontal" class="pocket&#45;btn" data&#45;lang="en"></a> -->
-  <!--       </td> -->
-  <!--     </tr> -->
-  <!--   </table> -->
-  <!-- </div> -->
+          <!-- socials -->
+          <!-- <div> -->
+          <!--   <table> -->
+          <!--     <tr> -->
+          <!--       <td class="borderless" > -->
+          <!--         <!&#45;&#45; Facebook like button &#45;&#45;> -->
+          <!--         <div class="fb&#45;like" -->
+          <!--             data&#45;href="https://wizzup.github.io/posts/git-commit-msg_th/" -->
+          <!--             data&#45;layout="button_count" -->
+          <!--             data&#45;action="like" -->
+          <!--             data&#45;size="small" -->
+          <!--             data&#45;show&#45;faces="false" -->
+          <!--             data&#45;share="false" /> -->
+          <!--       </td> -->
+          <!--  -->
+          <!--       <td class="borderless" > -->
+          <!--       <!&#45;&#45; twitter tweet button &#45;&#45;> -->
+          <!--       <a href="https://twitter.com/share" -->
+          <!--         class="twitter&#45;share&#45;button" -->
+          <!--         data&#45;url="https://wizzup.github.io/posts/git-commit-msg_th/" -->
+          <!--         data&#45;count="horizontal" -->
+          <!--         data&#45;via="wizzup">Tweet</a> -->
+          <!--       </td> -->
+          <!--  -->
+          <!--       <td class="borderless" > -->
+          <!--       <!&#45;&#45; G+ button &#45;&#45;> -->
+          <!--       <g:plusone -->
+          <!--         size="medium" -->
+          <!--         href="https://wizzup.github.io/posts/git-commit-msg_th/"/> -->
+          <!--       </td> -->
+          <!--  -->
+          <!--       <td class="borderless" > -->
+          <!--       <!&#45;&#45; pocket button &#45;&#45;> -->
+          <!--       <a data&#45;pocket&#45;label="pocket" data&#45;pocket&#45;count="horizontal" class="pocket&#45;btn" data&#45;lang="en"></a> -->
+          <!--       </td> -->
+          <!--     </tr> -->
+          <!--   </table> -->
+          <!-- </div> -->
 
-  <!-- facebook comments -->
-  <!-- <div style="width:100%"> -->
-  <!--   <div class="fb&#45;comments" -->
-  <!--        data&#45;href="https://wizzup.github.io/posts/git-commit-msg_th/" -->
-  <!--        data&#45;numposts="3" /> -->
-  <!-- </div> -->
+          <!-- facebook comments -->
+          <!-- <div style="width:100%"> -->
+          <!--   <div class="fb&#45;comments" -->
+          <!--        data&#45;href="https://wizzup.github.io/posts/git-commit-msg_th/" -->
+          <!--        data&#45;numposts="3" /> -->
+          <!-- </div> -->
 
-  <!-- disqus comments -->
-  <!-- <div> -->
-  <!--   <div id="disqus_thread"></div> -->
-  <!--   <script> -->
-  <!--  -->
+          <!-- disqus comments -->
+          <!-- <div> -->
+          <!--   <div id="disqus_thread"></div> -->
+          <!--   <script> -->
+            <!--  -->
   <!--   /** -->
   <!--   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS. -->
   <!--   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration&#45;variables*/ -->
@@ -164,16 +162,16 @@ rev_end:    revison สุดท้ายของช่วงที่ต้อ
   <!--   }; -->
   <!--  -->
   <!--   (function() { // DON'T EDIT BELOW THIS LINE -->
-  <!--   var d = document, s = d.createElement('script'); -->
+<!--   var d = document, s = d.createElement('script'); -->
   <!--   s.src = 'https://wizzup.disqus.com/embed.js'; -->
   <!--   s.setAttribute('data&#45;timestamp', +new Date()); -->
   <!--   (d.head || d.body).appendChild(s); -->
   <!--   })(); -->
   <!--   </script> -->
-  <!--   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
-  <!-- </div> -->
+          <!--   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+          <!-- </div> -->
 
-        </div>
+          </div>
       </section>
     </main>
 
@@ -216,15 +214,15 @@ rev_end:    revison สุดท้ายของช่วงที่ต้อ
     <section>
       <pre style="display: none;">
         <code>
-        title        วิธีแก้ข้อความ commit ของ git    
-        url            /posts/git-commit-msg_th/      
-        path          posts/git-commit-msg_th.md     
-        date          July 20, 2017     
-        author   
-        metadata 
-        missing  
-        teaser   
-        snippet  
+        title        วิธีแก้ข้อความ commit ของ git
+        url            /posts/git-commit-msg_th/
+        path          posts/git-commit-msg_th.md
+        date          July 20, 2017
+        author
+        metadata
+        missing
+        teaser
+        snippet
         </code>
       </pre>
     </section>
@@ -234,30 +232,30 @@ rev_end:    revison สุดท้ายของช่วงที่ต้อ
       <!-- Facebook like api -->
       <!-- <div id="fb&#45;root"></div> -->
       <!-- <script>(function(d, s, id) { -->
-      <!--   var js, fjs = d.getElementsByTagName(s)[0]; -->
-      <!--   if (d.getElementById(id)) return; -->
-      <!--   js = d.createElement(s); js.id = id; -->
-      <!--   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&#38;version=v2.9"; -->
-      <!--   fjs.parentNode.insertBefore(js, fjs); -->
-      <!-- }(document, 'script', 'facebook&#45;jssdk'));</script> -->
+        <!--   var js, fjs = d.getElementsByTagName(s)[0]; -->
+          <!--   if (d.getElementById(id)) return; -->
+          <!--   js = d.createElement(s); js.id = id; -->
+          <!--   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&#38;version=v2.9"; -->
+          <!--   fjs.parentNode.insertBefore(js, fjs); -->
+          <!-- }(document, 'script', 'facebook&#45;jssdk'));</script> -->
       <!-- <style media="screen"> -->
-      <!--   .fb_iframe_widget span -->
-      <!--     { -->
-      <!--     vertical&#45;align: baseline !important; -->
-      <!--   } -->
-      <!-- </style> -->
+<!--   .fb_iframe_widget span -->
+<!--     { -->
+  <!--     vertical&#45;align: baseline !important; -->
+  <!--   } -->
+  <!-- </style> -->
 
       <!-- Twitter widgets -->
       <!-- <script src="https://platform.twitter.com/widgets.js"></script> -->
 
       <!-- G+ script -->
       <!-- <script> -->
-      <!--   (function() { -->
-      <!--     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; -->
-      <!--     po.src = 'https://apis.google.com/js/plusone.js'; -->
-      <!--     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); -->
-      <!--   })(); -->
-      <!-- </script> -->
+        <!--   (function() { -->
+            <!--     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; -->
+            <!--     po.src = 'https://apis.google.com/js/plusone.js'; -->
+            <!--     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); -->
+            <!--   })(); -->
+            <!-- </script> -->
 
       <!-- pocket script -->
       <!-- <script>!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket&#45;btn&#45;js");</script> -->

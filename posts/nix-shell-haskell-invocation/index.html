@@ -2,13 +2,11 @@
 <html lang="en">
   <title>wizzup : Various ways to use GHC in nix-shell</title>
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="author" content="Wisut Hantanong">
     <meta name="description" content="wisut hantanong (wizzup)'s website.">
     <meta name="keywords" content="wisut,hantanong,wizzup,programming,python,haskell,nix,vim">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Facebook opengraph metadata -->
     <meta property="og:url" content="/posts/nix-shell-haskell-invocation/" />
     <meta property="og:type" content="website" />
@@ -46,10 +44,10 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
     <style media="screen" type="text/css">
-      .fb_iframe_widget span
-      {
-        vertical-align: baseline !important;
-      }
+.fb_iframe_widget span
+  {
+  vertical-align: baseline !important;
+}
     </style>
 
     <!-- Twitter widgets -->
@@ -57,11 +55,11 @@
 
     <!-- G+ script -->
     <script type="text/javascript">
-    (function() {
-      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-      po.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-    })();
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
     </script>
 
     <!-- pocket script -->
@@ -102,30 +100,30 @@
     <section class="main">
       <div class="container">
         <!-- <div class="content"> -->
-              <div class="text-muted">
-        Posted on July 29, 2017
-        
-    </div>
-    <div>
-        <br />
-        <style>
-  /* Icon when the collapsible content is shown */
-  .btn:after {
-    content: "less";
-  }
+        <div class="text-muted">
+          Posted on July 29, 2017
+
+        </div>
+        <div>
+          <br />
+          <style>
+/* Icon when the collapsible content is shown */
+.btn:after {
+  content: "less";
+}
   /* Icon when the collapsible content is hidden */
   .btn.collapsed:after {
     content: "more";
   }
-</style>
-<p>There are many ways to use GHC in nix-shell</p>
-<ol style="list-style-type: decimal">
-<li>System’s default GHC</li>
-</ol>
-<pre><code>$ nix-shell -p ghc</code></pre>
-<button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse1">
-</button>
-<pre id="collapse1" class="collapsing"><code>[nix-shell:~]$ ghc --version
+          </style>
+          <p>There are many ways to use GHC in nix-shell</p>
+          <ol style="list-style-type: decimal">
+            <li>System’s default GHC</li>
+          </ol>
+          <pre><code>$ nix-shell -p ghc</code></pre>
+          <button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse1">
+          </button>
+          <pre id="collapse1" class="collapsing"><code>[nix-shell:~]$ ghc --version
 The Glorious Glasgow Haskell Compilation System, version 8.0.2
 
 [nix-shell:~]$ ghc-pkg list
@@ -157,13 +155,13 @@ The Glorious Glasgow Haskell Compilation System, version 8.0.2
     transformers-0.5.2.0
     unix-2.7.2.1
     xhtml-3000.2.1</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>System’s default GHC with additional libraries</li>
-</ol>
-<pre><code>$ nix-shell -p 'haskellPackages.ghcWithPackages (self: with self; [ random ])'</code></pre>
-<button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse2">
-</button>
-<pre id="collapse2" class="collapsing"><code>[nix-shell:~]$ ghc-pkg list
+          <ol start="2" style="list-style-type: decimal">
+            <li>System’s default GHC with additional libraries</li>
+          </ol>
+          <pre><code>$ nix-shell -p 'haskellPackages.ghcWithPackages (self: with self; [ random ])'</code></pre>
+          <button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse2">
+          </button>
+          <pre id="collapse2" class="collapsing"><code>[nix-shell:~]$ ghc-pkg list
 /nix/store/d58zrdfijpj60pbwvg4cqmv8n9qcdq0d-ghc-8.0.2-with-packages/lib/ghc-8.0.2/package.conf.d
     Cabal-1.24.2.0
     array-0.5.1.1
@@ -193,13 +191,13 @@ The Glorious Glasgow Haskell Compilation System, version 8.0.2
     transformers-0.5.2.0
     unix-2.7.2.1
     xhtml-3000.2.1</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Specific version with libraries</li>
-</ol>
-<pre><code>$ nix-shell -p 'haskell.packages.ghc7103.ghcWithPackages (self: with self; [ random ])'</code></pre>
-<button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse3">
-</button>
-<pre id="collapse3" class="collapsing"><code>[nix-shell:~]$ ghc-pkg list
+          <ol start="3" style="list-style-type: decimal">
+            <li>Specific version with libraries</li>
+          </ol>
+          <pre><code>$ nix-shell -p 'haskell.packages.ghc7103.ghcWithPackages (self: with self; [ random ])'</code></pre>
+          <button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse3">
+          </button>
+          <pre id="collapse3" class="collapsing"><code>[nix-shell:~]$ ghc-pkg list
 /nix/store/r17mbj8100rp15v8xfq899lvjx7g80ir-ghc-7.10.3-with-packages/lib/ghc-7.10.3/package.conf.d
    Cabal-1.22.5.0
    array-0.5.1.0
@@ -227,10 +225,10 @@ The Glorious Glasgow Haskell Compilation System, version 8.0.2
    transformers-0.4.2.0
    unix-2.7.1.0
    xhtml-3000.2.1</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>with <code>shell.nix</code></li>
-</ol>
-<pre><code># shell.nix for nix-shell (haskell)
+          <ol start="4" style="list-style-type: decimal">
+            <li>with <code>shell.nix</code></li>
+          </ol>
+          <pre><code># shell.nix for nix-shell (haskell)
 
 { pkgs ? import &lt;nixpkgs&gt; {} }:
 
@@ -249,67 +247,67 @@ pkgs.stdenv.mkDerivation {
     export PS1=&quot;\[\033[1;32m\][ns-hs:\w]\n$ \[\033[0m\]&quot;
   '';
 }</code></pre>
-    </div>
+        </div>
 
-  <div>
-    <table>
-      <tr>
-        <td class="borderless">
-          <!-- Facebook like button -->
-          <div class="fb-like" data-href="https://wizzup.github.io/posts/nix-shell-haskell-invocation/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
-        </td>
+        <div>
+          <table>
+            <tr>
+              <td class="borderless">
+                <!-- Facebook like button -->
+                <div class="fb-like" data-href="https://wizzup.github.io/posts/nix-shell-haskell-invocation/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+              </td>
 
-        <td class="borderless">
-        <!-- twitter tweet button -->
-        <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wizzup.github.io/posts/nix-shell-haskell-invocation/" data-count="horizontal" data-via="wizzup">Tweet</a>
-        </td>
+              <td class="borderless">
+                <!-- twitter tweet button -->
+                <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://wizzup.github.io/posts/nix-shell-haskell-invocation/" data-count="horizontal" data-via="wizzup">Tweet</a>
+              </td>
 
-        <td class="borderless">
-        <!-- G+ button -->
-        <g:plusone size="medium" href="https://wizzup.github.io/posts/nix-shell-haskell-invocation/"></g:plusone>
-        </td>
+              <td class="borderless">
+                <!-- G+ button -->
+                <g:plusone size="medium" href="https://wizzup.github.io/posts/nix-shell-haskell-invocation/"></g:plusone>
+              </td>
 
-        <td class="borderless">
-        <!-- pocket button -->
-        <a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-lang="en"></a>
-        </td>
-      </tr>
-    </table>
-  </div>
+              <td class="borderless">
+                <!-- pocket button -->
+                <a data-pocket-label="pocket" data-pocket-count="horizontal" class="pocket-btn" data-lang="en"></a>
+              </td>
+            </tr>
+          </table>
+        </div>
 
-  <!-- <!&#45;&#45; facebook comments &#45;&#45;> -->
-  <!-- <div style="width:100%"> -->
-  <!--   <div class="fb&#45;comments" -->
-  <!--        data&#45;href="https://wizzup.github.io/posts/nix-shell-haskell-invocation/" -->
-  <!--        data&#45;numposts="3" /> -->
-  <!-- </div> -->
+        <!-- <!&#45;&#45; facebook comments &#45;&#45;> -->
+        <!-- <div style="width:100%"> -->
+        <!--   <div class="fb&#45;comments" -->
+        <!--        data&#45;href="https://wizzup.github.io/posts/nix-shell-haskell-invocation/" -->
+        <!--        data&#45;numposts="3" /> -->
+        <!-- </div> -->
 
-  <div>
-    <div id="disqus_thread"></div>
-    <script>
+        <div>
+          <div id="disqus_thread"></div>
+          <script>
 
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-    /*
+            /**
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
     var disqus_config = function () {
       this.page.url = https://wizzup.github.io/posts/nix-shell-haskell-invocation/;
       this.page.title = Various ways to use GHC in nix-shell;
       this.page.identifier = posts/nix-shell-haskell-invocation.md;
     };
-    */
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://wizzup.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
+ */
+(function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://wizzup.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
 
         <!-- </div> -->
-      </div>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -336,15 +334,15 @@ pkgs.stdenv.mkDerivation {
 
     <pre style="display: none;">
       <code>
-      title        Various ways to use GHC in nix-shell    
-      url            /posts/nix-shell-haskell-invocation/      
-      path          posts/nix-shell-haskell-invocation.md     
-      date          July 29, 2017     
-      author   
-      metadata 
-      missing  
-      teaser   
-      snippet  
+      title        Various ways to use GHC in nix-shell
+      url            /posts/nix-shell-haskell-invocation/
+      path          posts/nix-shell-haskell-invocation.md
+      date          July 29, 2017
+      author
+      metadata
+      missing
+      teaser
+      snippet
       </code>
     </pre>
 

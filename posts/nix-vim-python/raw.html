@@ -2,9 +2,8 @@
 <html lang="en">
   <title>Nix, Vim and Python</title>
   <body><p>This is how I setup nix-shell environments vim and pyyaml.</p>
-<p>This is <code>shelll.nix</code> contents</p>
-<pre><code>{ pkgs ? import &lt;nixpkgs&gt; {} }:
-
+    <p>This is <code>shelll.nix</code> contents</p>
+    <pre><code>{ pkgs ? import &lt;nixpkgs&gt; {} }:
 with pkgs;
 
 let py3s = pkgs.python3.buildEnv.override  {

@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     <title>wizzup: nix-shell is like virtualenv for everything</title>
-
-    <!-- icon -->
     <link rel="icon" href="../../images/favicon.ico">
 
     <!-- Required meta tags for site -->
@@ -39,16 +37,16 @@
         <a class="navbar-brand" href="../../">
           <img src="../../images/home-sketch.png" alt="Home">
         </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <!-- <a class="nav&#45;item nav&#45;link active" href="#">Home <span class="sr&#45;only">(current)</span></a> -->
-              <a class="nav-item nav-link" href="../../archive">Archive</a>
-              <a class="nav-item nav-link" href="../../about">About</a>
-            </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <!-- <a class="nav&#45;item nav&#45;link active" href="#">Home <span class="sr&#45;only">(current)</span></a> -->
+            <a class="nav-item nav-link" href="../../archive">Archive</a>
+            <a class="nav-item nav-link" href="../../about">About</a>
           </div>
+        </div>
       </nav>
 
       <!-- Main title -->
@@ -63,86 +61,86 @@
     <main>
       <section class="main">
         <div class="container">
-              <div class="text-muted">
-        Posted on June  7, 2017
-        
-    </div>
-    <div>
-        <br />
-        <p><em>nix-shell</em> can be use to make isolated environment with desired package installed.</p>
-<p>It is better than <em>installed everything globally</em> which might lead to <em>dependency conflicted</em>. You should only installed what you need.</p>
-<p>I’ve try <em>nix-shell</em> with <em>ghc</em> and <em>python</em> and it work.</p>
-<p>The simple use case is just pass <em>-i &lt;packages&gt;</em> to <em>nix-shell</em> and you have python available to use.</p>
-<pre class="shell"><code>$ nix-shell -i python
+          <div class="text-muted">
+            Posted on June  7, 2017
+
+          </div>
+          <div>
+            <br />
+            <p><em>nix-shell</em> can be use to make isolated environment with desired package installed.</p>
+            <p>It is better than <em>installed everything globally</em> which might lead to <em>dependency conflicted</em>. You should only installed what you need.</p>
+            <p>I’ve try <em>nix-shell</em> with <em>ghc</em> and <em>python</em> and it work.</p>
+            <p>The simple use case is just pass <em>-i &lt;packages&gt;</em> to <em>nix-shell</em> and you have python available to use.</p>
+            <pre class="shell"><code>$ nix-shell -i python
 [nix-shell:]$ python --version
 Python 2.7.13
 
 $ nix-shell -p python3
 [nix-shell:]$ python --version
 Python 3.6.1</code></pre>
-<p>GHC example:</p>
-<pre class="shell"><code>$ nix-shell -i python
+            <p>GHC example:</p>
+            <pre class="shell"><code>$ nix-shell -i python
 [nix-shell:]$ python --version
 Python 2.7.13
 
 $ nix-shell -p python3
 [nix-shell:]$ python --version
 Python 3.6.1</code></pre>
-<p><em>nix-shell</em> configuration is done via <em>shell.nix</em> or <em>default.nix</em></p>
-<p>Examples: <a href="../nix-vim-haskell">Haskell</a>, and <a href="../nix-vim-python">Python</a></p>
-    </div>
+            <p><em>nix-shell</em> configuration is done via <em>shell.nix</em> or <em>default.nix</em></p>
+            <p>Examples: <a href="../nix-vim-haskell">Haskell</a>, and <a href="../nix-vim-python">Python</a></p>
+          </div>
 
-  <!-- socials -->
-  <!-- <div> -->
-  <!--   <table> -->
-  <!--     <tr> -->
-  <!--       <td class="borderless" > -->
-  <!--         <!&#45;&#45; Facebook like button &#45;&#45;> -->
-  <!--         <div class="fb&#45;like" -->
-  <!--             data&#45;href="https://wizzup.github.io/posts/nix-shell-virtualenv/" -->
-  <!--             data&#45;layout="button_count" -->
-  <!--             data&#45;action="like" -->
-  <!--             data&#45;size="small" -->
-  <!--             data&#45;show&#45;faces="false" -->
-  <!--             data&#45;share="false" /> -->
-  <!--       </td> -->
-  <!--  -->
-  <!--       <td class="borderless" > -->
-  <!--       <!&#45;&#45; twitter tweet button &#45;&#45;> -->
-  <!--       <a href="https://twitter.com/share" -->
-  <!--         class="twitter&#45;share&#45;button" -->
-  <!--         data&#45;url="https://wizzup.github.io/posts/nix-shell-virtualenv/" -->
-  <!--         data&#45;count="horizontal" -->
-  <!--         data&#45;via="wizzup">Tweet</a> -->
-  <!--       </td> -->
-  <!--  -->
-  <!--       <td class="borderless" > -->
-  <!--       <!&#45;&#45; G+ button &#45;&#45;> -->
-  <!--       <g:plusone -->
-  <!--         size="medium" -->
-  <!--         href="https://wizzup.github.io/posts/nix-shell-virtualenv/"/> -->
-  <!--       </td> -->
-  <!--  -->
-  <!--       <td class="borderless" > -->
-  <!--       <!&#45;&#45; pocket button &#45;&#45;> -->
-  <!--       <a data&#45;pocket&#45;label="pocket" data&#45;pocket&#45;count="horizontal" class="pocket&#45;btn" data&#45;lang="en"></a> -->
-  <!--       </td> -->
-  <!--     </tr> -->
-  <!--   </table> -->
-  <!-- </div> -->
+          <!-- socials -->
+          <!-- <div> -->
+          <!--   <table> -->
+          <!--     <tr> -->
+          <!--       <td class="borderless" > -->
+          <!--         <!&#45;&#45; Facebook like button &#45;&#45;> -->
+          <!--         <div class="fb&#45;like" -->
+          <!--             data&#45;href="https://wizzup.github.io/posts/nix-shell-virtualenv/" -->
+          <!--             data&#45;layout="button_count" -->
+          <!--             data&#45;action="like" -->
+          <!--             data&#45;size="small" -->
+          <!--             data&#45;show&#45;faces="false" -->
+          <!--             data&#45;share="false" /> -->
+          <!--       </td> -->
+          <!--  -->
+          <!--       <td class="borderless" > -->
+          <!--       <!&#45;&#45; twitter tweet button &#45;&#45;> -->
+          <!--       <a href="https://twitter.com/share" -->
+          <!--         class="twitter&#45;share&#45;button" -->
+          <!--         data&#45;url="https://wizzup.github.io/posts/nix-shell-virtualenv/" -->
+          <!--         data&#45;count="horizontal" -->
+          <!--         data&#45;via="wizzup">Tweet</a> -->
+          <!--       </td> -->
+          <!--  -->
+          <!--       <td class="borderless" > -->
+          <!--       <!&#45;&#45; G+ button &#45;&#45;> -->
+          <!--       <g:plusone -->
+          <!--         size="medium" -->
+          <!--         href="https://wizzup.github.io/posts/nix-shell-virtualenv/"/> -->
+          <!--       </td> -->
+          <!--  -->
+          <!--       <td class="borderless" > -->
+          <!--       <!&#45;&#45; pocket button &#45;&#45;> -->
+          <!--       <a data&#45;pocket&#45;label="pocket" data&#45;pocket&#45;count="horizontal" class="pocket&#45;btn" data&#45;lang="en"></a> -->
+          <!--       </td> -->
+          <!--     </tr> -->
+          <!--   </table> -->
+          <!-- </div> -->
 
-  <!-- facebook comments -->
-  <!-- <div style="width:100%"> -->
-  <!--   <div class="fb&#45;comments" -->
-  <!--        data&#45;href="https://wizzup.github.io/posts/nix-shell-virtualenv/" -->
-  <!--        data&#45;numposts="3" /> -->
-  <!-- </div> -->
+          <!-- facebook comments -->
+          <!-- <div style="width:100%"> -->
+          <!--   <div class="fb&#45;comments" -->
+          <!--        data&#45;href="https://wizzup.github.io/posts/nix-shell-virtualenv/" -->
+          <!--        data&#45;numposts="3" /> -->
+          <!-- </div> -->
 
-  <!-- disqus comments -->
-  <!-- <div> -->
-  <!--   <div id="disqus_thread"></div> -->
-  <!--   <script> -->
-  <!--  -->
+          <!-- disqus comments -->
+          <!-- <div> -->
+          <!--   <div id="disqus_thread"></div> -->
+          <!--   <script> -->
+            <!--  -->
   <!--   /** -->
   <!--   *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS. -->
   <!--   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration&#45;variables*/ -->
@@ -154,16 +152,16 @@ Python 3.6.1</code></pre>
   <!--   }; -->
   <!--  -->
   <!--   (function() { // DON'T EDIT BELOW THIS LINE -->
-  <!--   var d = document, s = d.createElement('script'); -->
+<!--   var d = document, s = d.createElement('script'); -->
   <!--   s.src = 'https://wizzup.disqus.com/embed.js'; -->
   <!--   s.setAttribute('data&#45;timestamp', +new Date()); -->
   <!--   (d.head || d.body).appendChild(s); -->
   <!--   })(); -->
   <!--   </script> -->
-  <!--   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
-  <!-- </div> -->
+          <!--   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> -->
+          <!-- </div> -->
 
-        </div>
+          </div>
       </section>
     </main>
 
@@ -206,15 +204,15 @@ Python 3.6.1</code></pre>
     <section>
       <pre style="display: none;">
         <code>
-        title        nix-shell is like virtualenv for everything    
-        url            /posts/nix-shell-virtualenv/      
-        path          posts/nix-shell-virtualenv.tex     
-        date          June  7, 2017     
-        author   
-        metadata 
-        missing  
-        teaser   
-        snippet  
+        title        nix-shell is like virtualenv for everything
+        url            /posts/nix-shell-virtualenv/
+        path          posts/nix-shell-virtualenv.tex
+        date          June  7, 2017
+        author
+        metadata
+        missing
+        teaser
+        snippet
         </code>
       </pre>
     </section>
@@ -224,30 +222,30 @@ Python 3.6.1</code></pre>
       <!-- Facebook like api -->
       <!-- <div id="fb&#45;root"></div> -->
       <!-- <script>(function(d, s, id) { -->
-      <!--   var js, fjs = d.getElementsByTagName(s)[0]; -->
-      <!--   if (d.getElementById(id)) return; -->
-      <!--   js = d.createElement(s); js.id = id; -->
-      <!--   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&#38;version=v2.9"; -->
-      <!--   fjs.parentNode.insertBefore(js, fjs); -->
-      <!-- }(document, 'script', 'facebook&#45;jssdk'));</script> -->
+        <!--   var js, fjs = d.getElementsByTagName(s)[0]; -->
+          <!--   if (d.getElementById(id)) return; -->
+          <!--   js = d.createElement(s); js.id = id; -->
+          <!--   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&#38;version=v2.9"; -->
+          <!--   fjs.parentNode.insertBefore(js, fjs); -->
+          <!-- }(document, 'script', 'facebook&#45;jssdk'));</script> -->
       <!-- <style media="screen"> -->
-      <!--   .fb_iframe_widget span -->
-      <!--     { -->
-      <!--     vertical&#45;align: baseline !important; -->
-      <!--   } -->
-      <!-- </style> -->
+<!--   .fb_iframe_widget span -->
+<!--     { -->
+  <!--     vertical&#45;align: baseline !important; -->
+  <!--   } -->
+  <!-- </style> -->
 
       <!-- Twitter widgets -->
       <!-- <script src="https://platform.twitter.com/widgets.js"></script> -->
 
       <!-- G+ script -->
       <!-- <script> -->
-      <!--   (function() { -->
-      <!--     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; -->
-      <!--     po.src = 'https://apis.google.com/js/plusone.js'; -->
-      <!--     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); -->
-      <!--   })(); -->
-      <!-- </script> -->
+        <!--   (function() { -->
+            <!--     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; -->
+            <!--     po.src = 'https://apis.google.com/js/plusone.js'; -->
+            <!--     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); -->
+            <!--   })(); -->
+            <!-- </script> -->
 
       <!-- pocket script -->
       <!-- <script>!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket&#45;btn&#45;js");</script> -->
