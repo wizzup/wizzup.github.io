@@ -1,1 +1,37 @@
-blockquote{display:block;padding:6px 10px;border:2px solid #ddd;border-radius:5px;background-color:#f0f0f0}table{border-collapse:collapse}th,td{border:1px solid gray}th{text-align:center;padding:4px}td{text-align:left;padding:2px}td.borderless{border:none}
+body {
+  font-family: 'Fira Sans', sans-serif; /* from google webfonts */
+}
+
+pre code {
+  font-family: 'Fira Mono', monospace; /* from google webfonts */
+}
+
+blockquote {
+    display: block;
+    padding: 6px 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+}
+
+table {
+   border-collapse: collapse;
+}
+
+th, td {
+   border: 1px solid gray;
+}
+
+th {
+   text-align: center;
+   padding: 4px;
+}
+
+td {
+   text-align: left;
+   padding: 2px;
+}
+
+td.borderless {
+  border: none;
+}

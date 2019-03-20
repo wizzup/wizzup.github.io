@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /draft/
+
+Sitemap: https://www.wizzup.com/sitemap.xml
