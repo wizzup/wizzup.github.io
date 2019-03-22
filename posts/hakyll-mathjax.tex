@@ -8,21 +8,21 @@ date: 2017-06-02
 
 Using $MathJax$ with $Hakyll$
 
-\begin{verbatim}
+\begin{minted}{haskell}
 let readerOptions = defaultHakyllReaderOptions
-let writerOptions = defaultHakyllWriterOptions { writerHTMLMathMethod = MathJax "" }
+let writerOptions = defaultHakyllWriterOptions
+                    { writerHTMLMathMethod = MathJax "" }
 
 pandocCompilerWith readerOptions writerOptions
 
-\end{verbatim}
+\end{minted}
 
 and add $MathJax$ script to global html template
 
-\begin{verbatim}
+\begin{minted}{html}
 <script type="text/javascript" async
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
-
-\end{verbatim}
+\end{minted}
 
 \end{document}

@@ -6,16 +6,18 @@ date: 2017-07-20
 เมื่อต้องการแก้ไข commit message
 
 **ระดับ 1:** แก้ข้อความล่าสุด
-
-    git commit --amend -m "ข้อความใหม่"
-
+```
+git commit --amend -m "ข้อความใหม่"
+```
 **ระดับ 2:** แก้ข้อความจำนวนน้อยทีละข้อความ
 
-    git rebase -i <rev_before>
+```
+git rebase -i <rev_before>
+```
 
 จะมี rebase todo-list ขึ้นมา เลือก `reword` กับ commit ที่ต้องการแก้ไขแล้วบันทึก จากนั้น git จะเรียก editor ขึ้นมาให้แก้ข้อความเมื่อถึงคิวของ commit นั้น (แก้ใน rebase-todo ไม่ได้ จะถูกโยนทิ้งไป)
 
-```git
+```
 pick db96dee move newpost.sh out from posts
 reword 4cd9e33 2017-06-02
 pick f19d2af add socials features

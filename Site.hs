@@ -1,8 +1,8 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
+
 import Data.List           (isSuffixOf)
 import Data.Monoid         (mappend)
--- import Data.Set            (insert, delete)
 import Hakyll
 import System.FilePath
 import Text.Pandoc.Options
@@ -10,6 +10,8 @@ import Text.Pandoc.Options
 --------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
+
+    -- static files
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
@@ -23,11 +25,18 @@ main = hakyll $ do
         route   idRoute
         compile copyFileCompiler
 
+    -- search engine files
+    match (fromList ["robots.txt", "google9b5d7c8afd9c3a00.html"]) $ do
+        route   idRoute
+        compile copyFileCompiler
+
+    -- testing files
     match "style-test.html" $ do
         route   idRoute
         compile $ getResourceString
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
 
+    -- templates
     match "templates/*" $ compile templateBodyCompiler
 
     -- top-level pages :: /<page>/index.html
@@ -105,7 +114,6 @@ main = hakyll $ do
                 makeItem ""
                     >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
 
-
     -- main index.html
     match "index.tex" $ do
         route $ setExtension "html"
@@ -128,15 +136,12 @@ main = hakyll $ do
 --                   { writerHTMLMathMethod = MathJax "" }
 
 pandocReaderOptions :: ReaderOptions
-pandocReaderOptions = def readerExtensions
-  -- {
-  --   -- readerSmart      = True,
-  --   -- Yes, HTML5 figures are fancy, but I prefer a simple p > img.
-  --   -- I also need fenced code blocks.
-  --   -- readerExtensions = delete Ext_implicit_figures     $
-  --   --                    insert Ext_backtick_code_blocks $
-  --   --                    readerExtensions def
-  -- }
+pandocReaderOptions = def { readerExtensions = foldr enableExtension
+                            githubMarkdownExtensions [
+                              Ext_fenced_code_attributes
+                            , Ext_raw_attribute
+                            ]
+                          }
 
 pandocWriterOptions :: WriterOptions
 pandocWriterOptions = def

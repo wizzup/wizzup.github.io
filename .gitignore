@@ -7,12 +7,13 @@ result
 
 ## draft posts
 draft/
+TODO.md
 
 ## use hpack to generate cabal file
 *.cabal
 
 ## build artifacts
-.ghc.environment.x86_64-linux-8.4.4
+.ghc.environment.*
 dist-newstyle/
 
 ## old files

@@ -2,28 +2,16 @@
 date: 2017-07-29
 title: Various ways to use GHC in nix-shell
 ---
-<style>
-  /* Icon when the collapsible content is shown */
-  .btn:after {
-    content: "less";
-  }
-  /* Icon when the collapsible content is hidden */
-  .btn.collapsed:after {
-    content: "more";
-  }
-</style>
 
-There are many ways to use GHC in nix-shell
+There are vairous ways to use GHC in nix-shell
 
 1. System's default GHC
 
-~~~
+```
 $ nix-shell -p ghc
-~~~
+```
 
-<button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse1"></button>
-
-~~~{#collapse1 .collapsing}
+```
 [nix-shell:~]$ ghc --version
 The Glorious Glasgow Haskell Compilation System, version 8.0.2
 
@@ -56,17 +44,15 @@ The Glorious Glasgow Haskell Compilation System, version 8.0.2
     transformers-0.5.2.0
     unix-2.7.2.1
     xhtml-3000.2.1
-~~~
+```
 
 2. System's default GHC with additional libraries
 
-~~~
+```
 $ nix-shell -p 'haskellPackages.ghcWithPackages (self: with self; [ random ])'
-~~~
+```
 
-<button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse2"></button>
-
-~~~{#collapse2 .collapsing}
+```
 [nix-shell:~]$ ghc-pkg list
 /nix/store/d58zrdfijpj60pbwvg4cqmv8n9qcdq0d-ghc-8.0.2-with-packages/lib/ghc-8.0.2/package.conf.d
     Cabal-1.24.2.0
@@ -97,17 +83,15 @@ $ nix-shell -p 'haskellPackages.ghcWithPackages (self: with self; [ random ])'
     transformers-0.5.2.0
     unix-2.7.2.1
     xhtml-3000.2.1
-~~~
+```
 
-3. Specific version with libraries
+3. Specific `ghc` version with specific libraries
 
-~~~
+```
 $ nix-shell -p 'haskell.packages.ghc7103.ghcWithPackages (self: with self; [ random ])'
-~~~
+```
 
-<button type="button" class="btn collapsed" data-toggle="collapse" data-target="#collapse3"></button>
-
-~~~{#collapse3 .collapsing}
+```
 [nix-shell:~]$ ghc-pkg list
 /nix/store/r17mbj8100rp15v8xfq899lvjx7g80ir-ghc-7.10.3-with-packages/lib/ghc-7.10.3/package.conf.d
    Cabal-1.22.5.0
@@ -136,11 +120,11 @@ $ nix-shell -p 'haskell.packages.ghc7103.ghcWithPackages (self: with self; [ ran
    transformers-0.4.2.0
    unix-2.7.1.0
    xhtml-3000.2.1
-~~~
+```
 
-4. with `shell.nix`
+4. Writing `shell.nix` for more complex usage
 
-~~~
+```
 # shell.nix for nix-shell (haskell)
 
 { pkgs ? import <nixpkgs> {} }:
@@ -151,7 +135,7 @@ let
           split
         ]);
 in
-pkgs.stdenv.mkDerivation {
+pkgs.mkShell {
   name = "haskell-shell";
   buildInputs = with pkgs.haskellPackages; [ ghc cabal-install ghc-mod hlint ];
 
@@ -160,4 +144,4 @@ pkgs.stdenv.mkDerivation {
     export PS1="\[\033[1;32m\][ns-hs:\w]\n$ \[\033[0m\]"
   '';
 }
-~~~
+```

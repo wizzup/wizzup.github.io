@@ -13,27 +13,27 @@ I've try \textit{nix-shell} with \textit{ghc} and \textit{python} and it work.
 
 The simple use case is just pass \textit{-i <packages>} to \textit{nix-shell} and you have python available to use.
 
-\begin{verbatim}
-  $ nix-shell -i python
-  [nix-shell:]$ python --version
-  Python 2.7.13
+\begin{minted}{shell}
+$ nix-shell -i python
+[nix-shell:]$ python --version
+Python 2.7.13
 
-  $ nix-shell -p python3
-  [nix-shell:]$ python --version
-  Python 3.6.1
-\end{verbatim}
+$ nix-shell -p python3
+[nix-shell:]$ python --version
+Python 3.6.1
+\end{minted}
 
 GHC example:
 
-\begin{verbatim}
-  $ nix-shell -i python
-  [nix-shell:]$ python --version
-  Python 2.7.13
+\begin{minted}{shell}
+$ nix-shell -i python
+[nix-shell:]$ python --version
+Python 2.7.13
 
-  $ nix-shell -p python3
-  [nix-shell:]$ python --version
-  Python 3.6.1
-\end{verbatim}
+$ nix-shell -p python3
+[nix-shell:]$ python --version
+Python 3.6.1
+\end{minted}
 
 
 \textit{nix-shell} configuration is done via \textit{shell.nix} or \textit{default.nix}

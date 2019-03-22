@@ -3,8 +3,8 @@ version: 1.0.0
 synopsis: wizzup website
 maintainer: Wisut Hantanong
 author: Wisut Hantanong
-copyright: 2018 Wisut Hantanong
-github: wizzup/wizzup-github-io
+copyright: Wisut Hantanong
+github: wizzup/wizzup.github.io
 
 ghc-options:
 - -Wall
@@ -15,7 +15,7 @@ dependencies:
 
 executables:
   site:
-    main: site.hs
+    main: Site.hs
     ghc-options:
     - -threaded
     dependencies:

@@ -5,9 +5,9 @@ date: 2017-06-02
 
 This is how I setup nix-shell environments vim and pyyaml.
 
-This is `shelll.nix`
+This is `shelll.nix` contents
 
-``` nix
+```
 { pkgs ? import <nixpkgs> {} }:
 
 with pkgs;

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 $for(entries)$
     <url>
-        <loc>$url$</loc>
+      <loc>https://wizzup.com$url$</loc>
         $if(dateNum)$<lastmod>$dateNum$</lastmod>$endif$
     </url>
 $endfor$

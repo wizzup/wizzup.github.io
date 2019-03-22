@@ -1,3 +1,11 @@
+body {
+  font-family: 'Fira Sans', sans-serif; /* from google webfonts */
+}
+
+pre code {
+  font-family: 'Fira Mono', monospace; /* from google webfonts */
+}
+
 blockquote {
     display: block;
     padding: 6px 10px;
@@ -27,4 +35,3 @@ td {
 td.borderless {
   border: none;
 }
-

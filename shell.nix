@@ -11,7 +11,8 @@ let
 
   hsPcks = with haskellPackages;
          [ cabal-install hpack
-           hlint hie84 ghc-mod84
+           # hlint
+           # hie86 ghc-mod86
          ];
 
   pyPcks = with python3Packages;
@@ -23,8 +24,3 @@ let
   });
 
 in dev
-
-# (import ./.).shellFor {
-#   packages = p: with p; [ site cabal-install stack hlint hie84 ghc-mod84];
-#   withHoogle = true;
-# }
