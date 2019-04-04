@@ -35,3 +35,7 @@ td {
 td.borderless {
   border: none;
 }
+
+.footer-r {
+  float: right;
+}

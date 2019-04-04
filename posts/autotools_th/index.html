@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>wizzup: Autotools ตามที่เข้าใจ - Hello world</title>
+
+    <!-- icon -->
+    <link rel="icon" href="../../images/favicon.ico">
+
+    <!-- Required meta tags for site -->
+    <meta charset="utf-8">
+    <meta name="author" content="Wisut Hantanong" />
+    <meta name="description" content="wisut hantanong (wizzup)'s website." />
+    <meta name="keywords" content="wisut,hantanong,wizzup,programming,python,haskell,nix,vim" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- twitter metadata -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="wizzup: Autotools ตามที่เข้าใจ - Hello world" />
+    <meta name="twitter:description" content=" <p>บทความนี้นำเสนอตัวอย่างการสร้าง <code>Hello world</code> application ที่เขียนด้วยภาษา <code>C</code> โดยใช้ <code>GNU autotools</code> เป็นเครื่องมือจัดการโครงการในระดับเบื้องต้น  " />
+    <meta name="twitter:site" content="@wizzup" />
+    <meta name="twitter:creator" content="@wizzup" />
+
+    <!-- Facebook metadata -->
+    <meta property="fb:app_id" content="422764088544273" />
+
+    <!-- opengraph metadata -->
+    <meta property="og:url" content="https://wizzup.com/posts/autotools_th/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="wizzup" />
+    <meta property="og:title" content="wizzup: Autotools ตามที่เข้าใจ - Hello world" />
+    <meta property="og:description" content=" <p>บทความนี้นำเสนอตัวอย่างการสร้าง <code>Hello world</code> application ที่เขียนด้วยภาษา <code>C</code> โดยใช้ <code>GNU autotools</code> เป็นเครื่องมือจัดการโครงการในระดับเบื้องต้น  " />
+    <meta property="og:image" content="https://wizzup.com/images/ogimage-def.gif" />
+
+    <!-- canonical link -->
+    <link rel="canonical" href="https://wizzup.com/posts/autotools_th/" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- override default CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono|Fira+Sans" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/default.css" />
+
+    <!-- override sourcecode CSS -->
+    <link rel="stylesheet" href="../../css/sourcecode.css" />
+
+  </head>
+
+  <body>
+    <header>
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="../../">
+          <img src="../../images/home-sketch.png" alt="Home">
+        </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <!-- <a class="nav&#45;item nav&#45;link active" href="#">Home <span class="sr&#45;only">(current)</span></a> -->
+              <a class="nav-item nav-link" href="../../archive">Archive</a>
+              <a class="nav-item nav-link" href="../../about">About</a>
+            </div>
+          </div>
+      </nav>
+
+      <!-- Main title -->
+      <section class="jumbotron">
+        <div class="container">
+          <h2 class="jumbotron-heading">Autotools ตามที่เข้าใจ - Hello world</h2>
+        </div>
+      </section>
+    </header>
+
+    <!-- Body -->
+    <main>
+      <section class="main">
+        <div class="container">
+              <div class="text-muted">
+        Posted on April  4, 2019
+        
+    </div>
+    <div>
+        <br />
+        <p>บทความนี้นำเสนอตัวอย่างการสร้าง <code>Hello world</code> application ที่เขียนด้วยภาษา <code>C</code> โดยใช้ <code>GNU autotools</code> เป็นเครื่องมือจัดการโครงการในระดับเบื้องต้น <!--more--> ตัวอย่างโครงการขนาดเล็กมีไฟล์ source เพียงไฟล์เดียว ไม่รวมการใช้งาน library ภายนอก, เครื่องมือเสริมของ <code>autotools</code> (เช่น <code>aclocal</code>, <code>autoheader</code>, <code>libtool</code>) และโครงการขนาดใหญ่ ที่มีไฟล์ header และ source จำนวนมาก</p>
+<p>ไฟล์ที่สร้างขึ้นทั้งหมด อยู่ใน <a href="https://gist.github.com/wizzup/1298a13da32ab80bff7ca2856e5e2b67">gist</a></p>
+<p><img src="https://devmanual.gentoo.org/general-concepts/autotools/diagram.png" /></p>
+<p>รูปประกอบจาก <a href="https://devmanual.gentoo.org/general-concepts/autotools/">gentoo.org</a> (CC BY-SA 3.0)</p>
+<ul>
+<li><p><code>autoconf</code> ช่วยในการค้นหาและตั้งค่าเครื่องมือที่จำเป็นต้องใช้เช่น compiler, library และสร้าง <code>Makefile</code></p></li>
+<li><p><code>automake</code> สร้าง <code>Makefile.in</code> จากโครงแบบ <code>Makefile.am</code></p></li>
+</ul>
+<p>ในการใช้งานปกติ สามารถใช้ <code>autoreconf</code> ซึ่งเป็น script ในระดับที่<a href="https://stackoverflow.com/questions/27285052/difference-between-autoconf-and-autoreconf">สูงกว่า</a> ไม่จำเป็นต้องเรียกใช้ <code>autoconf</code> และ <code>automake</code> เอง</p>
+<h2 id="0-สิ่งที่ต้องติดตั้งเรียบร้อยแล้วได้แก่-automake-autoconf-และ-c-compiler-gcc">0. สิ่งที่ต้องติดตั้งเรียบร้อยแล้วได้แก่ <code>automake</code>, <code>autoconf</code> และ C compiler (<code>gcc</code>)</h2>
+<pre><code>$ automake --version
+automake (GNU automake) 1.16.1
+...
+
+$ autoconf --version
+autoconf (GNU Autoconf) 2.69
+...
+
+$ cc --version
+gcc (GCC) 7.4.0
+...</code></pre>
+<h2 id="1-เริ่มต้นด้วยไฟล์ที่จำเป็น-configureac-และ-makefileam">1. เริ่มต้นด้วยไฟล์ที่จำเป็น <code>configure.ac</code> และ <code>Makefile.am</code></h2>
+<h3 id="11-configureac-สร้างใหม่หรือแก้จากต้นแบบ-configurescan-ที่สร้างด้วย-autoscan">1.1 <code>configure.ac</code> สร้างใหม่หรือแก้จากต้นแบบ <code>configure.scan</code> ที่สร้างด้วย <code>autoscan</code></h3>
+<p>ไฟล์ <code>configure.ac</code> อาจพบอยู่ในชื่อ <code>configure.in</code> ในบางโครงการที่เป็นโครงการเก่า อย่างไรก็ตาม <a href="https://stackoverflow.com/questions/3782994/any-difference-between-configure-ac-and-configure-in-and-makefile-am-and-makefi">แนะนำ</a>ให้ใช้ <code>.ac</code> สำหรับโครงการใหม่ เพื่อบ่งชี้ว่าเป็น input ของ <code>autoconf</code> และไม่ให้สับสนกับ <code>.in</code> ทีสร้างระหว่างการทำงานของเครื่องมืออื่น</p>
+<script src="https://gist.github.com/wizzup/1298a13da32ab80bff7ca2856e5e2b67.js?file=configure.ac"></script>
+<!-- ``` -->
+<!-- # กำหนด version ต่ำสุด ของ autoconf -->
+<!-- AC_PREREQ([2.69]) -->
+<!--  -->
+<!-- # ตั้งชื่อ package, version และ ช่องทางสำหรับรายงาน bug -->
+<!-- AC_INIT([hello], [0.0.1], [hello-bug@example.com]) -->
+<!--  -->
+<!-- # ตั้งค่าเริ่มต้น automake (foreign หมายถึงไม่ใช่ GNU project คือไม่ต้องมี README, INSTALL, ..) -->
+<!-- AM_INIT_AUTOMAKE([foreign]) -->
+<!--  -->
+<!-- # บอก autoconf ให้ใช้สร้าง Makefile (จาก Makefile.in) -->
+<!-- AC_CONFIG_FILES([Makefile]) -->
+<!--  -->
+<!-- # ตรวจสอบ compiler (C)่่ -->
+<!-- AC_PROG_CC -->
+<!--  -->
+<!-- # สร้าง configure script และ Makefile -->
+<!-- AC_OUTPUT -->
+<!-- ``` -->
+<h3 id="12-makefileam-สร้างใหม่">1.2 <code>Makefile.am</code> สร้างใหม่</h3>
+<script src="https://gist.github.com/wizzup/1298a13da32ab80bff7ca2856e5e2b67.js?file=Makefile.am"></script>
+<!-- ``` -->
+<!-- # สร้าง binary ชื่อ hello -->
+<!-- bin_PROGRAMS = hello -->
+<!--  -->
+<!-- # สร้าง hello จาก main.c -->
+<!-- hello_SOURCES = main.c -->
+<!-- ``` -->
+<h3 id="13-mainc-สร้างใหม่">1.3 <code>main.c</code> สร้างใหม่</h3>
+<script src="https://gist.github.com/wizzup/1298a13da32ab80bff7ca2856e5e2b67.js?file=main.c"></script>
+<!-- ``` -->
+<!-- #include<stdio.h> -->
+<!--  -->
+<!-- int main(void){ -->
+<!--   printf("Hello World\n"); -->
+<!-- } -->
+<!-- ``` -->
+<h2 id="2-script-และ-application">2. script และ application</h2>
+<h3 id="21-configure-script">2.1 <code>configure</code> script</h3>
+<p>เรียก <code>autoreconf</code> เพื่อสร้าง <code>configure</code> (ถ้าพบปัญหาอาจต้องใช้ <code>autoreconf -f</code> ร่วมกับ <code>automake --add-missing</code>)</p>
+<pre><code>$ autoreconf --install</code></pre>
+<p>GNU package ระดับมืออาชีพ อาจมีแถม <code>autogen.sh</code> script เพื่อสร้าง <code>configure</code> script ในลักษณะเดียวกัน</p>
+<pre><code>#! /bin/sh
+
+aclocal \
+&amp;&amp; automake --add-missing \
+&amp;&amp; autoconf</code></pre>
+<p>อย่างไรก็ตามข้อมูลจาก<a href="https://stackoverflow.com/questions/1970926/whats-the-point-of-aclocal">บางแหล่ง</a>ชึ้ว่า <code>aclocal</code> อาจไม่จำเป็นต้องใช้</p>
+<h3 id="22-makefile">2.2 <code>Makefile</code></h3>
+<p>เรียก <code>configure</code> เพื่อสร้าง <code>Makefile</code></p>
+<pre><code>$ ./configure
+checking for a BSD-compatible install... /nix/store/d9s1kq1bnwqgxwcvv4zrc36ysnxg8gv7-coreutils-8.30/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /nix/store/d9s1kq1bnwqgxwcvv4zrc36ysnxg8gv7-coreutils-8.30/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables...
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking whether gcc understands -c and -o together... yes
+checking whether make supports the include directive... yes (GNU style)
+checking dependency style of gcc... none
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+    config.status: creating Makefile
+config.status: executing depfiles commands</code></pre>
+<h3 id="23-hello-application">2.3 <code>hello</code> application</h3>
+<p>เรียก <code>make</code> เพื่อสร้าง <code>hello</code></p>
+<pre><code>$ make
+gcc -DPACKAGE_NAME=\&quot;hello\&quot; -DPACKAGE_TARNAME=\&quot;hello\&quot; -DPACKAGE_VERSION=\&quot;0.0.1\&quot; -DPACKAGE_STRING=\&quot;hello\ 0.0.1\&quot; -DPACKAGE_BUGREPORT=\&quot;hello-bug@example.com\&quot; -DPACKAGE_URL=\&quot;\&quot; -DPACKAGE=\&quot;hello\&quot; -DVERSION=\&quot;0.0.1\&quot; -I.     -g -O2 -MT main.o -MD -MP -MF .deps/main.Tpo -c -o main.o main.c
+mv -f .deps/main.Tpo .deps/main.Po
+gcc  -g -O2   -o hello main.o</code></pre>
+<p>สุดท้ายได้ <code>hello</code> binary</p>
+<pre><code>$ ./hello
+Hello World</code></pre>
+<hr />
+<p>แหล่งข้อมูลเพิ่มเติม:</p>
+<ul>
+<li><a href="https://devmanual.gentoo.org/general-concepts/autotools/" class="uri">https://devmanual.gentoo.org/general-concepts/autotools/</a></li>
+<li><a href="https://autotools.io/" class="uri">https://autotools.io/</a></li>
+<li><a href="https://www.gnu.org/software/automake/faq/autotools-faq.html" class="uri">https://www.gnu.org/software/automake/faq/autotools-faq.html</a></li>
+</ul>
+    </div>
+
+  <!-- socials -->
+  <!-- <div> -->
+  <!--   <table> -->
+  <!--     <tr> -->
+  <!--       <td class="borderless" > -->
+  <!--         <!&#45;&#45; Facebook like button &#45;&#45;> -->
+  <!--         <div class="fb&#45;like" -->
+  <!--             data&#45;href="https://wizzup.github.io/posts/autotools_th/" -->
+  <!--             data&#45;layout="button_count" -->
+  <!--             data&#45;action="like" -->
+  <!--             data&#45;size="small" -->
+  <!--             data&#45;show&#45;faces="false" -->
+  <!--             data&#45;share="false" /> -->
+  <!--       </td> -->
+  <!--  -->
+  <!--       <td class="borderless" > -->
+  <!--       <!&#45;&#45; twitter tweet button &#45;&#45;> -->
+  <!--       <a href="https://twitter.com/share" -->
+  <!--         class="twitter&#45;share&#45;button" -->
+  <!--         data&#45;url="https://wizzup.github.io/posts/autotools_th/" -->
+  <!--         data&#45;count="horizontal" -->
+  <!--         data&#45;via="wizzup">Tweet</a> -->
+  <!--       </td> -->
+  <!--  -->
+  <!--       <td class="borderless" > -->
+  <!--       <!&#45;&#45; G+ button &#45;&#45;> -->
+  <!--       <g:plusone -->
+  <!--         size="medium" -->
+  <!--         href="https://wizzup.github.io/posts/autotools_th/"/> -->
+  <!--       </td> -->
+  <!--  -->
+  <!--       <td class="borderless" > -->
+  <!--       <!&#45;&#45; pocket button &#45;&#45;> -->
+  <!--       <a data&#45;pocket&#45;label="pocket" data&#45;pocket&#45;count="horizontal" class="pocket&#45;btn" data&#45;lang="en"></a> -->
+  <!--       </td> -->
+  <!--     </tr> -->
+  <!--   </table> -->
+  <!-- </div> -->
+
+  <!-- facebook comments -->
+  <!-- <div style="width:100%"> -->
+  <!--   <div class="fb&#45;comments" -->
+  <!--        data&#45;href="https://wizzup.github.io/posts/autotools_th/" -->
+  <!--        data&#45;numposts="3" /> -->
+  <!-- </div> -->
+
+  <!-- disqus comments -->
+  <div>
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+    var disqus_config = function () {
+      this.page.url = "https://wizzup.com/posts/autotools_th/";
+      this.page.title = "Autotools ตามที่เข้าใจ - Hello world";
+      this.page.identifier = "posts/autotools_th.md";
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wizzup.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+
+        </div>
+      </section>
+    </main>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer class="text-muted">
+      <div class="container">
+        <div>
+          <!-- TODO: image icon as a class and sizing using css -->
+          <small>
+            <!-- <p> -->
+            <span class="footer-l">
+              Site generated using
+              <a href="https://haskell.org">
+                <img height="16" width="16" alt="haskell" src="https://unpkg.com/simple-icons@latest/icons/haskell.svg" />
+              </a>
+              <a href="https://jaspervdj.be/hakyll">
+                <img height="16" width="16" alt="hakyll" src="../../images/hakyll.tmb.png" />
+              </a>
+              <a href="https://getbootstrap.com">
+                <img height="16" width="16" alt="bootstrap" src="https://unpkg.com/simple-icons@latest/icons/bootstrap.svg" />
+              </a>
+              <a href="https://simpleicons.org">
+                <img height="16" width="16" alt="simpleicons" src="https://unpkg.com/simple-icons@latest/icons/simpleicons.svg" />
+              </a>
+              <!-- <!&#45;&#45; FIXME:: find https alternatives for icons site&#45;&#45;> -->
+              <!-- <a href="http://www.iconarchive.com"> -->
+              <!--   <img height="16" width="16" alt="iconarchive" src="http://www.iconarchive.com/favicon&#45;16x16.png" /> -->
+              <!-- </a> -->
+              , license:
+              <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+                <img height="16" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+              </a>
+            </span>
+            <span class="footer-r">
+              <span>
+              source:
+              <a rel="source" href="http://github.com/wizzup/wizzup.github.io">
+                <img height="16" alt="github" style="border-width:0" src="https://unpkg.com/simple-icons@latest/icons/github.svg" />
+              </a>
+              <span>
+              report problem:
+              <a rel="source" href="https://github.com/wizzup/wizzup.github.io/issues">
+                ⚠
+              </a>
+            </span>
+            <!-- </p> -->
+          </small>
+        </div>
+      </div>
+    </footer>
+
+    <!-- (debug) hakyll templates values -->
+    <section>
+      <pre style="display: none;">
+        <code>
+        title        Autotools ตามที่เข้าใจ - Hello world    
+        url            /posts/autotools_th/      
+        path          posts/autotools_th.md     
+        date          April  4, 2019     
+        author   
+        metadata 
+        missing  
+        teasers  
+        teaser      <p>บทความนี้นำเสนอตัวอย่างการสร้าง <code>Hello world</code> application ที่เขียนด้วยภาษา <code>C</code> โดยใช้ <code>GNU autotools</code> เป็นเครื่องมือจัดการโครงการในระดับเบื้องต้น   
+        snippet  
+        </code>
+      </pre>
+    </section>
+
+    <!-- External api -->
+    <section>
+      <!-- Facebook like api -->
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+      <style media="screen">
+        .fb_iframe_widget span
+          {
+          vertical-align: baseline !important;
+        }
+      </style>
+
+      <!-- Twitter widgets -->
+      <script src="https://platform.twitter.com/widgets.js"></script>
+
+      <!-- pocket script -->
+      <script>!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+    </section>
+
+    <section>
+      <!-- Scripts that loaded after page contents -->
+      <!-- MathJax -->
+      <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+      </script>
+
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </section>
+  </body>
+</html>

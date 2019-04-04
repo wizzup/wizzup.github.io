@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <title>Autotools ตามที่เข้าใจ - Hello world</title>
+  <body><p>บทความนี้นำเสนอตัวอย่างการสร้าง <code>Hello world</code> application ที่เขียนด้วยภาษา <code>C</code> โดยใช้ <code>GNU autotools</code> เป็นเครื่องมือจัดการโครงการในระดับเบื้องต้น <!--more--> ตัวอย่างโครงการขนาดเล็กมีไฟล์ source เพียงไฟล์เดียว ไม่รวมการใช้งาน library ภายนอก, เครื่องมือเสริมของ <code>autotools</code> (เช่น <code>aclocal</code>, <code>autoheader</code>, <code>libtool</code>) และโครงการขนาดใหญ่ ที่มีไฟล์ header และ source จำนวนมาก</p>
+<p>ไฟล์ที่สร้างขึ้นทั้งหมด อยู่ใน <a href="https://gist.github.com/wizzup/1298a13da32ab80bff7ca2856e5e2b67">gist</a></p>
+<p><img src="https://devmanual.gentoo.org/general-concepts/autotools/diagram.png" /></p>
+<p>รูปประกอบจาก <a href="https://devmanual.gentoo.org/general-concepts/autotools/">gentoo.org</a> (CC BY-SA 3.0)</p>
+<ul>
+<li><p><code>autoconf</code> ช่วยในการค้นหาและตั้งค่าเครื่องมือที่จำเป็นต้องใช้เช่น compiler, library และสร้าง <code>Makefile</code></p></li>
+<li><p><code>automake</code> สร้าง <code>Makefile.in</code> จากโครงแบบ <code>Makefile.am</code></p></li>
+</ul>
+<p>ในการใช้งานปกติ สามารถใช้ <code>autoreconf</code> ซึ่งเป็น script ในระดับที่<a href="https://stackoverflow.com/questions/27285052/difference-between-autoconf-and-autoreconf">สูงกว่า</a> ไม่จำเป็นต้องเรียกใช้ <code>autoconf</code> และ <code>automake</code> เอง</p>
+<h2 id="0-สิ่งที่ต้องติดตั้งเรียบร้อยแล้วได้แก่-automake-autoconf-และ-c-compiler-gcc">0. สิ่งที่ต้องติดตั้งเรียบร้อยแล้วได้แก่ <code>automake</code>, <code>autoconf</code> และ C compiler (<code>gcc</code>)</h2>
+<pre><code>$ automake --version
+automake (GNU automake) 1.16.1
+...
+
+$ autoconf --version
+autoconf (GNU Autoconf) 2.69
+...
+
+$ cc --version
+gcc (GCC) 7.4.0
+...</code></pre>
+<h2 id="1-เริ่มต้นด้วยไฟล์ที่จำเป็น-configureac-และ-makefileam">1. เริ่มต้นด้วยไฟล์ที่จำเป็น <code>configure.ac</code> และ <code>Makefile.am</code></h2>
+<h3 id="11-configureac-สร้างใหม่หรือแก้จากต้นแบบ-configurescan-ที่สร้างด้วย-autoscan">1.1 <code>configure.ac</code> สร้างใหม่หรือแก้จากต้นแบบ <code>configure.scan</code> ที่สร้างด้วย <code>autoscan</code></h3>
+<p>ไฟล์ <code>configure.ac</code> อาจพบอยู่ในชื่อ <code>configure.in</code> ในบางโครงการที่เป็นโครงการเก่า อย่างไรก็ตาม <a href="https://stackoverflow.com/questions/3782994/any-difference-between-configure-ac-and-configure-in-and-makefile-am-and-makefi">แนะนำ</a>ให้ใช้ <code>.ac</code> สำหรับโครงการใหม่ เพื่อบ่งชี้ว่าเป็น input ของ <code>autoconf</code> และไม่ให้สับสนกับ <code>.in</code> ทีสร้างระหว่างการทำงานของเครื่องมืออื่น</p>
+<script src="https://gist.github.com/wizzup/1298a13da32ab80bff7ca2856e5e2b67.js?file=configure.ac"></script>
+<!-- ``` -->
+<!-- # กำหนด version ต่ำสุด ของ autoconf -->
+<!-- AC_PREREQ([2.69]) -->
+<!--  -->
+<!-- # ตั้งชื่อ package, version และ ช่องทางสำหรับรายงาน bug -->
+<!-- AC_INIT([hello], [0.0.1], [hello-bug@example.com]) -->
+<!--  -->
+<!-- # ตั้งค่าเริ่มต้น automake (foreign หมายถึงไม่ใช่ GNU project คือไม่ต้องมี README, INSTALL, ..) -->
+<!-- AM_INIT_AUTOMAKE([foreign]) -->
+<!--  -->
+<!-- # บอก autoconf ให้ใช้สร้าง Makefile (จาก Makefile.in) -->
+<!-- AC_CONFIG_FILES([Makefile]) -->
+<!--  -->
+<!-- # ตรวจสอบ compiler (C)่่ -->
+<!-- AC_PROG_CC -->
+<!--  -->
+<!-- # สร้าง configure script และ Makefile -->
+<!-- AC_OUTPUT -->
+<!-- ``` -->
+<h3 id="12-makefileam-สร้างใหม่">1.2 <code>Makefile.am</code> สร้างใหม่</h3>
+<script src="https://gist.github.com/wizzup/1298a13da32ab80bff7ca2856e5e2b67.js?file=Makefile.am"></script>
+<!-- ``` -->
+<!-- # สร้าง binary ชื่อ hello -->
+<!-- bin_PROGRAMS = hello -->
+<!--  -->
+<!-- # สร้าง hello จาก main.c -->
+<!-- hello_SOURCES = main.c -->
+<!-- ``` -->
+<h3 id="13-mainc-สร้างใหม่">1.3 <code>main.c</code> สร้างใหม่</h3>
+<script src="https://gist.github.com/wizzup/1298a13da32ab80bff7ca2856e5e2b67.js?file=main.c"></script>
+<!-- ``` -->
+<!-- #include<stdio.h> -->
+<!--  -->
+<!-- int main(void){ -->
+<!--   printf("Hello World\n"); -->
+<!-- } -->
+<!-- ``` -->
+<h2 id="2-script-และ-application">2. script และ application</h2>
+<h3 id="21-configure-script">2.1 <code>configure</code> script</h3>
+<p>เรียก <code>autoreconf</code> เพื่อสร้าง <code>configure</code> (ถ้าพบปัญหาอาจต้องใช้ <code>autoreconf -f</code> ร่วมกับ <code>automake --add-missing</code>)</p>
+<pre><code>$ autoreconf --install</code></pre>
+<p>GNU package ระดับมืออาชีพ อาจมีแถม <code>autogen.sh</code> script เพื่อสร้าง <code>configure</code> script ในลักษณะเดียวกัน</p>
+<pre><code>#! /bin/sh
+
+aclocal \
+&amp;&amp; automake --add-missing \
+&amp;&amp; autoconf</code></pre>
+<p>อย่างไรก็ตามข้อมูลจาก<a href="https://stackoverflow.com/questions/1970926/whats-the-point-of-aclocal">บางแหล่ง</a>ชึ้ว่า <code>aclocal</code> อาจไม่จำเป็นต้องใช้</p>
+<h3 id="22-makefile">2.2 <code>Makefile</code></h3>
+<p>เรียก <code>configure</code> เพื่อสร้าง <code>Makefile</code></p>
+<pre><code>$ ./configure
+checking for a BSD-compatible install... /nix/store/d9s1kq1bnwqgxwcvv4zrc36ysnxg8gv7-coreutils-8.30/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /nix/store/d9s1kq1bnwqgxwcvv4zrc36ysnxg8gv7-coreutils-8.30/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables...
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking whether gcc understands -c and -o together... yes
+checking whether make supports the include directive... yes (GNU style)
+checking dependency style of gcc... none
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+    config.status: creating Makefile
+config.status: executing depfiles commands</code></pre>
+<h3 id="23-hello-application">2.3 <code>hello</code> application</h3>
+<p>เรียก <code>make</code> เพื่อสร้าง <code>hello</code></p>
+<pre><code>$ make
+gcc -DPACKAGE_NAME=\&quot;hello\&quot; -DPACKAGE_TARNAME=\&quot;hello\&quot; -DPACKAGE_VERSION=\&quot;0.0.1\&quot; -DPACKAGE_STRING=\&quot;hello\ 0.0.1\&quot; -DPACKAGE_BUGREPORT=\&quot;hello-bug@example.com\&quot; -DPACKAGE_URL=\&quot;\&quot; -DPACKAGE=\&quot;hello\&quot; -DVERSION=\&quot;0.0.1\&quot; -I.     -g -O2 -MT main.o -MD -MP -MF .deps/main.Tpo -c -o main.o main.c
+mv -f .deps/main.Tpo .deps/main.Po
+gcc  -g -O2   -o hello main.o</code></pre>
+<p>สุดท้ายได้ <code>hello</code> binary</p>
+<pre><code>$ ./hello
+Hello World</code></pre>
+<hr />
+<p>แหล่งข้อมูลเพิ่มเติม:</p>
+<ul>
+<li><a href="https://devmanual.gentoo.org/general-concepts/autotools/" class="uri">https://devmanual.gentoo.org/general-concepts/autotools/</a></li>
+<li><a href="https://autotools.io/" class="uri">https://autotools.io/</a></li>
+<li><a href="https://www.gnu.org/software/automake/faq/autotools-faq.html" class="uri">https://www.gnu.org/software/automake/faq/autotools-faq.html</a></li>
+</ul></body>
+</html>
