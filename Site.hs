@@ -39,30 +39,34 @@ main = hakyll $ do
     -- templates
     match "templates/*" $ compile templateBodyCompiler
 
+    -- top-level pages :: me/<page>/index.html
+    let meFiles = listFiles "me"
     -- top-level pages :: /<page>/index.html
-    match (fromList ["about.tex", "journey.rst", "contribution.tex"]) $ do
+    let topFiles = fromList ["about.tex", "journey.rst", "contribution.tex"]
+    match (topFiles .||. meFiles) $ do
         route cleanRoute
         compile $ pandocCompilerWith pandocReaderOptions pandocWriterOptions
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= cleanUrls
             >>= relativizeUrls
 
-    let postFiles = listFiles "posts"
 
     -- blog posts :: /posts/<page>/index.html
+    let postFiles = listFiles "posts"
     match postFiles $ do
         route cleanRoute
         compile $ pandocCompilerWith pandocReaderOptions pandocWriterOptions
-            >>= loadAndApplyTemplate "templates/post.html"    postCtx
-            >>= loadAndApplyTemplate "templates/default.html" postCtx
+            >>= saveSnapshot "content"
+            >>= loadAndApplyTemplate "templates/post.html"    (teaserField "teaser" "content" <> postCtx)
+            >>= loadAndApplyTemplate "templates/default.html" (teaserField "teaser" "content" <> postCtx)
             >>= cleanUrls
 
-    -- blog posts without templates :: /posts/<page>/raw.html
-    match postFiles $ version "raw" $ do
-        route cleanRouteRaw
-        compile $ pandocCompilerWith pandocReaderOptions pandocWriterOptions
-            >>= loadAndApplyTemplate "templates/raw.html"    postCtx
-            >>= cleanUrls
+    -- -- blog posts without templates :: /posts/<page>/raw.html
+    -- match postFiles $ version "raw" $ do
+    --     route cleanRouteRaw
+    --     compile $ pandocCompilerWith pandocReaderOptions pandocWriterOptions
+    --         >>= loadAndApplyTemplate "templates/raw.html"    postCtx
+    --         >>= cleanUrls
 
     let draftFiles = listFiles "draft"
 
@@ -104,6 +108,7 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= cleanUrls
 
+    -- FIXME: add top-level and me to sitemap
     create ["sitemap.xml"] $ do
             route idRoute
             compile $ do
@@ -114,7 +119,7 @@ main = hakyll $ do
                 makeItem ""
                     >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
 
-    -- main index.html
+    -- /index.html
     match "index.tex" $ do
         route $ setExtension "html"
         compile $ do

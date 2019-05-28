@@ -3,7 +3,7 @@ date: 2017-07-29
 title: Various ways to use GHC in nix-shell
 ---
 
-There are vairous ways to use GHC in nix-shell
+There are various ways to use GHC in nix-shell
 
 1. System's default GHC
 
