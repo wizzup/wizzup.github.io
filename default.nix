@@ -7,7 +7,6 @@
 {
 nixpkgs ? import <nixpkgs> {},
 compiler ? "default",
-doBenchmark ? false
 }:
 
 let
@@ -17,16 +16,14 @@ let
                        then pkgs.haskellPackages
                        else pkgs.haskell.packages.${compiler};
 
-  variant = if doBenchmark then pkgs.haskell.lib.doBenchmark else pkgs.lib.id;
-
-  drv = variant (haskellPackages.callCabal2nix "wizzup-github-io" ./. {});
+  drv = haskellPackages.callCabal2nix "wizzup-github-io" ./. {};
 
   all-hies = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
 
   # TODO: don't forget to change the hie to matched version
   #       can't find the way to automate this
   hie = all-hies.selection {
-    selector = p: { inherit (p) ghc864; };
+    selector = p: { inherit (p) ghc865; };
   };
 
   hsPcks = with pkgs.haskellPackages;
@@ -41,7 +38,8 @@ let
 
   dev = drv.overrideAttrs(attr: {
     buildInputs = attr.buildInputs
-                ++ hsPcks ++ pyPcks;
+               ++ hsPcks
+               ++ pyPcks;
   });
 
 in

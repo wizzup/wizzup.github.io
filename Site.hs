@@ -69,6 +69,7 @@ main = hakyll $ do
     --         >>= cleanUrls
 
     let draftFiles = listFiles "draft"
+                .||. listFiles "draft/series/haskell"
 
     -- draft blog posts :: /draft/<page>/index.html
     match draftFiles $ do
@@ -169,11 +170,11 @@ cleanRoute = customRoute createIndexRoute
     createIndexRoute ident = takeDirectory p </> takeBaseName p </> "index.html"
                             where p = toFilePath ident
 
-cleanRouteRaw :: Routes
-cleanRouteRaw = customRoute createIndexRoute
-  where
-    createIndexRoute ident = takeDirectory p </> takeBaseName p </> "raw.html"
-                            where p = toFilePath ident
+-- cleanRouteRaw :: Routes
+-- cleanRouteRaw = customRoute createIndexRoute
+--   where
+--     createIndexRoute ident = takeDirectory p </> takeBaseName p </> "raw.html"
+--                             where p = toFilePath ident
 
 cleanUrls :: Item String -> Compiler (Item String)
 cleanUrls x =   relativizeUrls x
