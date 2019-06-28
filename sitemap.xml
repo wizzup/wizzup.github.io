@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
+      <loc>https://wizzup.com/posts/nix-haskell-cabal/index.html</loc>
+        <lastmod>2019-06-28</lastmod>
+    </url>
+
+    <url>
       <loc>https://wizzup.com/posts/autotools_th/index.html</loc>
         <lastmod>2019-04-04</lastmod>
     </url>

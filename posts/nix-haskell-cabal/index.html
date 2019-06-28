@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>wizzup: Nix, Vim and Haskell</title>
+    <title>wizzup: Develop a Haskell project (hpack/cabal) with Nix</title>
 
     <!-- icon -->
     <link rel="icon" href="../../images/favicon.ico">
@@ -15,8 +15,8 @@
 
     <!-- twitter metadata -->
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="wizzup: Nix, Vim and Haskell" />
-    <meta name="twitter:description" content=" Nix, Vim and Haskell " />
+    <meta name="twitter:title" content="wizzup: Develop a Haskell project (hpack/cabal) with Nix" />
+    <meta name="twitter:description" content=" Develop a Haskell project (hpack/cabal) with Nix " />
     <meta name="twitter:site" content="@wizzup" />
     <meta name="twitter:creator" content="@wizzup" />
 
@@ -24,15 +24,15 @@
     <meta property="fb:app_id" content="422764088544273" />
 
     <!-- opengraph metadata -->
-    <meta property="og:url" content="https://wizzup.com/posts/nix-vim-haskell/" />
+    <meta property="og:url" content="https://wizzup.com/posts/nix-haskell-cabal/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="wizzup" />
-    <meta property="og:title" content="wizzup: Nix, Vim and Haskell" />
-    <meta property="og:description" content=" Nix, Vim and Haskell " />
+    <meta property="og:title" content="wizzup: Develop a Haskell project (hpack/cabal) with Nix" />
+    <meta property="og:description" content=" Develop a Haskell project (hpack/cabal) with Nix " />
     <meta property="og:image" content="https://wizzup.com/images/ogimage-def.gif" />
 
     <!-- canonical link -->
-    <link rel="canonical" href="https://wizzup.com/posts/nix-vim-haskell/" />
+    <link rel="canonical" href="https://wizzup.com/posts/nix-haskell-cabal/" />
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -68,7 +68,7 @@
       <!-- Main title -->
       <section class="jumbotron">
         <div class="container">
-          <h2 class="jumbotron-heading">Nix, Vim and Haskell</h2>
+          <h2 class="jumbotron-heading">Develop a Haskell project (hpack/cabal) with Nix</h2>
         </div>
       </section>
     </header>
@@ -78,31 +78,65 @@
       <section class="main">
         <div class="container">
               <div class="text-muted">
-        Posted on May 31, 2017
+        Posted on June 28, 2019
         
     </div>
     <div>
         <br />
-        <p>This is how I setup nix-shell environments vim and hakyll.</p>
-<p>This is <em>shelll.nix</em></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode nix"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">{</span> <span class="ex">pkgs</span> ? import <span class="op">&lt;</span>nixpkgs<span class="op">&gt;</span> {<span class="kw">}</span> }:</span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="bu">let</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>  <span class="ex">hs</span> = pkgs.haskellPackages.ghcWithHoogle (self: with self<span class="kw">;</span><span class="bu"> [</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>          hakyll</span>
-<span id="cb1-6"><a href="#cb1-6"></a>        ]);</span>
-<span id="cb1-7"><a href="#cb1-7"></a>in</span>
-<span id="cb1-8"><a href="#cb1-8"></a>pkgs.stdenv.mkDerivation {</span>
-<span id="cb1-9"><a href="#cb1-9"></a>  name <span class="ot">=</span> <span class="st">&quot;haskell-shell&quot;</span>;</span>
-<span id="cb1-10"><a href="#cb1-10"></a>  buildInputs <span class="ot">=</span> with pkgs.haskellPackages; [ hs cabal-install ghc-mod hlint hspec  ];</span>
-<span id="cb1-11"><a href="#cb1-11"></a></span>
-<span id="cb1-12"><a href="#cb1-12"></a>  shellHook <span class="ot">=</span> <span class="st">''</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a>    export PS1=<span class="st">&quot;\[\033[1;32m\][ns-hs:\w]\n$ \[\033[0m\]&quot;</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a>    eval <span class="st">&quot;</span><span class="va">$(</span><span class="fu">egrep</span> ^export <span class="st">&quot;</span><span class="va">$(</span><span class="bu">type</span> -p ghc<span class="va">)</span><span class="st">&quot;</span><span class="va">)</span><span class="st">&quot;</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a>  <span class="st">''</span>;</span>
-<span id="cb1-16"><a href="#cb1-16"></a>}</span></code></pre></div>
-<p>I use <span class="title-ref">cabal</span> to do the build</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a>$ <span class="ex">cabal</span> build</span></code></pre></div>
+        <h1 id="hello-cabal2nix">hello Cabal2nix</h1>
+<p><strong>Disclaimer</strong> There are many ways to build a Haskell project on Nix, this approach use <code>cabal2nix</code> that just work but might not be the best way to do it.</p>
+<h2 id="contents">Contents</h2>
+<ul>
+<li>default.nix : The Nix's expression</li>
+</ul>
+<pre><code>{ nixpkgs ? import &lt;nixpkgs&gt; {} }:
+with nixpkgs;
+
+let
+  drv = haskellPackages.callCabal2nix &quot;hello&quot; ./. {};
+
+  hsTools = with haskellPackages; [
+    cabal-install hpack
+    hlint hdevtools
+  ];
+
+  dev = drv.env.overrideAttrs(attr: {
+    buildInputs = attr.buildInputs
+               ++ hsTools;
+  });
+
+in
+  if pkgs.lib.inNixShell then dev else drv</code></pre>
+<ul>
+<li>Main.hs : Program source code</li>
+</ul>
+<pre><code>main = print &quot;Hello&quot;</code></pre>
+<ul>
+<li>package.yaml : Project description (hpack)</li>
+</ul>
+<pre><code>name: hello
+
+dependencies:
+  - base
+
+executables:
+  hello:
+    main: Main.hs</code></pre>
+<h2 id="to-build-and-run">To build and run</h2>
+<pre><code>$ nix-build
+
+$ result/bin/hello
+&quot;Hello&quot;</code></pre>
+<h2 id="to-dev">To dev</h2>
+<p>The dev env for nix-shell included additional tools for development.</p>
+<pre><code>$ nix-shell
+
+$ cabal new-run hello
+
+$ hlint Main.hs
+$ hdevtools Main.hs</code></pre>
+<h2 id="gotcha">Gotcha</h2>
+<p><code>cabal new-build</code> generate <code>.ghc.environment.xxxx</code> which block <code>nix-build</code>, remove that file if there is build error when running <code>nix-build</code>.</p>
     </div>
 
   <!-- socials -->
@@ -112,7 +146,7 @@
   <!--       <td class="borderless" > -->
   <!--         <!&#45;&#45; Facebook like button &#45;&#45;> -->
   <!--         <div class="fb&#45;like" -->
-  <!--             data&#45;href="https://wizzup.github.io/posts/nix-vim-haskell/" -->
+  <!--             data&#45;href="https://wizzup.github.io/posts/nix-haskell-cabal/" -->
   <!--             data&#45;layout="button_count" -->
   <!--             data&#45;action="like" -->
   <!--             data&#45;size="small" -->
@@ -124,7 +158,7 @@
   <!--       <!&#45;&#45; twitter tweet button &#45;&#45;> -->
   <!--       <a href="https://twitter.com/share" -->
   <!--         class="twitter&#45;share&#45;button" -->
-  <!--         data&#45;url="https://wizzup.github.io/posts/nix-vim-haskell/" -->
+  <!--         data&#45;url="https://wizzup.github.io/posts/nix-haskell-cabal/" -->
   <!--         data&#45;count="horizontal" -->
   <!--         data&#45;via="wizzup">Tweet</a> -->
   <!--       </td> -->
@@ -133,7 +167,7 @@
   <!--       <!&#45;&#45; G+ button &#45;&#45;> -->
   <!--       <g:plusone -->
   <!--         size="medium" -->
-  <!--         href="https://wizzup.github.io/posts/nix-vim-haskell/"/> -->
+  <!--         href="https://wizzup.github.io/posts/nix-haskell-cabal/"/> -->
   <!--       </td> -->
   <!--  -->
   <!--       <td class="borderless" > -->
@@ -147,7 +181,7 @@
   <!-- facebook comments -->
   <!-- <div style="width:100%"> -->
   <!--   <div class="fb&#45;comments" -->
-  <!--        data&#45;href="https://wizzup.github.io/posts/nix-vim-haskell/" -->
+  <!--        data&#45;href="https://wizzup.github.io/posts/nix-haskell-cabal/" -->
   <!--        data&#45;numposts="3" /> -->
   <!-- </div> -->
 
@@ -161,9 +195,9 @@
     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 
     var disqus_config = function () {
-      this.page.url = "https://wizzup.com/posts/nix-vim-haskell/";
-      this.page.title = "Nix, Vim and Haskell";
-      this.page.identifier = "posts/nix-vim-haskell.rst";
+      this.page.url = "https://wizzup.com/posts/nix-haskell-cabal/";
+      this.page.title = "Develop a Haskell project (hpack/cabal) with Nix";
+      this.page.identifier = "posts/nix-haskell-cabal.md";
     };
 
     (function() { // DON'T EDIT BELOW THIS LINE
@@ -234,10 +268,10 @@
     <section>
       <pre style="display: none;">
         <code>
-        title        Nix, Vim and Haskell    
-        url            /posts/nix-vim-haskell/      
-        path          posts/nix-vim-haskell.rst     
-        date          May 31, 2017     
+        title        Develop a Haskell project (hpack/cabal) with Nix    
+        url            /posts/nix-haskell-cabal/      
+        path          posts/nix-haskell-cabal.md     
+        date          June 28, 2019     
         author   
         metadata 
         missing  

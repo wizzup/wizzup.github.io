@@ -84,15 +84,15 @@
     <div>
         <br />
         <p>Using <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>a</mi><mi>t</mi><mi>h</mi><mi>J</mi><mi>a</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">MathJax</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mi>a</mi><mi>k</mi><mi>y</mi><mi>l</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">Hakyll</annotation></semantics></math></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">let</span> readerOptions <span class="ot">=</span> defaultHakyllReaderOptions</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw">let</span> writerOptions <span class="ot">=</span> defaultHakyllWriterOptions</a>
-<a class="sourceLine" id="cb1-3" title="3">                    { writerHTMLMathMethod <span class="ot">=</span> <span class="dt">MathJax</span> <span class="st">&quot;&quot;</span> }</a>
-<a class="sourceLine" id="cb1-4" title="4"></a>
-<a class="sourceLine" id="cb1-5" title="5">pandocCompilerWith readerOptions writerOptions</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">let</span> readerOptions <span class="ot">=</span> defaultHakyllReaderOptions</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">let</span> writerOptions <span class="ot">=</span> defaultHakyllWriterOptions</span>
+<span id="cb1-3"><a href="#cb1-3"></a>                    { writerHTMLMathMethod <span class="ot">=</span> <span class="dt">MathJax</span> <span class="st">&quot;&quot;</span> }</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a>pandocCompilerWith readerOptions writerOptions</span></code></pre></div>
 <p>and add <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>a</mi><mi>t</mi><mi>h</mi><mi>J</mi><mi>a</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">MathJax</annotation></semantics></math> script to global html template</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="ot"> async</span></a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="ot">        src=</span><span class="st">&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&quot;</span><span class="kw">&gt;</span></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="kw">&lt;/script&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">&lt;script</span><span class="ot"> type=</span><span class="st">&quot;text/javascript&quot;</span><span class="ot"> async</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="ot">        src=</span><span class="st">&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">&lt;/script&gt;</span></span></code></pre></div>
     </div>
 
   <!-- socials -->
