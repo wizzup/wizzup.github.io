@@ -86,8 +86,8 @@
         <p><em>nix-shell</em> can be use to make isolated environment with desired package installed.</p>
 <p>It is better than <em>installed everything globally</em> which might lead to <em>dependency conflicted</em>. You should only installed what you need.</p>
 <p>I’ve try <em>nix-shell</em> with <em>ghc</em> and <em>python</em> and it work.</p>
-<p>The simple use case is just pass <em>-i &lt;packages&gt;</em> to <em>nix-shell</em> and you have python available to use.</p>
-<pre class="shell"><code>$ nix-shell -i python
+<p>The simple use case is just pass <em>-p &lt;packages&gt;</em> to <em>nix-shell</em> and you have python available to use.</p>
+<pre class="shell"><code>$ nix-shell -p python
 [nix-shell:]$ python --version
 Python 2.7.13
 
@@ -95,13 +95,14 @@ $ nix-shell -p python3
 [nix-shell:]$ python --version
 Python 3.6.1</code></pre>
 <p>GHC example:</p>
-<pre class="shell"><code>$ nix-shell -i python
-[nix-shell:]$ python --version
-Python 2.7.13
+<pre class="shell"><code>$ nix-shell -p ghc
+[nix-shell:]$ ghc --version
+The Glorious Glasgow Haskell Compilation System, version 8.6.5
 
-$ nix-shell -p python3
-[nix-shell:]$ python --version
-Python 3.6.1</code></pre>
+$ nix-shell -p haskell.compiler.ghc822
+[nix-shell:]$ ghc --version
+The Glorious Glasgow Haskell Compilation System, version 8.2.2
+</code></pre>
 <p><em>nix-shell</em> configuration is done via <em>shell.nix</em> or <em>default.nix</em></p>
 <p>Examples: <a href="../nix-vim-haskell">Haskell</a>, and <a href="../nix-vim-python">Python</a></p>
     </div>
