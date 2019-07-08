@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>wizzup: เขียนเศษส่วนด้วย Unicode subscript/superscript</title>
+
+    <!-- icon -->
+    <link rel="icon" href="../../images/favicon.ico">
+
+    <!-- Required meta tags for site -->
+    <meta charset="utf-8">
+    <meta name="author" content="Wisut Hantanong" />
+    <meta name="description" content="wisut hantanong (wizzup)'s website." />
+    <meta name="keywords" content="wisut,hantanong,wizzup,programming,python,haskell,nix,vim" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- twitter metadata -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="wizzup: เขียนเศษส่วนด้วย Unicode subscript/superscript" />
+    <meta name="twitter:description" content=" เขียนเศษส่วนด้วย Unicode subscript/superscript " />
+    <meta name="twitter:site" content="@wizzup" />
+    <meta name="twitter:creator" content="@wizzup" />
+
+    <!-- Facebook metadata -->
+    <meta property="fb:app_id" content="422764088544273" />
+
+    <!-- opengraph metadata -->
+    <meta property="og:url" content="https://wizzup.com/posts/unicode-fractions_th/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="wizzup" />
+    <meta property="og:title" content="wizzup: เขียนเศษส่วนด้วย Unicode subscript/superscript" />
+    <meta property="og:description" content=" เขียนเศษส่วนด้วย Unicode subscript/superscript " />
+    <meta property="og:image" content="https://wizzup.com/images/ogimage-def.gif" />
+
+    <!-- canonical link -->
+    <link rel="canonical" href="https://wizzup.com/posts/unicode-fractions_th/" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- override default CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono|Fira+Sans" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/default.css" />
+
+    <!-- override sourcecode CSS -->
+    <link rel="stylesheet" href="../../css/sourcecode.css" />
+
+  </head>
+
+  <body>
+    <header>
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="../../">
+          <img src="../../images/home-sketch.png" alt="Home">
+        </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <!-- <a class="nav&#45;item nav&#45;link active" href="#">Home <span class="sr&#45;only">(current)</span></a> -->
+              <a class="nav-item nav-link" href="../../archive">Archive</a>
+              <a class="nav-item nav-link" href="../../about">About</a>
+            </div>
+          </div>
+      </nav>
+
+      <!-- Main title -->
+      <section class="jumbotron">
+        <div class="container">
+          <h2 class="jumbotron-heading">เขียนเศษส่วนด้วย Unicode subscript/superscript</h2>
+        </div>
+      </section>
+    </header>
+
+    <!-- Body -->
+    <main>
+      <section class="main">
+        <div class="container">
+              <div class="text-muted">
+        Posted on July  8, 2019
+        
+    </div>
+    <div>
+        <br />
+        <p><em>คำเตือน:</em> บทความนี้แสดงผลด้วย Unicode อาจมีตัวอักษรที่แสดงผลไม่ถูกต้องถ้าเข้าถึงด้วย web browser รุ่นที่ไม่รองรับ</p>
+<p>Unicode <a href="http://unicodefractions.com">fractions</a> มีตัวอักษรสำหรับเลขเศษส่วนมาให้จำนวนหนึ่งเช่น ½, ⅔, และ ⅒</p>
+<p>ปัญาหาที่พบคือต้องใช้เศษส่วนที่ไม่มีใน fractions ซึ่งสามารถใช้ตัวยก <code>⁰¹²³⁴⁵⁶⁷⁸⁹</code> และตัวห้อย <code>₀₁₂₃₄₅₆₇₈₉</code> กับตัวขั้นเศษส่วน <code>⁄</code> เขียนได้</p>
+<p>ตัวอย่าง:</p>
+<p>¹⁹⁄₈₉, ²³⁴⁄₇₈₉</p>
+<p>ถ้าต้องการเขีนเศษส่วนใด ๆ ได้ง่ายขึ้นโดยไม่ต้อง copy/paste ทีละตัวอักษร สามารถใช้ python script นี้ช่วย</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">Usage:</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">  unicode-fract.py (-h | --help)</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">  unicode-fract.py -i</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">  unicode-fract.py -t</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">Convert a fraction to unicode superscript/subscript pairs.</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">Example: 123/456 to ¹²³⁄₄₅₆</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">Options:</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co">  -h --help</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">  -i       interactive mode, use stdin as input</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">  -t       running doctest for this module (for internal use)</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="im">from</span> sys <span class="im">import</span> exit, stderr</span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="im">from</span> docopt <span class="im">import</span> docopt</span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="im">from</span> doctest <span class="im">import</span> testmod</span>
+<span id="cb1-21"><a href="#cb1-21"></a></span>
+<span id="cb1-22"><a href="#cb1-22"></a></span>
+<span id="cb1-23"><a href="#cb1-23"></a>sups <span class="op">=</span> <span class="st">&quot;⁰¹²³⁴⁵⁶⁷⁸⁹&quot;</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a>subs <span class="op">=</span> <span class="st">&quot;₀₁₂₃₄₅₆₇₈₉&quot;</span></span>
+<span id="cb1-25"><a href="#cb1-25"></a>sep  <span class="op">=</span> <span class="st">&quot;⁄&quot;</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a></span>
+<span id="cb1-27"><a href="#cb1-27"></a><span class="kw">def</span> eprint(s):</span>
+<span id="cb1-28"><a href="#cb1-28"></a>    <span class="bu">print</span>(s, <span class="bu">file</span><span class="op">=</span>stderr)</span>
+<span id="cb1-29"><a href="#cb1-29"></a></span>
+<span id="cb1-30"><a href="#cb1-30"></a><span class="kw">def</span> match(c,s):</span>
+<span id="cb1-31"><a href="#cb1-31"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb1-32"><a href="#cb1-32"></a><span class="co">    &gt;&gt;&gt; match('0',sups)</span></span>
+<span id="cb1-33"><a href="#cb1-33"></a><span class="co">    '⁰'</span></span>
+<span id="cb1-34"><a href="#cb1-34"></a><span class="co">    &gt;&gt;&gt; match('9',sups)</span></span>
+<span id="cb1-35"><a href="#cb1-35"></a><span class="co">    '⁹'</span></span>
+<span id="cb1-36"><a href="#cb1-36"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb1-37"><a href="#cb1-37"></a></span>
+<span id="cb1-38"><a href="#cb1-38"></a>    <span class="cf">try</span>:</span>
+<span id="cb1-39"><a href="#cb1-39"></a>        i <span class="op">=</span> <span class="bu">int</span>(c)</span>
+<span id="cb1-40"><a href="#cb1-40"></a>        <span class="cf">return</span> s[i] <span class="cf">if</span> i <span class="op">&lt;=</span> <span class="bu">len</span>(s) <span class="cf">else</span> <span class="va">None</span></span>
+<span id="cb1-41"><a href="#cb1-41"></a>    <span class="cf">except</span>:</span>
+<span id="cb1-42"><a href="#cb1-42"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb1-43"><a href="#cb1-43"></a></span>
+<span id="cb1-44"><a href="#cb1-44"></a><span class="kw">def</span> convert(num,den):</span>
+<span id="cb1-45"><a href="#cb1-45"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb1-46"><a href="#cb1-46"></a><span class="co">    &gt;&gt;&gt; convert('123','456')</span></span>
+<span id="cb1-47"><a href="#cb1-47"></a><span class="co">    '¹²³⁄₄₅₆'</span></span>
+<span id="cb1-48"><a href="#cb1-48"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb1-49"><a href="#cb1-49"></a></span>
+<span id="cb1-50"><a href="#cb1-50"></a>    <span class="cf">if</span> num <span class="op">==</span> <span class="va">None</span> <span class="kw">or</span> den <span class="op">==</span> <span class="va">None</span>:</span>
+<span id="cb1-51"><a href="#cb1-51"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb1-52"><a href="#cb1-52"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-53"><a href="#cb1-53"></a>        ns <span class="op">=</span> <span class="st">''</span>.join([match(i,sups) <span class="cf">for</span> i <span class="kw">in</span> num])</span>
+<span id="cb1-54"><a href="#cb1-54"></a>        ds <span class="op">=</span> <span class="st">''</span>.join([match(i,subs) <span class="cf">for</span> i <span class="kw">in</span> den])</span>
+<span id="cb1-55"><a href="#cb1-55"></a>        <span class="cf">return</span> (<span class="ss">f'</span><span class="sc">{ns}{</span>sep<span class="sc">}{ds}</span><span class="ss">'</span>)</span>
+<span id="cb1-56"><a href="#cb1-56"></a></span>
+<span id="cb1-57"><a href="#cb1-57"></a><span class="kw">def</span> is_number(n):</span>
+<span id="cb1-58"><a href="#cb1-58"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb1-59"><a href="#cb1-59"></a><span class="co">    &gt;&gt;&gt; False in [is_number(i) for i in &quot;0123456789&quot;]</span></span>
+<span id="cb1-60"><a href="#cb1-60"></a><span class="co">    False</span></span>
+<span id="cb1-61"><a href="#cb1-61"></a><span class="co">    &gt;&gt;&gt; True in [is_number(i) for i in &quot;abcdefghijk&quot;]</span></span>
+<span id="cb1-62"><a href="#cb1-62"></a><span class="co">    False</span></span>
+<span id="cb1-63"><a href="#cb1-63"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb1-64"><a href="#cb1-64"></a></span>
+<span id="cb1-65"><a href="#cb1-65"></a>    <span class="cf">try</span>:</span>
+<span id="cb1-66"><a href="#cb1-66"></a>        <span class="bu">int</span>(n)</span>
+<span id="cb1-67"><a href="#cb1-67"></a>        <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb1-68"><a href="#cb1-68"></a>    <span class="cf">except</span>:</span>
+<span id="cb1-69"><a href="#cb1-69"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb1-70"><a href="#cb1-70"></a></span>
+<span id="cb1-71"><a href="#cb1-71"></a><span class="kw">def</span> read(s):</span>
+<span id="cb1-72"><a href="#cb1-72"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb1-73"><a href="#cb1-73"></a><span class="co">    &gt;&gt;&gt; read(&quot;123/456&quot;)</span></span>
+<span id="cb1-74"><a href="#cb1-74"></a><span class="co">    ('123', '456')</span></span>
+<span id="cb1-75"><a href="#cb1-75"></a><span class="co">    &gt;&gt;&gt; read(&quot;abc/def&quot;) == None</span></span>
+<span id="cb1-76"><a href="#cb1-76"></a><span class="co">    True</span></span>
+<span id="cb1-77"><a href="#cb1-77"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb1-78"><a href="#cb1-78"></a></span>
+<span id="cb1-79"><a href="#cb1-79"></a>    <span class="cf">try</span>:</span>
+<span id="cb1-80"><a href="#cb1-80"></a>        num,den <span class="op">=</span> s.split(<span class="st">'/'</span>)</span>
+<span id="cb1-81"><a href="#cb1-81"></a>        <span class="cf">return</span>((num,den) <span class="cf">if</span> is_number(num) <span class="kw">and</span> is_number(den) <span class="cf">else</span> <span class="va">None</span>)</span>
+<span id="cb1-82"><a href="#cb1-82"></a>    <span class="cf">except</span>:</span>
+<span id="cb1-83"><a href="#cb1-83"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb1-84"><a href="#cb1-84"></a></span>
+<span id="cb1-85"><a href="#cb1-85"></a><span class="kw">def</span> get_input():</span>
+<span id="cb1-86"><a href="#cb1-86"></a>    <span class="cf">try</span>:</span>
+<span id="cb1-87"><a href="#cb1-87"></a>        <span class="bu">print</span>(<span class="st">'&gt; '</span>, <span class="bu">file</span><span class="op">=</span>stderr, end<span class="op">=</span><span class="st">''</span>)</span>
+<span id="cb1-88"><a href="#cb1-88"></a>        i <span class="op">=</span> <span class="bu">input</span>()</span>
+<span id="cb1-89"><a href="#cb1-89"></a>        r <span class="op">=</span> read(i)</span>
+<span id="cb1-90"><a href="#cb1-90"></a>        (num,den) <span class="op">=</span> r <span class="cf">if</span> r <span class="op">!=</span> <span class="va">None</span> <span class="cf">else</span> (<span class="va">None</span>,<span class="va">None</span>)</span>
+<span id="cb1-91"><a href="#cb1-91"></a></span>
+<span id="cb1-92"><a href="#cb1-92"></a>        out <span class="op">=</span> convert(num,den)</span>
+<span id="cb1-93"><a href="#cb1-93"></a>        <span class="cf">if</span> out <span class="op">!=</span> <span class="va">None</span>:</span>
+<span id="cb1-94"><a href="#cb1-94"></a>            <span class="bu">print</span>(out)</span>
+<span id="cb1-95"><a href="#cb1-95"></a>        <span class="cf">else</span>:</span>
+<span id="cb1-96"><a href="#cb1-96"></a>            eprint(<span class="st">'Error'</span>)</span>
+<span id="cb1-97"><a href="#cb1-97"></a></span>
+<span id="cb1-98"><a href="#cb1-98"></a>        <span class="cf">return</span> i</span>
+<span id="cb1-99"><a href="#cb1-99"></a>    <span class="cf">except</span> <span class="pp">EOFError</span>:</span>
+<span id="cb1-100"><a href="#cb1-100"></a>        <span class="cf">pass</span></span>
+<span id="cb1-101"><a href="#cb1-101"></a>    <span class="cf">except</span>:</span>
+<span id="cb1-102"><a href="#cb1-102"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb1-103"><a href="#cb1-103"></a></span>
+<span id="cb1-104"><a href="#cb1-104"></a><span class="kw">def</span> TODO():</span>
+<span id="cb1-105"><a href="#cb1-105"></a>    eprint(<span class="st">'Unimplement features!'</span>)</span>
+<span id="cb1-106"><a href="#cb1-106"></a>    eprint(<span class="st">'Congraturation! You have reach the end of the world.'</span>)</span>
+<span id="cb1-107"><a href="#cb1-107"></a>    exit(<span class="dv">1</span>)</span>
+<span id="cb1-108"><a href="#cb1-108"></a></span>
+<span id="cb1-109"><a href="#cb1-109"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:</span>
+<span id="cb1-110"><a href="#cb1-110"></a>    args <span class="op">=</span> docopt(__doc__)</span>
+<span id="cb1-111"><a href="#cb1-111"></a></span>
+<span id="cb1-112"><a href="#cb1-112"></a>    <span class="cf">if</span> args[<span class="st">'-t'</span>]:</span>
+<span id="cb1-113"><a href="#cb1-113"></a>        eprint(<span class="st">&quot;Running doctest ...&quot;</span>)</span>
+<span id="cb1-114"><a href="#cb1-114"></a>        testmod(verbose<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-115"><a href="#cb1-115"></a></span>
+<span id="cb1-116"><a href="#cb1-116"></a>        eprint(<span class="dv">50</span><span class="op">*</span><span class="st">'='</span>)</span>
+<span id="cb1-117"><a href="#cb1-117"></a>        eprint(<span class="ss">f'</span><span class="sc">{</span>sups<span class="sc">}{</span>sep<span class="sc">}{</span>subs<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb1-118"><a href="#cb1-118"></a>    <span class="cf">elif</span> args[<span class="st">'-i'</span>]:</span>
+<span id="cb1-119"><a href="#cb1-119"></a>        eprint(<span class="st">'Running in interactive mode'</span>)</span>
+<span id="cb1-120"><a href="#cb1-120"></a>        eprint(<span class="st">'enter a fraction, &lt;Ctrl-C&gt; to quit, invalid number will be ignored'</span>)</span>
+<span id="cb1-121"><a href="#cb1-121"></a></span>
+<span id="cb1-122"><a href="#cb1-122"></a>        <span class="cf">while</span> get_input() <span class="op">!=</span> <span class="va">None</span>:</span>
+<span id="cb1-123"><a href="#cb1-123"></a>            <span class="cf">pass</span></span>
+<span id="cb1-124"><a href="#cb1-124"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-125"><a href="#cb1-125"></a>        TODO()</span></code></pre></div>
+    </div>
+
+  <!-- socials -->
+  <!-- <div> -->
+  <!--   <table> -->
+  <!--     <tr> -->
+  <!--       <td class="borderless" > -->
+  <!--         <!&#45;&#45; Facebook like button &#45;&#45;> -->
+  <!--         <div class="fb&#45;like" -->
+  <!--             data&#45;href="https://wizzup.github.io/posts/unicode-fractions_th/" -->
+  <!--             data&#45;layout="button_count" -->
+  <!--             data&#45;action="like" -->
+  <!--             data&#45;size="small" -->
+  <!--             data&#45;show&#45;faces="false" -->
+  <!--             data&#45;share="false" /> -->
+  <!--       </td> -->
+  <!--  -->
+  <!--       <td class="borderless" > -->
+  <!--       <!&#45;&#45; twitter tweet button &#45;&#45;> -->
+  <!--       <a href="https://twitter.com/share" -->
+  <!--         class="twitter&#45;share&#45;button" -->
+  <!--         data&#45;url="https://wizzup.github.io/posts/unicode-fractions_th/" -->
+  <!--         data&#45;count="horizontal" -->
+  <!--         data&#45;via="wizzup">Tweet</a> -->
+  <!--       </td> -->
+  <!--  -->
+  <!--       <td class="borderless" > -->
+  <!--       <!&#45;&#45; G+ button &#45;&#45;> -->
+  <!--       <g:plusone -->
+  <!--         size="medium" -->
+  <!--         href="https://wizzup.github.io/posts/unicode-fractions_th/"/> -->
+  <!--       </td> -->
+  <!--  -->
+  <!--       <td class="borderless" > -->
+  <!--       <!&#45;&#45; pocket button &#45;&#45;> -->
+  <!--       <a data&#45;pocket&#45;label="pocket" data&#45;pocket&#45;count="horizontal" class="pocket&#45;btn" data&#45;lang="en"></a> -->
+  <!--       </td> -->
+  <!--     </tr> -->
+  <!--   </table> -->
+  <!-- </div> -->
+
+  <!-- facebook comments -->
+  <!-- <div style="width:100%"> -->
+  <!--   <div class="fb&#45;comments" -->
+  <!--        data&#45;href="https://wizzup.github.io/posts/unicode-fractions_th/" -->
+  <!--        data&#45;numposts="3" /> -->
+  <!-- </div> -->
+
+  <!-- disqus comments -->
+  <div>
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+    var disqus_config = function () {
+      this.page.url = "https://wizzup.com/posts/unicode-fractions_th/";
+      this.page.title = "เขียนเศษส่วนด้วย Unicode subscript/superscript";
+      this.page.identifier = "posts/unicode-fractions_th.md";
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wizzup.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+
+        </div>
+      </section>
+    </main>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer class="text-muted">
+      <div class="container">
+        <div>
+          <!-- TODO: image icon as a class and sizing using css -->
+          <small>
+            <!-- <p> -->
+            <span class="footer-l">
+              Site generated using
+              <a href="https://haskell.org">
+                <img height="16" width="16" alt="haskell" src="https://unpkg.com/simple-icons@latest/icons/haskell.svg" />
+              </a>
+              <a href="https://jaspervdj.be/hakyll">
+                <img height="16" width="16" alt="hakyll" src="../../images/hakyll.tmb.png" />
+              </a>
+              <a href="https://getbootstrap.com">
+                <img height="16" width="16" alt="bootstrap" src="https://unpkg.com/simple-icons@latest/icons/bootstrap.svg" />
+              </a>
+              <a href="https://simpleicons.org">
+                <img height="16" width="16" alt="simpleicons" src="https://unpkg.com/simple-icons@latest/icons/simpleicons.svg" />
+              </a>
+              <!-- <!&#45;&#45; FIXME:: find https alternatives for icons site&#45;&#45;> -->
+              <!-- <a href="http://www.iconarchive.com"> -->
+              <!--   <img height="16" width="16" alt="iconarchive" src="http://www.iconarchive.com/favicon&#45;16x16.png" /> -->
+              <!-- </a> -->
+              , license:
+              <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+                <img height="16" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+              </a>
+            </span>
+            <span class="footer-r">
+              <span>
+              source:
+              <a rel="source" href="http://github.com/wizzup/wizzup.github.io">
+                <img height="16" alt="github" style="border-width:0" src="https://unpkg.com/simple-icons@latest/icons/github.svg" />
+              </a>
+              <span>
+              report problem:
+              <a rel="source" href="https://github.com/wizzup/wizzup.github.io/issues">
+                ⚠
+              </a>
+            </span>
+            <!-- </p> -->
+          </small>
+        </div>
+      </div>
+    </footer>
+
+    <!-- (debug) hakyll templates values -->
+    <section>
+      <pre style="display: none;">
+        <code>
+        title        เขียนเศษส่วนด้วย Unicode subscript/superscript    
+        url            /posts/unicode-fractions_th/      
+        path          posts/unicode-fractions_th.md     
+        date          July  8, 2019     
+        author   
+        metadata 
+        missing  
+        teasers  
+        teaser   
+        snippet  
+        </code>
+      </pre>
+    </section>
+
+    <!-- External api -->
+    <section>
+      <!-- Facebook like api -->
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+      <style media="screen">
+        .fb_iframe_widget span
+          {
+          vertical-align: baseline !important;
+        }
+      </style>
+
+      <!-- Twitter widgets -->
+      <script src="https://platform.twitter.com/widgets.js"></script>
+
+      <!-- pocket script -->
+      <script>!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+    </section>
+
+    <section>
+      <!-- Scripts that loaded after page contents -->
+      <!-- MathJax -->
+      <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+      </script>
+
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </section>
+  </body>
+</html>
