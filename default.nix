@@ -36,7 +36,7 @@ let
   pyPcks = with pkgs.python3Packages;
          [ livereload ];
 
-  dev = drv.overrideAttrs(attr: {
+  dev = drv.env.overrideAttrs(attr: {
     buildInputs = attr.buildInputs
                ++ hsPcks
                ++ pyPcks;
@@ -45,3 +45,4 @@ let
 in
 
   if pkgs.lib.inNixShell then dev else drv
+  # if pkgs.lib.inNixShell then drv.env else drv
