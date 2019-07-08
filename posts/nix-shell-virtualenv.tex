@@ -11,10 +11,10 @@ You should only installed what you need.
 
 I've try \textit{nix-shell} with \textit{ghc} and \textit{python} and it work.
 
-The simple use case is just pass \textit{-i <packages>} to \textit{nix-shell} and you have python available to use.
+The simple use case is just pass \textit{-p <packages>} to \textit{nix-shell} and you have python available to use.
 
 \begin{minted}{shell}
-$ nix-shell -i python
+$ nix-shell -p python
 [nix-shell:]$ python --version
 Python 2.7.13
 
@@ -26,13 +26,14 @@ Python 3.6.1
 GHC example:
 
 \begin{minted}{shell}
-$ nix-shell -i python
-[nix-shell:]$ python --version
-Python 2.7.13
+$ nix-shell -p ghc
+[nix-shell:]$ ghc --version
+The Glorious Glasgow Haskell Compilation System, version 8.6.5
 
-$ nix-shell -p python3
-[nix-shell:]$ python --version
-Python 3.6.1
+$ nix-shell -p haskell.compiler.ghc822
+[nix-shell:]$ ghc --version
+The Glorious Glasgow Haskell Compilation System, version 8.2.2
+
 \end{minted}
 
 
