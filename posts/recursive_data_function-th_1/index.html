@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>wizzup: คิดเล่น ๆ กับ Haskell | Recursive data type และ Morphism</title>
+
+    <!-- icon -->
+    <link rel="icon" href="../../images/favicon.ico">
+
+    <!-- Required meta tags for site -->
+    <meta charset="utf-8">
+    <meta name="author" content="Wisut Hantanong" />
+    <meta name="description" content="wisut hantanong (wizzup)'s website." />
+    <meta name="keywords" content="wisut,hantanong,wizzup,programming,python,haskell,nix,vim" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- twitter metadata -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="wizzup: คิดเล่น ๆ กับ Haskell | Recursive data type และ Morphism" />
+    <meta name="twitter:description" content=" คิดเล่น ๆ กับ Haskell | Recursive data type และ Morphism " />
+    <meta name="twitter:site" content="@wizzup" />
+    <meta name="twitter:creator" content="@wizzup" />
+
+    <!-- Facebook metadata -->
+    <meta property="fb:app_id" content="422764088544273" />
+
+    <!-- opengraph metadata -->
+    <meta property="og:url" content="https://wizzup.com/posts/recursive_data_function-th_1/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="wizzup" />
+    <meta property="og:title" content="wizzup: คิดเล่น ๆ กับ Haskell | Recursive data type และ Morphism" />
+    <meta property="og:description" content=" คิดเล่น ๆ กับ Haskell | Recursive data type และ Morphism " />
+    <meta property="og:image" content="https://wizzup.com/images/ogimage-def.gif" />
+
+    <!-- canonical link -->
+    <link rel="canonical" href="https://wizzup.com/posts/recursive_data_function-th_1/" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- override default CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono|Fira+Sans" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/default.css" />
+
+    <!-- override sourcecode CSS -->
+    <link rel="stylesheet" href="../../css/sourcecode.css" />
+
+  </head>
+
+  <body>
+    <header>
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="../../">
+          <img src="../../images/home-sketch.png" alt="Home">
+        </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <!-- <a class="nav&#45;item nav&#45;link active" href="#">Home <span class="sr&#45;only">(current)</span></a> -->
+              <a class="nav-item nav-link" href="../../archive">Archive</a>
+              <a class="nav-item nav-link" href="../../about">About</a>
+            </div>
+          </div>
+      </nav>
+
+      <!-- Main title -->
+      <section class="jumbotron">
+        <div class="container">
+          <h2 class="jumbotron-heading">คิดเล่น ๆ กับ Haskell | Recursive data type และ Morphism</h2>
+        </div>
+      </section>
+    </header>
+
+    <!-- Body -->
+    <main>
+      <section class="main">
+        <div class="container">
+              <div class="text-muted">
+        Posted on July 12, 2019
+        
+    </div>
+    <div>
+        <br />
+        <h2 id="ตอนที่-1--mapreduce-pipeline">ตอนที่ 1 : map/reduce pipeline</h2>
+<p>ได้พบโจทย์ปัญหาโปรแกรมข้อหนึ่งในกลุ่ม programming เห็นว่าเป็นปัญหาง่าย ๆ ที่น่าสนใจดี (เปลี่ยนราคาเป็น 100 เพื่อความง่ายในการคิดในใจ)</p>
+<blockquote>
+<p>ร้านหมูกะทะแห่งหนึ่งจัดรายการส่งเสริมการขายมา 4 จ่าย 3 จงเขียนโปรแกรมรับจำนวนคนที่ใช้บริการแล้วคำนวณหาจำนวนเงินที่ต้องจ่าย เมื่อร้านคิดราคาหัวละ 100 บาท</p>
+</blockquote>
+<p>ความน่าสนใจของปัญหานี้คือมี pattern ของการโปรแกรมที่พบได้บ่อยคือ <code>Map/Reduce</code> ที่ประกอบด้วย</p>
+<ul>
+<li>filter</li>
+<li>map</li>
+<li>sum (fold/reduce)</li>
+</ul>
+<p><img src="../../images/4for3.png" alt="4 for 3 diagram" /></p>
+<p>ได้ทดลองแก้ปัญหาแบบ imperative ด้วย scratch ไว้ <a href="https://scratch.mit.edu/projects/320560356/">ที่นี่</a></p>
+<p><img src="../../images/4for3_scratch.png" alt="4for3 scratch code" /></p>
+<p>ซึ่งแปลงเป็น python แบบตรงตัวได้ประมาณนี้</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> calculate(n):</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    count <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>    paid <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>    answer <span class="op">=</span> <span class="bu">int</span>(n)</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="cf">while</span> <span class="va">True</span>:             <span class="co"># python doesn't have repeat until</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>        <span class="cf">if</span> count <span class="op">&gt;</span> answer:  <span class="co">#     emulate with while and if</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>            <span class="cf">break</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a>        <span class="cf">if</span> count <span class="op">%</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb1-10"><a href="#cb1-10"></a>            <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>count<span class="sc">}</span><span class="ss"> ฟรี'</span>, end<span class="op">=</span><span class="st">''</span>)</span>
+<span id="cb1-11"><a href="#cb1-11"></a>        <span class="cf">else</span>:</span>
+<span id="cb1-12"><a href="#cb1-12"></a>            <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>count<span class="sc">}</span><span class="ss"> จ่าย'</span>, end<span class="op">=</span><span class="st">''</span>)</span>
+<span id="cb1-13"><a href="#cb1-13"></a>            paid <span class="op">+=</span> <span class="dv">100</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a>        <span class="bu">print</span>(<span class="st">', '</span>, end <span class="op">=</span> <span class="st">''</span>)</span>
+<span id="cb1-16"><a href="#cb1-16"></a>        count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a>    <span class="bu">print</span>()</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    <span class="bu">print</span>(<span class="ss">f'รวมต้องจ่าย </span><span class="sc">{</span>paid<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb1-20"><a href="#cb1-20"></a></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb1-22"><a href="#cb1-22"></a>    calculate(<span class="bu">input</span>(<span class="st">'จำนวนคน ?</span><span class="ch">\n</span><span class="st">&gt; '</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a>$ <span class="ex">python</span> 4for3.py</span>
+<span id="cb2-2"><a href="#cb2-2"></a>จำนวนคน <span class="ex">?</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="op">&gt;</span> <span class="ex">6</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="ex">1</span> จ่าย, 2 จ่าย, 3 จ่าย, 4 ฟรี, 5 จ่าย, 6 จ่าย,</span>
+<span id="cb2-5"><a href="#cb2-5"></a>รวมต้องจ่าย <span class="ex">500</span></span></code></pre></div>
+<p>หรือถ้าอยากทำใ้ห้สั้นแบบ code golf ก็ได้ประมาณนี้</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="bu">print</span>(<span class="bu">sum</span>([<span class="dv">100</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'จำนวนคน ?&gt; '</span>)) <span class="op">+</span> <span class="dv">1</span>) <span class="cf">if</span> x <span class="op">%</span> <span class="dv">4</span> <span class="op">!=</span> <span class="dv">0</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a>$ <span class="ex">python</span> 4for3.py</span>
+<span id="cb4-2"><a href="#cb4-2"></a>จำนวนคน <span class="ex">?</span><span class="op">&gt;</span> 6</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="ex">500</span></span></code></pre></div>
+<p>ซึ่งการเขียนด้วย Python จะมองไม่เห็น map, filter, fold ที่ซ่อนอยู่ได้ชัดเจน ต่างกันกับเขียนด้วย Haskell</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb5-2"><a href="#cb5-2"></a>main <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">putStr</span> <span class="st">&quot;จำนวนคน?\n&gt; &quot;</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  n <span class="ot">&lt;-</span> <span class="fu">readLn</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">print</span> <span class="op">$</span> compute [<span class="dv">1</span><span class="op">..</span>n]</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  main</span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="ot">compute ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>compute <span class="ot">=</span> <span class="fu">sum</span> <span class="op">.</span> <span class="fu">map</span> (<span class="fu">const</span> <span class="dv">100</span>) <span class="op">.</span> <span class="fu">filter</span> ((<span class="op">/=</span> <span class="dv">0</span>) <span class="op">.</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a>$ <span class="ex">runhaskell</span> 4for3.hs</span>
+<span id="cb6-2"><a href="#cb6-2"></a>จำนวนคน<span class="ex">?</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="op">&gt;</span> <span class="ex">6</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="ex">500</span></span></code></pre></div>
+<p>argument ของ map คือ function <code>const :: Int -&gt; a -&gt; Int</code> ที่ไม่สนใจสมาชิกใน List เดิมว่าคืออะไร เปลี่ยนให้เป็น <code>100 :: Int</code></p>
+<p>argument ของ filter ดูจะอ่านยากหน่อย เพราะลดรูปไปอยู่ในแบบ point free</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1"></a>\x <span class="ot">-&gt;</span> x <span class="ot">`mod`</span> <span class="dv">4</span> <span class="op">/=</span> <span class="dv">0</span>  <span class="op">~~</span> \x <span class="ot">-&gt;</span> (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">$</span> <span class="fu">mod</span> x <span class="dv">4</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>                         \x <span class="ot">-&gt;</span> (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">$</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span> x</span>
+<span id="cb7-3"><a href="#cb7-3"></a>                         (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">.</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span></span></code></pre></div>
+<p>ตอนหน้าจะเขียนเรื่องของโครงสร้าง recursive ของ List และ fold เพื่อสร้าง high order function ของ List (map, filter, sum)</p>
+    </div>
+
+  <!-- socials -->
+  <!-- <div> -->
+  <!--   <table> -->
+  <!--     <tr> -->
+  <!--       <td class="borderless" > -->
+  <!--         <!&#45;&#45; Facebook like button &#45;&#45;> -->
+  <!--         <div class="fb&#45;like" -->
+  <!--             data&#45;href="https://wizzup.github.io/posts/recursive_data_function-th_1/" -->
+  <!--             data&#45;layout="button_count" -->
+  <!--             data&#45;action="like" -->
+  <!--             data&#45;size="small" -->
+  <!--             data&#45;show&#45;faces="false" -->
+  <!--             data&#45;share="false" /> -->
+  <!--       </td> -->
+  <!--  -->
+  <!--       <td class="borderless" > -->
+  <!--       <!&#45;&#45; twitter tweet button &#45;&#45;> -->
+  <!--       <a href="https://twitter.com/share" -->
+  <!--         class="twitter&#45;share&#45;button" -->
+  <!--         data&#45;url="https://wizzup.github.io/posts/recursive_data_function-th_1/" -->
+  <!--         data&#45;count="horizontal" -->
+  <!--         data&#45;via="wizzup">Tweet</a> -->
+  <!--       </td> -->
+  <!--  -->
+  <!--       <td class="borderless" > -->
+  <!--       <!&#45;&#45; G+ button &#45;&#45;> -->
+  <!--       <g:plusone -->
+  <!--         size="medium" -->
+  <!--         href="https://wizzup.github.io/posts/recursive_data_function-th_1/"/> -->
+  <!--       </td> -->
+  <!--  -->
+  <!--       <td class="borderless" > -->
+  <!--       <!&#45;&#45; pocket button &#45;&#45;> -->
+  <!--       <a data&#45;pocket&#45;label="pocket" data&#45;pocket&#45;count="horizontal" class="pocket&#45;btn" data&#45;lang="en"></a> -->
+  <!--       </td> -->
+  <!--     </tr> -->
+  <!--   </table> -->
+  <!-- </div> -->
+
+  <!-- facebook comments -->
+  <!-- <div style="width:100%"> -->
+  <!--   <div class="fb&#45;comments" -->
+  <!--        data&#45;href="https://wizzup.github.io/posts/recursive_data_function-th_1/" -->
+  <!--        data&#45;numposts="3" /> -->
+  <!-- </div> -->
+
+  <!-- disqus comments -->
+  <div>
+    <div id="disqus_thread"></div>
+    <script>
+
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+    var disqus_config = function () {
+      this.page.url = "https://wizzup.com/posts/recursive_data_function-th_1/";
+      this.page.title = "คิดเล่น ๆ กับ Haskell | Recursive data type และ Morphism";
+      this.page.identifier = "posts/recursive_data_function-th_1.md";
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://wizzup.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+
+        </div>
+      </section>
+    </main>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer class="text-muted">
+      <div class="container">
+        <div>
+          <!-- TODO: image icon as a class and sizing using css -->
+          <small>
+            <!-- <p> -->
+            <span class="footer-l">
+              Site generated using
+              <a href="https://haskell.org">
+                <img height="16" width="16" alt="haskell" src="https://unpkg.com/simple-icons@latest/icons/haskell.svg" />
+              </a>
+              <a href="https://jaspervdj.be/hakyll">
+                <img height="16" width="16" alt="hakyll" src="../../images/hakyll.tmb.png" />
+              </a>
+              <a href="https://getbootstrap.com">
+                <img height="16" width="16" alt="bootstrap" src="https://unpkg.com/simple-icons@latest/icons/bootstrap.svg" />
+              </a>
+              <a href="https://simpleicons.org">
+                <img height="16" width="16" alt="simpleicons" src="https://unpkg.com/simple-icons@latest/icons/simpleicons.svg" />
+              </a>
+              <!-- <!&#45;&#45; FIXME:: find https alternatives for icons site&#45;&#45;> -->
+              <!-- <a href="http://www.iconarchive.com"> -->
+              <!--   <img height="16" width="16" alt="iconarchive" src="http://www.iconarchive.com/favicon&#45;16x16.png" /> -->
+              <!-- </a> -->
+              , license:
+              <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+                <img height="16" alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+              </a>
+            </span>
+            <span class="footer-r">
+              <span>
+              source:
+              <a rel="source" href="http://github.com/wizzup/wizzup.github.io">
+                <img height="16" alt="github" style="border-width:0" src="https://unpkg.com/simple-icons@latest/icons/github.svg" />
+              </a>
+              <span>
+              report problem:
+              <a rel="source" href="https://github.com/wizzup/wizzup.github.io/issues">
+                ⚠
+              </a>
+            </span>
+            <!-- </p> -->
+          </small>
+        </div>
+      </div>
+    </footer>
+
+    <!-- (debug) hakyll templates values -->
+    <section>
+      <pre style="display: none;">
+        <code>
+        title        คิดเล่น ๆ กับ Haskell | Recursive data type และ Morphism    
+        url            /posts/recursive_data_function-th_1/      
+        path          posts/recursive_data_function-th_1.md     
+        date          July 12, 2019     
+        author   
+        metadata 
+        missing  
+        teasers  
+        teaser   
+        snippet  
+        </code>
+      </pre>
+    </section>
+
+    <!-- External api -->
+    <section>
+      <!-- Facebook like api -->
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+      <style media="screen">
+        .fb_iframe_widget span
+          {
+          vertical-align: baseline !important;
+        }
+      </style>
+
+      <!-- Twitter widgets -->
+      <script src="https://platform.twitter.com/widgets.js"></script>
+
+      <!-- pocket script -->
+      <script>!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script>
+    </section>
+
+    <section>
+      <!-- Scripts that loaded after page contents -->
+      <!-- MathJax -->
+      <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+      </script>
+
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </section>
+  </body>
+</html>
