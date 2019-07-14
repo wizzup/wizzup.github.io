@@ -3,6 +3,10 @@ title: คิดเล่น ๆ กับ Haskell | Recursive data type แล�
 date: 2019-07-13
 keywords: [haskell, filter, map, sum, fold, list]
 ---
+|[ตอนที่ 1 ](/posts/recursive_data_function-th_1)
+|[ตอนที่ 2 ](/posts/recursive_data_function-th_2)
+|[ตอนที่ 3 ](/posts/recursive_data_function-th_3)
+|
 
 ## ตอนที่ 2 : Recursive data type
 
@@ -110,4 +114,22 @@ sum :: [Int] -> Int
 sum = foldr (+) 0
 ```
 
-ตอนหน้าวางแผนว่าจะเขียนเพิ่มเรื่องชองการ `fold` และ abstract concept ระดับสูงขี้นไปอีกขั้นที่เรียกว่า Catamorphism
+### List comprehension
+
+ใน Python มีการยุบรวม `map` และ `filter` เป็น expression เดียวกันโดยใข้ List comprehension
+
+```python
+>> xs = [1,2,3,4]
+>> [i * i for i in xs if i > 2]
+[9, 16]
+```
+
+ใน Haskell ก็มี List comprehension เช่นเดียวกัน ซึ่งมีไวยากรณ์ไกล้เคียงกับ [set builder notation](https://en.wikipedia.org/wiki/Set-builder_notation)
+
+```haskell
+λ> xs =  [1,2,3,4]
+λ> [ i * i | i <- xs, i > 2]
+[9,16]
+```
+
+[ตอนหน้า](/posts/recursive_data_function-th_3) เขียนเพิ่มเรื่อง Recursive algorithm ของ List
