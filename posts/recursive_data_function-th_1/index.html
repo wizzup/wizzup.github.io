@@ -83,7 +83,8 @@
     </div>
     <div>
         <br />
-        <h2 id="ตอนที่-1--mapreduce-pipeline">ตอนที่ 1 : map/reduce pipeline</h2>
+        <p>|<a href="../../posts/recursive_data_function-th_1">ตอนที่ 1</a> |<a href="../../posts/recursive_data_function-th_2">ตอนที่ 2</a> |<a href="../../posts/recursive_data_function-th_3">ตอนที่ 3</a> |</p>
+<h2 id="ตอนที่-1--mapreduce-pipeline">ตอนที่ 1 : map/reduce pipeline</h2>
 <p>ได้พบโจทย์ปัญหาโปรแกรมข้อหนึ่งในกลุ่ม programming เห็นว่าเป็นปัญหาง่าย ๆ ที่น่าสนใจดี (เปลี่ยนราคาเป็น 100 เพื่อความง่ายในการคิดในใจ)</p>
 <blockquote>
 <p>ร้านหมูกะทะแห่งหนึ่งจัดรายการส่งเสริมการขายมา 4 จ่าย 3 จงเขียนโปรแกรมรับจำนวนคนที่ใช้บริการแล้วคำนวณหาจำนวนเงินที่ต้องจ่าย เมื่อร้านคิดราคาหัวละ 100 บาท</p>
@@ -141,38 +142,35 @@
 <span id="cb5-4"><a href="#cb5-4"></a>    pheads <span class="op">=</span> <span class="bu">map</span>(<span class="kw">lambda</span> _: <span class="dv">100</span>, fheads)</span>
 <span id="cb5-5"><a href="#cb5-5"></a>    ans    <span class="op">=</span> <span class="bu">sum</span>(pheads)</span>
 <span id="cb5-6"><a href="#cb5-6"></a>    <span class="bu">print</span>(<span class="ss">f'รวมจ่าย </span><span class="sc">{</span>ans<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a>$ <span class="ex">python</span> 4for3.py</span>
-<span id="cb6-2"><a href="#cb6-2"></a>จำนวนคน <span class="ex">?</span><span class="op">&gt;</span> 6</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="ex">500</span></span></code></pre></div>
 <p>ลองเอาตัวแปรชั่วคราว (intermediate) ที่ไม่จำเป็นต้องใช้ออก เพื่อทดลองทำ function composition จะพบว่าอ่านยากขึ้นกว่าเดิมเพราะวงเล็บซ้อนกันหลายชั้น (subjective)่่</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb7-2"><a href="#cb7-2"></a>    <span class="bu">print</span>(<span class="bu">sum</span>(</span>
-<span id="cb7-3"><a href="#cb7-3"></a>          <span class="bu">map</span>(<span class="kw">lambda</span> _: <span class="dv">100</span>,</span>
-<span id="cb7-4"><a href="#cb7-4"></a>          <span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">4</span> <span class="op">!=</span> <span class="dv">0</span>,</span>
-<span id="cb7-5"><a href="#cb7-5"></a>          <span class="bu">range</span>(<span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'จำนวนคน ?&gt; '</span>)) <span class="op">+</span><span class="dv">1</span>)))))</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    <span class="bu">print</span>(<span class="bu">sum</span>(</span>
+<span id="cb6-3"><a href="#cb6-3"></a>          <span class="bu">map</span>(<span class="kw">lambda</span> _: <span class="dv">100</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>          <span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">4</span> <span class="op">!=</span> <span class="dv">0</span>,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>          <span class="bu">range</span>(<span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'จำนวนคน ?&gt; '</span>)) <span class="op">+</span><span class="dv">1</span>)))))</span></code></pre></div>
 <p>นอกจากนี้แล้ว การเขียนด้วย map, filter และ reduce ออกจะไม่เป็น pythonic เมื่อเทียบกับการใช้ list comprehension (ตีความตามที่ผู้ออกแบบภาษา Python ได้<a href="https://www.artima.com/weblogs/viewpost.jsp?thread=98196">เขียนไว้</a>)</p>
 <h2 id="haskell">Haskell</h2>
 <p>การแสดงการ compose ที่ชัดเจนจากได้จากการเขียนด้วยภาษา functional เช่น Haskell</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
-<span id="cb8-2"><a href="#cb8-2"></a>main <span class="ot">=</span> <span class="kw">do</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">putStr</span> <span class="st">&quot;จำนวนคน?\n&gt; &quot;</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a>  n <span class="ot">&lt;-</span> <span class="fu">readLn</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">print</span> <span class="op">$</span> compute [<span class="dv">1</span><span class="op">..</span>n]</span>
-<span id="cb8-6"><a href="#cb8-6"></a></span>
-<span id="cb8-7"><a href="#cb8-7"></a>  main</span>
-<span id="cb8-8"><a href="#cb8-8"></a></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="ot">compute ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a>compute <span class="ot">=</span> <span class="fu">sum</span> <span class="op">.</span> <span class="fu">map</span> (<span class="fu">const</span> <span class="dv">100</span>) <span class="op">.</span> <span class="fu">filter</span> ((<span class="op">/=</span> <span class="dv">0</span>) <span class="op">.</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a>$ <span class="ex">runhaskell</span> 4for3.hs</span>
-<span id="cb9-2"><a href="#cb9-2"></a>จำนวนคน<span class="ex">?</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="op">&gt;</span> <span class="ex">6</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="ex">500</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb7-2"><a href="#cb7-2"></a>main <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">putStr</span> <span class="st">&quot;จำนวนคน?\n&gt; &quot;</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  n <span class="ot">&lt;-</span> <span class="fu">readLn</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">print</span> <span class="op">$</span> compute [<span class="dv">1</span><span class="op">..</span>n]</span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  main</span>
+<span id="cb7-8"><a href="#cb7-8"></a></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="ot">compute ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>compute <span class="ot">=</span> <span class="fu">sum</span> <span class="op">.</span> <span class="fu">map</span> (<span class="fu">const</span> <span class="dv">100</span>) <span class="op">.</span> <span class="fu">filter</span> ((<span class="op">/=</span> <span class="dv">0</span>) <span class="op">.</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a>$ <span class="ex">runhaskell</span> 4for3.hs</span>
+<span id="cb8-2"><a href="#cb8-2"></a>จำนวนคน<span class="ex">?</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="op">&gt;</span> <span class="ex">6</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="ex">500</span></span></code></pre></div>
 <p>argument ของ map คือ function <code>const :: Int -&gt; a -&gt; Int</code> ที่ไม่สนใจสมาชิกใน List เดิมว่าคืออะไร เปลี่ยนให้เป็น <code>100 :: Int</code></p>
 <p>argument ของ filter ดูจะอ่านยากหน่อย เพราะลดรูปไปอยู่ในแบบ point free</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1"></a>λx <span class="ot">-&gt;</span> x <span class="ot">`mod`</span> <span class="dv">4</span> <span class="op">/=</span> <span class="dv">0</span>  <span class="op">~~</span> λx <span class="ot">-&gt;</span> (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">$</span> <span class="fu">mod</span> x <span class="dv">4</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>                         λx <span class="ot">-&gt;</span> (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">$</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span> x</span>
-<span id="cb10-3"><a href="#cb10-3"></a>                         (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">.</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span></span></code></pre></div>
-<p>ตอนหน้าจะเขียนเรื่องของโครงสร้าง recursive ของ List และ fold เพื่อสร้าง high order function ของ List (map, filter, sum)</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1"></a>λx <span class="ot">-&gt;</span> x <span class="ot">`mod`</span> <span class="dv">4</span> <span class="op">/=</span> <span class="dv">0</span>  <span class="op">~~</span> λx <span class="ot">-&gt;</span> (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">$</span> <span class="fu">mod</span> x <span class="dv">4</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>                         λx <span class="ot">-&gt;</span> (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">$</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span> x</span>
+<span id="cb9-3"><a href="#cb9-3"></a>                         (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">.</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span></span></code></pre></div>
+<p><a href="../../posts/recursive_data_function-th_2">ตอนหน้า</a> เขียนเรื่องของโครงสร้าง recursive ของ List และ fold เพื่อสร้าง high order function ของ List (map, filter, sum)</p>
     </div>
 
   <!-- socials -->

@@ -83,7 +83,8 @@
     </div>
     <div>
         <br />
-        <h2 id="ตอนที่-2--recursive-data-type">ตอนที่ 2 : Recursive data type</h2>
+        <p>|<a href="../../posts/recursive_data_function-th_1">ตอนที่ 1</a> |<a href="../../posts/recursive_data_function-th_2">ตอนที่ 2</a> |<a href="../../posts/recursive_data_function-th_3">ตอนที่ 3</a> |</p>
+<h2 id="ตอนที่-2--recursive-data-type">ตอนที่ 2 : Recursive data type</h2>
 <h3 id="list">List</h3>
 <p>Concept ของ List ใน Haskell นิยามแบบ recursive ได้ประมาณนี้</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">data</span> <span class="dt">List</span> a <span class="ot">=</span> <span class="dt">Empty</span></span>
@@ -147,7 +148,16 @@
 <span id="cb11-6"><a href="#cb11-6"></a>               <span class="op">|</span> <span class="fu">otherwise</span> <span class="ot">=</span> xs</span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">sum</span><span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="fu">sum</span> <span class="ot">=</span> <span class="fu">foldr</span> (<span class="op">+</span>) <span class="dv">0</span></span></code></pre></div>
-<p>ตอนหน้าวางแผนว่าจะเขียนเพิ่มเรื่องชองการ <code>fold</code> และ abstract concept ระดับสูงขี้นไปอีกขั้นที่เรียกว่า Catamorphism</p>
+<h3 id="list-comprehension">List comprehension</h3>
+<p>ใน Python มีการยุบรวม <code>map</code> และ <code>filter</code> เป็น expression เดียวกันโดยใข้ List comprehension</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="op">&gt;&gt;</span> xs <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="op">&gt;&gt;</span> [i <span class="op">*</span> i <span class="cf">for</span> i <span class="kw">in</span> xs <span class="cf">if</span> i <span class="op">&gt;</span> <span class="dv">2</span>]</span>
+<span id="cb13-3"><a href="#cb13-3"></a>[<span class="dv">9</span>, <span class="dv">16</span>]</span></code></pre></div>
+<p>ใน Haskell ก็มี List comprehension เช่นเดียวกัน ซึ่งมีไวยากรณ์ไกล้เคียงกับ <a href="https://en.wikipedia.org/wiki/Set-builder_notation">set builder notation</a></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1"></a>λ<span class="op">&gt;</span> xs <span class="ot">=</span>  [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</span>
+<span id="cb14-2"><a href="#cb14-2"></a>λ<span class="op">&gt;</span> [ i <span class="op">*</span> i <span class="op">|</span> i <span class="ot">&lt;-</span> xs, i <span class="op">&gt;</span> <span class="dv">2</span>]</span>
+<span id="cb14-3"><a href="#cb14-3"></a>[<span class="dv">9</span>,<span class="dv">16</span>]</span></code></pre></div>
+<p><a href="../../posts/recursive_data_function-th_3">ตอนหน้า</a> เขียนเพิ่มเรื่อง Recursive algorithm ของ List</p>
     </div>
 
   <!-- socials -->
