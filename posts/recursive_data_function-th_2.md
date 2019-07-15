@@ -2,11 +2,14 @@
 title: คิดเล่น ๆ กับ Haskell | Recursive data type และ Morphism, ตอนที่ 2
 date: 2019-07-13
 keywords: [haskell, filter, map, sum, fold, list]
+language: th
 ---
-|[ตอนที่ 1 ](/posts/recursive_data_function-th_1)
-|[ตอนที่ 2 ](/posts/recursive_data_function-th_2)
-|[ตอนที่ 3 ](/posts/recursive_data_function-th_3)
+| [ตอนที่ 1 ](/posts/recursive_data_function-th_1)
+| [ตอนที่ 2 ](/posts/recursive_data_function-th_2)
+| [ตอนที่ 3 ](/posts/recursive_data_function-th_3)
 |
+
+*TLDR:* Recursive algorithm ทำงานกับ recursive data type ได้อย่างเป็นธรรมชาติ เพราะเดินไปตามโครงสร้างของข้อมูล
 
 ## ตอนที่ 2 : Recursive data type
 
@@ -131,5 +134,4 @@ sum = foldr (+) 0
 λ> [ i * i | i <- xs, i > 2]
 [9,16]
 ```
-
-[ตอนหน้า](/posts/recursive_data_function-th_3) เขียนเพิ่มเรื่อง Recursive algorithm ของ List
+[ตอนหน้า](/posts/recursive_data_function-th_3) เขียนเรื่องการเปลี่ยนรูปของข้อมูล

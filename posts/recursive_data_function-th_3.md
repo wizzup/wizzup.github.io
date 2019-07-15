@@ -1,122 +1,145 @@
 ---
 title: คิดเล่น ๆ กับ Haskell | Recursive data type และ Morphism, ตอนที่ 3
-date: 2019-07-14
-keywords: [filter, map, sum, fold, list]
+date: 2019-07-15
+keywords: [fold, unfold, map]
+language: th
 ---
-|[ตอนที่ 1 ](/posts/recursive_data_function-th_1)
-|[ตอนที่ 2 ](/posts/recursive_data_function-th_2)
-|[ตอนที่ 3 ](/posts/recursive_data_function-th_3)
+| [ตอนที่ 1 ](/posts/recursive_data_function-th_1)
+| [ตอนที่ 2 ](/posts/recursive_data_function-th_2)
+| [ตอนที่ 3 ](/posts/recursive_data_function-th_3)
 |
 
-## ตอนที่ 3 : Recursive algorithm เพิ่มเติม
+*TLDR:* การส่งต่อข้อมูลจาก input ไป output ของโปรแกรม มีการเปลี่ยนโครงสร้างของข้อมูล การเขียนด้วยภาษาที่มีประเภทข้อมูล (type) ชัดเจน ช่วยให้เห็นการเปลี่ยนแปลงโครงสร้างนั้นได้ง่ายขึ้น
 
-*ข้อสังเกต* เนื้อหาในตอนที่ 3 เป็นต้นไปเน้นไปที่ recursive data type ซึ่งบางเรื่องอาจไม่เกี่ยวข้องกับโจทย์ปัญหาจากตอนที่ 1 อีกต่อไป
+## ตอนที่ 3 : Morphism
 
-### List
+*ข้อสังเกต:* Morphism ในบทความนี้ใช้ในความหมายในเชิงทั่วไป ตามการตีความของผู้เขียนเพื่อให้ง่ายต่อการอธิบายต้วอย่าง ความหมายอาจแตกต่างหรือผิดเพี้ยนไปจาก [Morphism](https://en.wikipedia.org/wiki/Morphism) (structure-preserving map) ที่นิยามไว้ใน Catagory Theory
 
-นอกจาก `filter`, `map` และ `sum` แล้ว ยังมี function บน List ที่นิยามแบบ recursive อีกหลายตัว จะยกตัวอย่างบาง function มาเพื่อแสดงความเขื่อมโยงของ algorithm กับ structure ดังนี้
+Morphism คือการเปลี่ยนโครงสร้างจากโครงสร้างหนึ่งไปยังอีกโครงสร้างหนึ่ง ในตอนนี้จะทบทวนการเปลี่ยนโครงสร้างข้อมูลที่เกิดขึ้นในตัวอย่างโปรแกรมตอนที่ 1
 
-```haskell
--- product []     = 1
--- product (x:xs) = x * product xs
+จาก diagram ในตอนที่ 1 จะเห็นได้ว่าประเภท (type) หรือโครงสร้าง (structure) ของข้อมูลจาก input ไป output สามารถแยกออกได้เป็น 3 ชุดได้แก่
 
-product :: [Int] -> Int
-product = foldr (*) 1
+![4 for 3 diagram](/images/4for3.png)
+
+### Unfold : Int -> [Int]
+
+function ที่สร้าง List ของ Int จากพารามิเตอร์เดียวพบได้ในเกือบทุกภาษา
+
+#### Python
+
+```Python
+>> n = 5
+>> [x for x in range(5)]
+[0, 1, 2, 3, 4]
 ```
 
-```bash
-λ> product [1,2,3,4]
-24
+ใน Python สามารถสร้าง List จาก `range()` generator ด้วย list comprehension ซึ่งเทียบเท่ากับ for loop
+
+```Python
+n = 5
+l = []
+for x in range(5):
+  l.append(x)
 ```
 
-```haskell
--- length []     = 0
--- length (_:xs) = 1 + length xs
+#### Haskell
 
--- length = foldr (\_ b -> 1 + b) 0
--- length = foldr (\_ -> (1 +)) 0
+ใน Haskell สามารถสร้าง List `1 : 2 : 3 : 4 : 5 : []` ได้ด้วย syntactic sugar `[1..5]` ซึ่งเรีกใช้ [enumFromTo](https://hackage.haskell.org/package/base/docs/Prelude.html#v:enumFromTo) ของ Enum class
 
-length :: [a] -> Int
-length = foldr (const (1 +)) 0
+```Haskell
+λ> n = 5
+λ> [1..5]
 ```
 
-```bash
-λ> length [1,2,3,4]
-4
+เนื่องจาก Haskell ไม่มี loop จึงไม่มีกรณีเทียบเท่าของ for loop แต่หากต้องการสร้าง List แบบแฟนซีโดยการใช้ unfoldr ซึ่งเป็น [duality](https://kseo.github.io/posts/2016-12-12-unfold-and-fold.html) ของ foldr ก็ได้ดังนี้
+
+```Haskell
+mkList :: Int -> [Int]
+mkList n = unfoldr f 1
+  where f :: Int -> Maybe (Int, Int)
+        f k | k > n     = Nothing
+            | otherwise = Just (k, k+1)
+
+λ> mkList 5
+[1,2,3,4,5]
 ```
 
-จะเห็นได้ว่า function บน List สามารถนิยามตามโครงสร้างของ List ตามที่เขียนไว้ในตอนที่ 2
+Concept ของ unfoldr บางทีถูกเรียกว่า [Anamorphism](https://en.wikipedia.org/wiki/Anamorphism).
 
-อย่างไรก็ตาม ไม่ใช่ทุก function บน List จะนิยามได้ด้วย foldr ซึ่งถือเป็นกรณีเฉพาะที่เรียกว่า foldable
+### Transfrom : [Int] -> [Int]
 
-หากสนใจ function บน List ทั้งหมดที่มีให้ใช้ใน base library สามารถเข้าไปอ่านเพิ่มเติมได้ [ที่นี่](https://hackage.haskell.org/package/base/docs/Data-List.html)
+`map` เป็น transfrom ที่จำนวนสมาชิกของ List ยังเท่าเดิม แต่ประเภทของ output อาจเปลี่ยนแปลงได้ (กรณีตัวอย่างตามตอนที่ 1 input/outpu เหมือนกัน)
 
-### Binary Tree
+#### Python
 
-Binary tree นิยามแบบ recursive ได้เช่นเดียวกันกับ List
+ใน Python สามารถเขียน `map` ได้หลายแบบ แต่ทีนิยมใช้มากคือเขียนด้วย list comprehension
 
-```haskell
-data Tree a = Leaf a
-            | Branch (Tree a) (Tree a)
-  deriving Show -- บรรทัดนี้เพื่อให้สามารถแสดงผลออกทาง REPL ได้
-
-a :: Tree Int
-a = Leaf 0
-
-b :: Tree Int
-b = Branch (Leaf 1) a
-
-c :: Tree Int
-c = Branch b b
-
-d :: Tree Int
-d = Branch b c
-
+```Python
+>> xs = [1,2,3]
+>> [100 * x for x in xs]
+[100, 200, 300]
 ```
 
-```bash
-λ> a
-Leaf 0
+#### Haskell
 
-λ> b
-Branch (Leaf 1) (Leaf 0)
+ใน Haskell function `map` อยู่ในกลุ่มของ `Functor` ที่มี shortcuts เป็น `<$>`
 
-λ> c
-Branch (Branch (Leaf 1) (Leaf 0)) (Branch (Leaf 1) (Leaf 0))
+กรณีทั่วไปของ list จะใช้ `map` ใน Data.List ([base](https://hackage.haskell.org/package/base/docs/Data-List.html#v:map) library)
 
-λ> d
-Branch (Branch (Leaf 1) (Leaf 0)) (Branch (Branch (Leaf 1) (Leaf 0)) (Branch (Leaf 1) (Leaf 0)))
+```Haskell
+λ> xs = [1..5]
+
+λ> map (*100) xs
+[100,200,300,400,500]
+
+λ> (*100) <$> xs
+[100,200,300,400,500]
 ```
 
-function บน Tree ก็มีการเขียนตามโครงสร้างของ Tree คือเป็น 2 กรณี
+`filter` เป็น transfrom ที่ไม่เปลี่ยนประเภทของ input/output แต่จำนวนสมาชิกของ output อาจน้อยกว่าจำนวนสมาชิกของ input ได้
 
-- Leaf
-- Branch
+`filter` ของ Python นิยมเขียนด้วย list comprehension และ if statement, ส่วนของ Haskell มีอยู่ใน Data.List (base library)
 
-ตัวอย่าง: `nodeCount` นับจำนวน leaf ทั้งหมดใน Tree
+### Fold : [Int] -> Int
 
-```haskell
-nodeCount :: Tree a -> Int
-nodeCount (Leaf _)     = 1
-nodeCount (Branch l r) = nodeCount l + nodeCount r
+`sum` เป็น function ที่ต่างจากการเขียนการคำนวณใน loop เพียงอย่างเดียว คือต้องมีต้วเก็บค่า (accumulator) จาการทำงานของรอบที่ผ่านมา
+
+ตัวอย่าง: sum แบบ iterative
+
+#### Python
+```Python
+def sm(xs):
+  acc = 0
+  for x in xs:
+    acc += x
+
+>> xs = [1,2,3,4]
+>> sm(xs)
+10
 ```
 
-```bash
-λ> map nodeCount [a,b,c,d]
-[1,2,4,6]
+#### Haskell
+
+ตัวอย่าง: sum แบบ recursive
+
+```Haskell
+sum :: [Int] -> Int
+sum []     = 0
+sum (x:xs) = x + sum xs
 ```
 
-ตัวอย่าง: `branchCount` นับจำนวน Branch ทั้งหมดใน Tree
+`foldr` ของ Haskell นั้นรวม accumulator อยู่ในตัวแล้ว function f ที่เราส่งเข้าไปนั้น apply list ที่ fold แล้วเป็น argument
 
-```haskell
-branchCount :: Tree a -> Int
-branchCount (Leaf _)     = 0
-branchCount (Branch l r) = 1 + branchCount l + branchCount r
+```Haskell
+foldr :: (a -> b -> b) -> b -> [a] -> b
+foldr f z []     = z
+foldr f z (x:xs) = x `f` foldr f z xs
 ```
 
-```bash
-λ> map branch [a,b,c,d]
-[0,1,3,5]
-```
+เราจึงสามารถส่ง `(+) :: Int -> Int` เข้าไปใน foldr และ `0` เป็นจุดเริ่มต้นเพื่อเขียน `sum` ได้
 
-ตอนหน้าจะเขียนเรื่องของการ algorithm และ การ fold Tree เพิ่มเติม
+```Haskell
+sum :: [Int] -> Int
+sum = foldr (+) 0
+```
+Concept ของ foldr บางทีถูกเรียกว่า [Catamorphism](https://en.wikipedia.org/wiki/Catamorphism).

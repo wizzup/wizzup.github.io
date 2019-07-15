@@ -2,11 +2,14 @@
 title: คิดเล่น ๆ กับ Haskell | Recursive data type และ Morphism, ตอนที่ 1
 date: 2019-07-12
 keywords: [filter, map, sum, fold, list]
+language: th
 ---
-|[ตอนที่ 1 ](/posts/recursive_data_function-th_1)
-|[ตอนที่ 2 ](/posts/recursive_data_function-th_2)
-|[ตอนที่ 3 ](/posts/recursive_data_function-th_3)
+| [ตอนที่ 1 ](/posts/recursive_data_function-th_1)
+| [ตอนที่ 2 ](/posts/recursive_data_function-th_2)
+| [ตอนที่ 3 ](/posts/recursive_data_function-th_3)
 |
+
+*TLDR:* ภาษา functional ช่วยให้เห็น function composition ได้ชัดเจน ในขณะที่ภาษา imperative อาจะทำ function composition ได้แต่มักจะอ่านยากกว่า
 
 ## ตอนที่ 1 : map/reduce pipeline
 
@@ -132,6 +135,18 @@ argument ของ filter ดูจะอ่านยากหน่อย เ�
 λx -> x `mod` 4 /= 0  ~~ λx -> (/= 0) $ mod x 4
                          λx -> (/= 0) $ flip mod 4 x
                          (/= 0) . flip mod 4
+```
+
+หากแยก filter predicate กับ mapping function ออกมาและเขียน type กำกับเพื่อให้อ่านง่ายขึ้น
+
+```haskell
+compute :: [Int] -> Int
+compute = sum . map m . filter p
+  where
+    p :: Int -> Bool
+    p x = x `mod` 4 /= 0
+    m :: Int -> Int
+    m _ = 100
 ```
 
 [ตอนหน้า](/posts/recursive_data_function-th_2) เขียนเรื่องของโครงสร้าง recursive ของ List และ fold เพื่อสร้าง high order function ของ List (map, filter, sum)
