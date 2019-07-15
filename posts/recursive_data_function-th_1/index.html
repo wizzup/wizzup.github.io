@@ -83,7 +83,8 @@
     </div>
     <div>
         <br />
-        <p>|<a href="../../posts/recursive_data_function-th_1">ตอนที่ 1</a> |<a href="../../posts/recursive_data_function-th_2">ตอนที่ 2</a> |<a href="../../posts/recursive_data_function-th_3">ตอนที่ 3</a> |</p>
+        <p>| <a href="../../posts/recursive_data_function-th_1">ตอนที่ 1</a> | <a href="../../posts/recursive_data_function-th_2">ตอนที่ 2</a> | <a href="../../posts/recursive_data_function-th_3">ตอนที่ 3</a> |</p>
+<p><em>TLDR:</em> ภาษา functional ช่วยให้เห็น function composition ได้ชัดเจน ในขณะที่ภาษา imperative อาจะทำ function composition ได้แต่มักจะอ่านยากกว่า</p>
 <h2 id="ตอนที่-1--mapreduce-pipeline">ตอนที่ 1 : map/reduce pipeline</h2>
 <p>ได้พบโจทย์ปัญหาโปรแกรมข้อหนึ่งในกลุ่ม programming เห็นว่าเป็นปัญหาง่าย ๆ ที่น่าสนใจดี (เปลี่ยนราคาเป็น 100 เพื่อความง่ายในการคิดในใจ)</p>
 <blockquote>
@@ -170,6 +171,14 @@
 <div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1"></a>λx <span class="ot">-&gt;</span> x <span class="ot">`mod`</span> <span class="dv">4</span> <span class="op">/=</span> <span class="dv">0</span>  <span class="op">~~</span> λx <span class="ot">-&gt;</span> (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">$</span> <span class="fu">mod</span> x <span class="dv">4</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a>                         λx <span class="ot">-&gt;</span> (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">$</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span> x</span>
 <span id="cb9-3"><a href="#cb9-3"></a>                         (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">.</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span></span></code></pre></div>
+<p>หากแยก filter predicate กับ mapping function ออกมาและเขียน type กำกับเพื่อให้อ่านง่ายขึ้น</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1"></a><span class="ot">compute ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>compute <span class="ot">=</span> <span class="fu">sum</span> <span class="op">.</span> <span class="fu">map</span> m <span class="op">.</span> <span class="fu">filter</span> p</span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="kw">where</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="ot">    p ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>    p x <span class="ot">=</span> x <span class="ot">`mod`</span> <span class="dv">4</span> <span class="op">/=</span> <span class="dv">0</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="ot">    m ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>    m _ <span class="ot">=</span> <span class="dv">100</span></span></code></pre></div>
 <p><a href="../../posts/recursive_data_function-th_2">ตอนหน้า</a> เขียนเรื่องของโครงสร้าง recursive ของ List และ fold เพื่อสร้าง high order function ของ List (map, filter, sum)</p>
     </div>
 

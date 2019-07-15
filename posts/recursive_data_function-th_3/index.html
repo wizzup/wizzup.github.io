@@ -78,82 +78,87 @@
       <section class="main">
         <div class="container">
               <div class="text-muted">
-        Posted on July 14, 2019
+        Posted on July 15, 2019
         
     </div>
     <div>
         <br />
-        <p>|<a href="../../posts/recursive_data_function-th_1">ตอนที่ 1</a> |<a href="../../posts/recursive_data_function-th_2">ตอนที่ 2</a> |<a href="../../posts/recursive_data_function-th_3">ตอนที่ 3</a> |</p>
-<h2 id="ตอนที่-3--recursive-algorithm-เพิ่มเติม">ตอนที่ 3 : Recursive algorithm เพิ่มเติม</h2>
-<p><em>ข้อสังเกต</em> เนื้อหาในตอนที่ 3 เป็นต้นไปเน้นไปที่ recursive data type ซึ่งบางเรื่องอาจไม่เกี่ยวข้องกับโจทย์ปัญหาจากตอนที่ 1 อีกต่อไป</p>
-<h3 id="list">List</h3>
-<p>นอกจาก <code>filter</code>, <code>map</code> และ <code>sum</code> แล้ว ยังมี function บน List ที่นิยามแบบ recursive อีกหลายตัว จะยกตัวอย่างบาง function มาเพื่อแสดงความเขื่อมโยงของ algorithm กับ structure ดังนี้</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">-- product []     = 1</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co">-- product (x:xs) = x * product xs</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">product</span><span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">product</span> <span class="ot">=</span> <span class="fu">foldr</span> (<span class="op">*</span>) <span class="dv">1</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a>λ<span class="op">&gt;</span> <span class="ex">product</span> [1,2,3,4]</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="ex">24</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">-- length []     = 0</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co">-- length (_:xs) = 1 + length xs</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">-- length = foldr (\_ b -&gt; 1 + b) 0</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">-- length = foldr (\_ -&gt; (1 +)) 0</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="fu">length</span><span class="ot"> ::</span> [a] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="fu">length</span> <span class="ot">=</span> <span class="fu">foldr</span> (<span class="fu">const</span> (<span class="dv">1</span> <span class="op">+</span>)) <span class="dv">0</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a>λ<span class="op">&gt;</span> <span class="ex">length</span> [1,2,3,4]</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="ex">4</span></span></code></pre></div>
-<p>จะเห็นได้ว่า function บน List สามารถนิยามตามโครงสร้างของ List ตามที่เขียนไว้ในตอนที่ 2</p>
-<p>อย่างไรก็ตาม ไม่ใช่ทุก function บน List จะนิยามได้ด้วย foldr ซึ่งถือเป็นกรณีเฉพาะที่เรียกว่า foldable</p>
-<p>หากสนใจ function บน List ทั้งหมดที่มีให้ใช้ใน base library สามารถเข้าไปอ่านเพิ่มเติมได้ <a href="https://hackage.haskell.org/package/base/docs/Data-List.html">ที่นี่</a></p>
-<h3 id="binary-tree">Binary Tree</h3>
-<p>Binary tree นิยามแบบ recursive ได้เช่นเดียวกันกับ List</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">data</span> <span class="dt">Tree</span> a <span class="ot">=</span> <span class="dt">Leaf</span> a</span>
-<span id="cb5-2"><a href="#cb5-2"></a>            <span class="op">|</span> <span class="dt">Branch</span> (<span class="dt">Tree</span> a) (<span class="dt">Tree</span> a)</span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="kw">deriving</span> <span class="dt">Show</span> <span class="co">-- บรรทัดนี้เพื่อให้สามารถแสดงผลออกทาง REPL ได้</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="ot">a ::</span> <span class="dt">Tree</span> <span class="dt">Int</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a>a <span class="ot">=</span> <span class="dt">Leaf</span> <span class="dv">0</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="ot">b ::</span> <span class="dt">Tree</span> <span class="dt">Int</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a>b <span class="ot">=</span> <span class="dt">Branch</span> (<span class="dt">Leaf</span> <span class="dv">1</span>) a</span>
-<span id="cb5-10"><a href="#cb5-10"></a></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="ot">c ::</span> <span class="dt">Tree</span> <span class="dt">Int</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a>c <span class="ot">=</span> <span class="dt">Branch</span> b b</span>
-<span id="cb5-13"><a href="#cb5-13"></a></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="ot">d ::</span> <span class="dt">Tree</span> <span class="dt">Int</span></span>
-<span id="cb5-15"><a href="#cb5-15"></a>d <span class="ot">=</span> <span class="dt">Branch</span> b c</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a>λ<span class="op">&gt;</span> <span class="ex">a</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="ex">Leaf</span> 0</span>
-<span id="cb6-3"><a href="#cb6-3"></a></span>
-<span id="cb6-4"><a href="#cb6-4"></a>λ<span class="op">&gt;</span> <span class="ex">b</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="ex">Branch</span> (Leaf 1) <span class="kw">(</span><span class="ex">Leaf</span> 0<span class="kw">)</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a></span>
-<span id="cb6-7"><a href="#cb6-7"></a>λ<span class="op">&gt;</span> <span class="ex">c</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="ex">Branch</span> (Branch (Leaf 1) <span class="kw">(</span><span class="ex">Leaf</span> 0<span class="kw">)</span>) <span class="kw">(</span><span class="ex">Branch</span> (Leaf 1<span class="kw">)</span> <span class="kw">(</span><span class="ex">Leaf</span> 0<span class="kw">)</span>)</span>
-<span id="cb6-9"><a href="#cb6-9"></a></span>
-<span id="cb6-10"><a href="#cb6-10"></a>λ<span class="op">&gt;</span> <span class="ex">d</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="ex">Branch</span> (Branch (Leaf 1) <span class="kw">(</span><span class="ex">Leaf</span> 0<span class="kw">)</span>) <span class="kw">(</span><span class="ex">Branch</span> (Branch (Leaf 1<span class="kw">)</span> <span class="kw">(</span><span class="ex">Leaf</span> 0<span class="kw">)</span>) <span class="kw">(</span><span class="ex">Branch</span> (Leaf 1<span class="kw">)</span> <span class="kw">(</span><span class="ex">Leaf</span> 0<span class="kw">)</span>))</span></code></pre></div>
-<p>function บน Tree ก็มีการเขียนตามโครงสร้างของ Tree คือเป็น 2 กรณี</p>
-<ul>
-<li>Leaf</li>
-<li>Branch</li>
-</ul>
-<p>ตัวอย่าง: <code>nodeCount</code> นับจำนวน leaf ทั้งหมดใน Tree</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1"></a><span class="ot">nodeCount ::</span> <span class="dt">Tree</span> a <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>nodeCount (<span class="dt">Leaf</span> _)     <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>nodeCount (<span class="dt">Branch</span> l r) <span class="ot">=</span> nodeCount l <span class="op">+</span> nodeCount r</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a>λ<span class="op">&gt;</span> <span class="ex">map</span> nodeCount [a,b,c,d]</span>
-<span id="cb8-2"><a href="#cb8-2"></a>[<span class="ex">1</span>,2,4,6]</span></code></pre></div>
-<p>ตัวอย่าง: <code>branchCount</code> นับจำนวน Branch ทั้งหมดใน Tree</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1"></a><span class="ot">branchCount ::</span> <span class="dt">Tree</span> a <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>branchCount (<span class="dt">Leaf</span> _)     <span class="ot">=</span> <span class="dv">0</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>branchCount (<span class="dt">Branch</span> l r) <span class="ot">=</span> <span class="dv">1</span> <span class="op">+</span> branchCount l <span class="op">+</span> branchCount r</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1"></a>λ<span class="op">&gt;</span> <span class="ex">map</span> branch [a,b,c,d]</span>
-<span id="cb10-2"><a href="#cb10-2"></a>[<span class="ex">0</span>,1,3,5]</span></code></pre></div>
-<p>ตอนหน้าจะเขียนเรื่องของการ algorithm และ การ fold Tree เพิ่มเติม</p>
+        <p>| <a href="../../posts/recursive_data_function-th_1">ตอนที่ 1</a> | <a href="../../posts/recursive_data_function-th_2">ตอนที่ 2</a> | <a href="../../posts/recursive_data_function-th_3">ตอนที่ 3</a> |</p>
+<p><em>TLDR:</em> การส่งต่อข้อมูลจาก input ไป output ของโปรแกรม มีการเปลี่ยนโครงสร้างของข้อมูล การเขียนด้วยภาษาที่มีประเภทข้อมูล (type) ชัดเจน ช่วยให้เห็นการเปลี่ยนแปลงโครงสร้างนั้นได้ง่ายขึ้น</p>
+<h2 id="ตอนที่-3--morphism">ตอนที่ 3 : Morphism</h2>
+<p><em>ข้อสังเกต:</em> Morphism ในบทความนี้ใช้ในความหมายในเชิงทั่วไป ตามการตีความของผู้เขียนเพื่อให้ง่ายต่อการอธิบายต้วอย่าง ความหมายอาจแตกต่างหรือผิดเพี้ยนไปจาก <a href="https://en.wikipedia.org/wiki/Morphism">Morphism</a> (structure-preserving map) ที่นิยามไว้ใน Catagory Theory</p>
+<p>Morphism คือการเปลี่ยนโครงสร้างจากโครงสร้างหนึ่งไปยังอีกโครงสร้างหนึ่ง ในตอนนี้จะทบทวนการเปลี่ยนโครงสร้างข้อมูลที่เกิดขึ้นในตัวอย่างโปรแกรมตอนที่ 1</p>
+<p>จาก diagram ในตอนที่ 1 จะเห็นได้ว่าประเภท (type) หรือโครงสร้าง (structure) ของข้อมูลจาก input ไป output สามารถแยกออกได้เป็น 3 ชุดได้แก่</p>
+<p><img src="../../images/4for3.png" alt="4 for 3 diagram" /></p>
+<h3 id="unfold--int---int">Unfold : Int -&gt; [Int]</h3>
+<p>function ที่สร้าง List ของ Int จากพารามิเตอร์เดียวพบได้ในเกือบทุกภาษา</p>
+<h4 id="python">Python</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">&gt;&gt;</span> n <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="op">&gt;&gt;</span> [x <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
+<span id="cb1-3"><a href="#cb1-3"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span></code></pre></div>
+<p>ใน Python สามารถสร้าง List จาก <code>range()</code> generator ด้วย list comprehension ซึ่งเทียบเท่ากับ for loop</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>n <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>l <span class="op">=</span> []</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  l.append(x)</span></code></pre></div>
+<h4 id="haskell">Haskell</h4>
+<p>ใน Haskell สามารถสร้าง List <code>1 : 2 : 3 : 4 : 5 : []</code> ได้ด้วย syntactic sugar <code>[1..5]</code> ซึ่งเรีกใช้ <a href="https://hackage.haskell.org/package/base/docs/Prelude.html#v:enumFromTo">enumFromTo</a> ของ Enum class</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1"></a>λ<span class="op">&gt;</span> n <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>λ<span class="op">&gt;</span> [<span class="dv">1</span><span class="op">..</span><span class="dv">5</span>]</span></code></pre></div>
+<p>เนื่องจาก Haskell ไม่มี loop จึงไม่มีกรณีเทียบเท่าของ for loop แต่หากต้องการสร้าง List แบบแฟนซีโดยการใช้ unfoldr ซึ่งเป็น <a href="https://kseo.github.io/posts/2016-12-12-unfold-and-fold.html">duality</a> ของ foldr ก็ได้ดังนี้</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1"></a><span class="ot">mkList ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> [<span class="dt">Int</span>]</span>
+<span id="cb4-2"><a href="#cb4-2"></a>mkList n <span class="ot">=</span> unfoldr f <span class="dv">1</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="kw">where</span><span class="ot"> f ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> (<span class="dt">Int</span>, <span class="dt">Int</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>        f k <span class="op">|</span> k <span class="op">&gt;</span> n     <span class="ot">=</span> <span class="dt">Nothing</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>            <span class="op">|</span> <span class="fu">otherwise</span> <span class="ot">=</span> <span class="dt">Just</span> (k, k<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a>λ<span class="op">&gt;</span> mkList <span class="dv">5</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>]</span></code></pre></div>
+<p>Concept ของ unfoldr บางทีถูกเรียกว่า <a href="https://en.wikipedia.org/wiki/Anamorphism">Anamorphism</a>.</p>
+<h3 id="transfrom--int---int">Transfrom : [Int] -&gt; [Int]</h3>
+<p><code>map</code> เป็น transfrom ที่จำนวนสมาชิกของ List ยังเท่าเดิม แต่ประเภทของ output อาจเปลี่ยนแปลงได้ (กรณีตัวอย่างตามตอนที่ 1 input/outpu เหมือนกัน)</p>
+<h4 id="python-1">Python</h4>
+<p>ใน Python สามารถเขียน <code>map</code> ได้หลายแบบ แต่ทีนิยมใช้มากคือเขียนด้วย list comprehension</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="op">&gt;&gt;</span> xs <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="op">&gt;&gt;</span> [<span class="dv">100</span> <span class="op">*</span> x <span class="cf">for</span> x <span class="kw">in</span> xs]</span>
+<span id="cb5-3"><a href="#cb5-3"></a>[<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>]</span></code></pre></div>
+<h4 id="haskell-1">Haskell</h4>
+<p>ใน Haskell function <code>map</code> อยู่ในกลุ่มของ <code>Functor</code> ที่มี shortcuts เป็น <code>&lt;$&gt;</code></p>
+<p>กรณีทั่วไปของ list จะใช้ <code>map</code> ใน Data.List (<a href="https://hackage.haskell.org/package/base/docs/Data-List.html#v:map">base</a> library)</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1"></a>λ<span class="op">&gt;</span> xs <span class="ot">=</span> [<span class="dv">1</span><span class="op">..</span><span class="dv">5</span>]</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>λ<span class="op">&gt;</span> <span class="fu">map</span> (<span class="op">*</span><span class="dv">100</span>) xs</span>
+<span id="cb6-4"><a href="#cb6-4"></a>[<span class="dv">100</span>,<span class="dv">200</span>,<span class="dv">300</span>,<span class="dv">400</span>,<span class="dv">500</span>]</span>
+<span id="cb6-5"><a href="#cb6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6"></a>λ<span class="op">&gt;</span> (<span class="op">*</span><span class="dv">100</span>) <span class="op">&lt;$&gt;</span> xs</span>
+<span id="cb6-7"><a href="#cb6-7"></a>[<span class="dv">100</span>,<span class="dv">200</span>,<span class="dv">300</span>,<span class="dv">400</span>,<span class="dv">500</span>]</span></code></pre></div>
+<p><code>filter</code> เป็น transfrom ที่ไม่เปลี่ยนประเภทของ input/output แต่จำนวนสมาชิกของ output อาจน้อยกว่าจำนวนสมาชิกของ input ได้</p>
+<p><code>filter</code> ของ Python นิยมเขียนด้วย list comprehension และ if statement, ส่วนของ Haskell มีอยู่ใน Data.List (base library)</p>
+<h3 id="fold--int---int">Fold : [Int] -&gt; Int</h3>
+<p><code>sum</code> เป็น function ที่ต่างจากการเขียนการคำนวณใน loop เพียงอย่างเดียว คือต้องมีต้วเก็บค่า (accumulator) จาการทำงานของรอบที่ผ่านมา</p>
+<p>ตัวอย่าง: sum แบบ iterative</p>
+<h4 id="python-2">Python</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">def</span> sm(xs):</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  acc <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="cf">for</span> x <span class="kw">in</span> xs:</span>
+<span id="cb7-4"><a href="#cb7-4"></a>    acc <span class="op">+=</span> x</span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="op">&gt;&gt;</span> xs <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="op">&gt;&gt;</span> sm(xs)</span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="dv">10</span></span></code></pre></div>
+<h4 id="haskell-2">Haskell</h4>
+<p>ตัวอย่าง: sum แบบ recursive</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">sum</span><span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">sum</span> []     <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">sum</span> (x<span class="op">:</span>xs) <span class="ot">=</span> x <span class="op">+</span> <span class="fu">sum</span> xs</span></code></pre></div>
+<p><code>foldr</code> ของ Haskell นั้นรวม accumulator อยู่ในตัวแล้ว function f ที่เราส่งเข้าไปนั้น apply list ที่ fold แล้วเป็น argument</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">foldr</span><span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">foldr</span> f z []     <span class="ot">=</span> z</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">foldr</span> f z (x<span class="op">:</span>xs) <span class="ot">=</span> x <span class="ot">`f`</span> <span class="fu">foldr</span> f z xs</span></code></pre></div>
+<p>เราจึงสามารถส่ง <code>(+) :: Int -&gt; Int</code> เข้าไปใน foldr และ <code>0</code> เป็นจุดเริ่มต้นเพื่อเขียน <code>sum</code> ได้</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">sum</span><span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">sum</span> <span class="ot">=</span> <span class="fu">foldr</span> (<span class="op">+</span>) <span class="dv">0</span></span></code></pre></div>
+<p>Concept ของ foldr บางทีถูกเรียกว่า <a href="https://en.wikipedia.org/wiki/Catamorphism">Catamorphism</a>.</p>
     </div>
 
   <!-- socials -->
@@ -288,7 +293,7 @@
         title        คิดเล่น ๆ กับ Haskell | Recursive data type และ Morphism, ตอนที่ 3    
         url            /posts/recursive_data_function-th_3/      
         path          posts/recursive_data_function-th_3.md     
-        date          July 14, 2019     
+        date          July 15, 2019     
         author   
         metadata 
         missing  
