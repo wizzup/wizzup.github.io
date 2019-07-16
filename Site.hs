@@ -12,16 +12,13 @@ main :: IO ()
 main = hakyll $ do
 
     -- static files
-    match "images/*" $ do
-        route   idRoute
-        compile copyFileCompiler
+    let staticFiles = foldr1 (.||.) $ fromGlob
+                  <$> ["images/*",
+                       "codes/*",
+                       "css/*.css",
+                       "js/*.js"]
 
-    match "css/*" $ do
-        route   idRoute
-        -- compile compressCssCompiler
-        compile copyFileCompiler
-
-    match "js/*" $ do
+    match staticFiles $ do
         route   idRoute
         compile copyFileCompiler
 
@@ -40,9 +37,12 @@ main = hakyll $ do
     match "templates/*" $ compile templateBodyCompiler
 
     -- top-level pages :: me/<page>/index.html
-    let meFiles = listFiles "me"
+    let meFiles = listPostFiles "me"
     -- top-level pages :: /<page>/index.html
-    let topFiles = fromList ["about.tex", "journey.rst", "contribution.tex"]
+    let topFiles = fromList
+                    ["about.tex",
+                    "journey.rst",
+                    "contribution.tex"]
     match (topFiles .||. meFiles) $ do
         route cleanRoute
         compile $ pandocCompilerWith pandocReaderOptions pandocWriterOptions
@@ -52,7 +52,7 @@ main = hakyll $ do
 
 
     -- blog posts :: /posts/<page>/index.html
-    let postFiles = listFiles "posts"
+    let postFiles = listPostFiles "posts"
     match postFiles $ do
         route cleanRoute
         compile $ pandocCompilerWith pandocReaderOptions pandocWriterOptions
@@ -68,8 +68,8 @@ main = hakyll $ do
     --         >>= loadAndApplyTemplate "templates/raw.html"    postCtx
     --         >>= cleanUrls
 
-    let draftFiles = listFiles "draft"
-                .||. listFiles "draft/series/haskell"
+    let draftFiles = listPostFiles "draft"
+                -- .||. listPostFiles "draft/series/haskell"
 
     -- draft blog posts :: /draft/<page>/index.html
     match draftFiles $ do
@@ -195,8 +195,9 @@ cleanIndex url
     | otherwise            = url
   where idx = "index.html"
 
-listFiles :: String -> Pattern
-listFiles dir = fromGlob (dir ++ "/*.md")
-           .||. fromGlob (dir ++ "/*.rst")
-           .||. fromGlob (dir ++ "/*.tex")
-           -- .||. fromGlob (dir ++ "/*.txt")
+-- list all post files in directory
+listPostFiles :: String -> Pattern
+listPostFiles dir = fromGlob (dir ++ "/*.md")
+               .||. fromGlob (dir ++ "/*.rst")
+               .||. fromGlob (dir ++ "/*.tex")
+            -- .||. fromGlob (dir ++ "/*.txt")
