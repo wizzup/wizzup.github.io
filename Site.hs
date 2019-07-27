@@ -1,4 +1,3 @@
---------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 
 import Data.List           (isSuffixOf)
@@ -7,7 +6,6 @@ import Hakyll
 import System.FilePath
 import Text.Pandoc.Options
 
---------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
 
@@ -39,10 +37,11 @@ main = hakyll $ do
     -- top-level pages :: me/<page>/index.html
     let meFiles = listPostFiles "me"
     -- top-level pages :: /<page>/index.html
-    let topFiles = fromList
-                    ["about.tex",
+    let topFiles = fromList [
+                    "about.tex",
                     "journey.rst",
-                    "contribution.tex"]
+                    "contribution.tex"
+                    ]
     match (topFiles .||. meFiles) $ do
         route cleanRoute
         compile $ pandocCompilerWith pandocReaderOptions pandocWriterOptions
@@ -124,7 +123,7 @@ main = hakyll $ do
     match "index.tex" $ do
         route $ setExtension "html"
         compile $ do
-            posts <- recentFirst =<< loadAll ("posts/*" .&&. hasNoVersion)
+            posts <- fmap (take 5) <$> recentFirst =<< loadAll ("posts/*" .&&. hasNoVersion)
             let indexCtx =
                     listField  "posts"  postCtx (return posts) `mappend`
                     constField "title"  "Home"                 `mappend`
