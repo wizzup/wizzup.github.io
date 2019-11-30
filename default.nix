@@ -5,35 +5,28 @@
 ##       2. use `cabal new-build` within `nix-shell`
 
 {
-nixpkgs ? import <nixpkgs> {},
-compiler ? "default",
+pkgs ? import <nixpkgs> {},
+compiler ? "ghc865",
 }:
 
-let
-  inherit (nixpkgs) pkgs;
+with pkgs;
 
-  haskellPackages = if compiler == "default"
-                       then pkgs.haskellPackages
-                       else pkgs.haskell.packages.${compiler};
+let
+  ghcides = import (fetchTarball "https://github.com/hercules-ci/ghcide-nix/tarball/master") {};
+  ghcide = ghcides."ghcide-${compiler}";
+
+  haskellPackages = haskell.packages.${compiler};
 
   drv = haskellPackages.callCabal2nix "wizzup-github-io" ./. {};
 
-  all-hies = import (fetchTarball "https://github.com/infinisil/all-hies/tarball/master") {};
-
-  # TODO: don't forget to change the hie to matched version
-  #       can't find the way to automate this
-  hie = all-hies.selection {
-    selector = p: { inherit (p) ghc865; };
-  };
-
-  hsPcks = with pkgs.haskellPackages;
+  hsPcks = with haskellPackages;
          [ cabal-install
            hpack
-           hlint
-           hie
+           ghcide
+           # hlint
          ];
 
-  pyPcks = with pkgs.python3Packages;
+  pyPcks = with python3Packages;
          [ livereload ];
 
   dev = drv.env.overrideAttrs(attr: {
@@ -43,6 +36,4 @@ let
   });
 
 in
-
-  if pkgs.lib.inNixShell then dev else drv
-  # if pkgs.lib.inNixShell then drv.env else drv
+  if lib.inNixShell then dev else drv
