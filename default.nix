@@ -22,7 +22,7 @@ let
   hsPcks = with haskellPackages;
          [ cabal-install
            hpack
-           ghcide
+           # ghcide
            # hlint
          ];
 

@@ -2,9 +2,10 @@
 
 import Data.List           (isSuffixOf)
 import Data.Monoid         (mappend)
-import Hakyll
 import System.FilePath
 import Text.Pandoc.Options
+
+import Hakyll
 
 main :: IO ()
 main = hakyll $ do
@@ -21,7 +22,11 @@ main = hakyll $ do
         compile copyFileCompiler
 
     -- search engine files
-    match (fromList ["robots.txt", "google9b5d7c8afd9c3a00.html"]) $ do
+    match (fromList ["robots.txt",
+                     "google9b5d7c8afd9c3a00.html",
+                     "manifest.json",
+                     "sw.js",
+                     ".nojekyll"]) $ do
         route   idRoute
         compile copyFileCompiler
 
@@ -36,6 +41,7 @@ main = hakyll $ do
 
     -- top-level pages :: me/<page>/index.html
     let meFiles = listPostFiles "me"
+
     -- top-level pages :: /<page>/index.html
     let topFiles = fromList [
                     "about.tex",
@@ -48,7 +54,6 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= cleanUrls
             >>= relativizeUrls
-
 
     -- blog posts :: /posts/<page>/index.html
     let postFiles = listPostFiles "posts"
