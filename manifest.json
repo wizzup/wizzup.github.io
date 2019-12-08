@@ -1,0 +1,21 @@
+{
+  "name": "wizzup.github.io",
+  "short_name": "wizzup",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#3367D6",
+  "theme_color": "#3367D6",
+  "icons": [
+    {
+      "src": "/images/promptpay-0802515877.png",
+      "type": "image/png",
+      "sizes": "370x370"
+    },
+    {
+      "src": "/images/bitcoin-bc1q2qgqvpezalyal9z58nqykskqamz3jj7up2h63t.png",
+      "type": "image/png",
+      "sizes": "789x754"
+    }
+  ]
+}

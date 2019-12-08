@@ -22,8 +22,8 @@ let
   hsPcks = with haskellPackages;
          [ cabal-install
            hpack
-           # ghcide
-           # hlint
+           ghcide
+           hlint
          ];
 
   pyPcks = with python3Packages;

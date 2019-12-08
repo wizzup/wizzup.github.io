@@ -21,6 +21,7 @@ main = hakyll $ do
         route   idRoute
         compile copyFileCompiler
 
+    -- FIXME: .nojekyll doesn't matched/coppied
     -- search engine files
     match (fromList ["robots.txt",
                      "google9b5d7c8afd9c3a00.html",
