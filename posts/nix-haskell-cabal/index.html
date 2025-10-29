@@ -86,11 +86,11 @@
               <br>
               <span>About me</span>
             </a>
-            <a class="nav-itme nav-link nav-btn text-center" href="../../me/tipjar">
-              <i class="material-icons">attach_money</i>
-              <br>
-              <span>Tip jar</span>
-            </a>
+            <!-- <a class="nav-itme nav-link nav-btn text-center" href="/me/tipjar"> -->
+              <!-- <i class="material-icons">attach_money</i> -->
+              <!-- <br> -->
+              <!-- <span>Tip jar</span> -->
+            <!-- </a> -->
           </div>
         </div>
       </nav>
@@ -114,7 +114,9 @@
     <div>
         <br />
         <h1 id="hello-cabal2nix">hello Cabal2nix</h1>
-<p><strong>Disclaimer</strong> There are many ways to build a Haskell project on Nix, this approach use <code>cabal2nix</code> that just work but might not be the best way to do it.</p>
+<p><strong>Disclaimer</strong> There are many ways to build a Haskell
+project on Nix, this approach use <code>cabal2nix</code> that just work
+but might not be the best way to do it.</p>
 <h2 id="contents">Contents</h2>
 <ul>
 <li>default.nix : The Nix's expression</li>
@@ -158,7 +160,8 @@ executables:
 $ result/bin/hello
 &quot;Hello&quot;</code></pre>
 <h2 id="to-dev">To dev</h2>
-<p>The dev env for nix-shell included additional tools for development.</p>
+<p>The dev env for nix-shell included additional tools for
+development.</p>
 <pre><code>$ nix-shell
 
 $ cabal new-run hello
@@ -166,7 +169,10 @@ $ cabal new-run hello
 $ hlint Main.hs
 $ hdevtools Main.hs</code></pre>
 <h2 id="gotcha">Gotcha</h2>
-<p><code>cabal new-build</code> generate <code>.ghc.environment.xxxx</code> which block <code>nix-build</code>, remove that file if there is build error when running <code>nix-build</code>.</p>
+<p><code>cabal new-build</code> generate
+<code>.ghc.environment.xxxx</code> which block <code>nix-build</code>,
+remove that file if there is build error when running
+<code>nix-build</code>.</p>
     </div>
 
   <!-- socials -->

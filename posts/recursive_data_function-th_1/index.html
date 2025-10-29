@@ -86,11 +86,11 @@
               <br>
               <span>About me</span>
             </a>
-            <a class="nav-itme nav-link nav-btn text-center" href="../../me/tipjar">
-              <i class="material-icons">attach_money</i>
-              <br>
-              <span>Tip jar</span>
-            </a>
+            <!-- <a class="nav-itme nav-link nav-btn text-center" href="/me/tipjar"> -->
+              <!-- <i class="material-icons">attach_money</i> -->
+              <!-- <br> -->
+              <!-- <span>Tip jar</span> -->
+            <!-- </a> -->
           </div>
         </div>
       </nav>
@@ -114,13 +114,18 @@
     <div>
         <br />
         <p>| <a href="../../posts/recursive_data_function-th_1">ตอนที่ 1</a> | <a href="../../posts/recursive_data_function-th_2">ตอนที่ 2</a> | <a href="../../posts/recursive_data_function-th_3">ตอนที่ 3</a> |</p>
-<p><em>TLDR:</em> ภาษา functional ช่วยให้เห็น function composition ได้ชัดเจน ในขณะที่ภาษา imperative อาจะทำ function composition ได้แต่มักจะอ่านยากกว่า</p>
+<p><em>TLDR:</em> ภาษา functional ช่วยให้เห็น function composition ได้ชัดเจน
+ในขณะที่ภาษา imperative อาจะทำ function composition ได้แต่มักจะอ่านยากกว่า</p>
 <h2 id="ตอนที่-1--mapreduce-pipeline">ตอนที่ 1 : map/reduce pipeline</h2>
-<p>ได้พบโจทย์ปัญหาโปรแกรมข้อหนึ่งในกลุ่ม programming เห็นว่าเป็นปัญหาง่าย ๆ ที่น่าสนใจดี (เปลี่ยนราคาเป็น 100 เพื่อความง่ายในการคิดในใจ)</p>
+<p>ได้พบโจทย์ปัญหาโปรแกรมข้อหนึ่งในกลุ่ม programming เห็นว่าเป็นปัญหาง่าย ๆ ที่น่าสนใจดี
+(เปลี่ยนราคาเป็น 100 เพื่อความง่ายในการคิดในใจ)</p>
 <blockquote>
-<p>ร้านหมูกะทะแห่งหนึ่งจัดรายการส่งเสริมการขายมา 4 จ่าย 3 จงเขียนโปรแกรมรับจำนวนคนที่ใช้บริการแล้วคำนวณหาจำนวนเงินที่ต้องจ่าย เมื่อร้านคิดราคาหัวละ 100 บาท</p>
+<p>ร้านหมูกะทะแห่งหนึ่งจัดรายการส่งเสริมการขายมา 4 จ่าย 3
+จงเขียนโปรแกรมรับจำนวนคนที่ใช้บริการแล้วคำนวณหาจำนวนเงินที่ต้องจ่าย เมื่อร้านคิดราคาหัวละ
+100 บาท</p>
 </blockquote>
-<p>ความน่าสนใจของปัญหานี้คือมี pattern ของการโปรแกรมที่พบได้บ่อยคือ <code>map/reduce (split-apply-combine)</code> ที่ประกอบด้วย</p>
+<p>ความน่าสนใจของปัญหานี้คือมี pattern ของการโปรแกรมที่พบได้บ่อยคือ
+<code>map/reduce (split-apply-combine)</code> ที่ประกอบด้วย</p>
 <ul>
 <li>filter</li>
 <li>map</li>
@@ -132,84 +137,93 @@
 <p><img src="../../images/4for3_scratch.png" alt="4for3 scratch code" /></p>
 <h2 id="python">Python</h2>
 <p>ซึ่งแปลงเป็น python แบบตรงตัวได้ประมาณนี้</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> calculate(n):</span>
-<span id="cb1-2"><a href="#cb1-2"></a>    count <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>    paid <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>    answer <span class="op">=</span> <span class="bu">int</span>(n)</span>
-<span id="cb1-5"><a href="#cb1-5"></a>    <span class="cf">while</span> <span class="va">True</span>:             <span class="co"># python doesn't have repeat until</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>        <span class="cf">if</span> count <span class="op">&gt;</span> answer:  <span class="co">#     emulate with while and if</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>            <span class="cf">break</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a></span>
-<span id="cb1-9"><a href="#cb1-9"></a>        <span class="cf">if</span> count <span class="op">%</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb1-10"><a href="#cb1-10"></a>            <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>count<span class="sc">}</span><span class="ss"> ฟรี'</span>, end<span class="op">=</span><span class="st">''</span>)</span>
-<span id="cb1-11"><a href="#cb1-11"></a>        <span class="cf">else</span>:</span>
-<span id="cb1-12"><a href="#cb1-12"></a>            <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>count<span class="sc">}</span><span class="ss"> จ่าย'</span>, end<span class="op">=</span><span class="st">''</span>)</span>
-<span id="cb1-13"><a href="#cb1-13"></a>            paid <span class="op">+=</span> <span class="dv">100</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a></span>
-<span id="cb1-15"><a href="#cb1-15"></a>        <span class="bu">print</span>(<span class="st">', '</span>, end <span class="op">=</span> <span class="st">''</span>)</span>
-<span id="cb1-16"><a href="#cb1-16"></a>        count <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a>    <span class="bu">print</span>()</span>
-<span id="cb1-19"><a href="#cb1-19"></a>    <span class="bu">print</span>(<span class="ss">f'รวมต้องจ่าย </span><span class="sc">{</span>paid<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb1-20"><a href="#cb1-20"></a></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb1-22"><a href="#cb1-22"></a>    calculate(<span class="bu">input</span>(<span class="st">'จำนวนคน ?</span><span class="ch">\n</span><span class="st">&gt; '</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a>$ <span class="ex">python</span> 4for3.py</span>
-<span id="cb2-2"><a href="#cb2-2"></a>จำนวนคน <span class="ex">?</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="op">&gt;</span> <span class="ex">6</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="ex">1</span> จ่าย, 2 จ่าย, 3 จ่าย, 4 ฟรี, 5 จ่าย, 6 จ่าย,</span>
-<span id="cb2-5"><a href="#cb2-5"></a>รวมต้องจ่าย <span class="ex">500</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate(n):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    count <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    paid <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">=</span> <span class="bu">int</span>(n)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:             <span class="co"># python doesn't have repeat until</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> count <span class="op">&gt;</span> answer:  <span class="co">#     emulate with while and if</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> count <span class="op">%</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>count<span class="sc">}</span><span class="ss"> ฟรี'</span>, end<span class="op">=</span><span class="st">''</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>count<span class="sc">}</span><span class="ss"> จ่าย'</span>, end<span class="op">=</span><span class="st">''</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>            paid <span class="op">+=</span> <span class="dv">100</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">', '</span>, end <span class="op">=</span> <span class="st">''</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>()</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'รวมต้องจ่าย </span><span class="sc">{</span>paid<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    calculate(<span class="bu">input</span>(<span class="st">'จำนวนคน ?</span><span class="ch">\n</span><span class="st">&gt; '</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python 4for3.py</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">จำนวนคน</span> <span class="pp">?</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> 6</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span> จ่าย, 2 จ่าย, 3 จ่าย, 4 ฟรี, 5 จ่าย, 6 จ่าย,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">รวมต้องจ่าย</span> 500</span></code></pre></div>
 <p>หรือถ้าอยากทำใ้ห้สั้นแบบ code golf ก็ได้ประมาณนี้</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb3-2"><a href="#cb3-2"></a>    <span class="bu">print</span>(<span class="bu">sum</span>([<span class="dv">100</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'จำนวนคน ?&gt; '</span>)) <span class="op">+</span> <span class="dv">1</span>) <span class="cf">if</span> x <span class="op">%</span> <span class="dv">4</span> <span class="op">!=</span> <span class="dv">0</span>]))</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a>$ <span class="ex">python</span> 4for3.py</span>
-<span id="cb4-2"><a href="#cb4-2"></a>จำนวนคน <span class="ex">?</span><span class="op">&gt;</span> 6</span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="ex">500</span></span></code></pre></div>
-<p>ซึ่งการเขียนด้วย Python แบบทั่วไปจะมองไม่เห็น map, filter, fold ที่ซ่อนอยู่ได้ชัดเจน</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">sum</span>([<span class="dv">100</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'จำนวนคน ?&gt; '</span>)) <span class="op">+</span> <span class="dv">1</span>) <span class="cf">if</span> x <span class="op">%</span> <span class="dv">4</span> <span class="op">!=</span> <span class="dv">0</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python 4for3.py</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">จำนวนคน</span> <span class="pp">?</span><span class="op">&gt;</span> 6</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">500</span></span></code></pre></div>
+<p>ซึ่งการเขียนด้วย Python แบบทั่วไปจะมองไม่เห็น map, filter, fold
+ที่ซ่อนอยู่ได้ชัดเจน</p>
 <p>หากลองเขียนด้วย Python ตาม pipeline ก็จะได้ประมาณนี้</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb5-2"><a href="#cb5-2"></a>    heads  <span class="op">=</span> <span class="bu">range</span>(<span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'จำนวนคน ?&gt; '</span>)) <span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb5-3"><a href="#cb5-3"></a>    fheads <span class="op">=</span> <span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">4</span> <span class="op">!=</span> <span class="dv">0</span>,heads)</span>
-<span id="cb5-4"><a href="#cb5-4"></a>    pheads <span class="op">=</span> <span class="bu">map</span>(<span class="kw">lambda</span> _: <span class="dv">100</span>, fheads)</span>
-<span id="cb5-5"><a href="#cb5-5"></a>    ans    <span class="op">=</span> <span class="bu">sum</span>(pheads)</span>
-<span id="cb5-6"><a href="#cb5-6"></a>    <span class="bu">print</span>(<span class="ss">f'รวมจ่าย </span><span class="sc">{</span>ans<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div>
-<p>ลองเอาตัวแปรชั่วคราว (intermediate) ที่ไม่จำเป็นต้องใช้ออก เพื่อทดลองทำ function composition จะพบว่าอ่านยากขึ้นกว่าเดิมเพราะวงเล็บซ้อนกันหลายชั้น (subjective)่่</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb6-2"><a href="#cb6-2"></a>    <span class="bu">print</span>(<span class="bu">sum</span>(</span>
-<span id="cb6-3"><a href="#cb6-3"></a>          <span class="bu">map</span>(<span class="kw">lambda</span> _: <span class="dv">100</span>,</span>
-<span id="cb6-4"><a href="#cb6-4"></a>          <span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">4</span> <span class="op">!=</span> <span class="dv">0</span>,</span>
-<span id="cb6-5"><a href="#cb6-5"></a>          <span class="bu">range</span>(<span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'จำนวนคน ?&gt; '</span>)) <span class="op">+</span><span class="dv">1</span>)))))</span></code></pre></div>
-<p>นอกจากนี้แล้ว การเขียนด้วย map, filter และ reduce ออกจะไม่เป็น pythonic เมื่อเทียบกับการใช้ list comprehension (ตีความตามที่ผู้ออกแบบภาษา Python ได้<a href="https://www.artima.com/weblogs/viewpost.jsp?thread=98196">เขียนไว้</a>)</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    heads  <span class="op">=</span> <span class="bu">range</span>(<span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'จำนวนคน ?&gt; '</span>)) <span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    fheads <span class="op">=</span> <span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">4</span> <span class="op">!=</span> <span class="dv">0</span>,heads)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    pheads <span class="op">=</span> <span class="bu">map</span>(<span class="kw">lambda</span> _: <span class="dv">100</span>, fheads)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    ans    <span class="op">=</span> <span class="bu">sum</span>(pheads)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'รวมจ่าย </span><span class="sc">{</span>ans<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div>
+<p>ลองเอาตัวแปรชั่วคราว (intermediate) ที่ไม่จำเป็นต้องใช้ออก เพื่อทดลองทำ function
+composition จะพบว่าอ่านยากขึ้นกว่าเดิมเพราะวงเล็บซ้อนกันหลายชั้น (subjective)่่</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">sum</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>          <span class="bu">map</span>(<span class="kw">lambda</span> _: <span class="dv">100</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>          <span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">4</span> <span class="op">!=</span> <span class="dv">0</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>          <span class="bu">range</span>(<span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'จำนวนคน ?&gt; '</span>)) <span class="op">+</span><span class="dv">1</span>)))))</span></code></pre></div>
+<p>นอกจากนี้แล้ว การเขียนด้วย map, filter และ reduce ออกจะไม่เป็น pythonic
+เมื่อเทียบกับการใช้ list comprehension (ตีความตามที่ผู้ออกแบบภาษา Python ได้<a href="https://www.artima.com/weblogs/viewpost.jsp?thread=98196">เขียนไว้</a>)</p>
 <h2 id="haskell">Haskell</h2>
-<p>การแสดงการ compose ที่ชัดเจนจากได้จากการเขียนด้วยภาษา functional เช่น Haskell</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
-<span id="cb7-2"><a href="#cb7-2"></a>main <span class="ot">=</span> <span class="kw">do</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">putStr</span> <span class="st">&quot;จำนวนคน?\n&gt; &quot;</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>  n <span class="ot">&lt;-</span> <span class="fu">readLn</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">print</span> <span class="op">$</span> compute [<span class="dv">1</span><span class="op">..</span>n]</span>
-<span id="cb7-6"><a href="#cb7-6"></a></span>
-<span id="cb7-7"><a href="#cb7-7"></a>  main</span>
-<span id="cb7-8"><a href="#cb7-8"></a></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="ot">compute ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a>compute <span class="ot">=</span> <span class="fu">sum</span> <span class="op">.</span> <span class="fu">map</span> (<span class="fu">const</span> <span class="dv">100</span>) <span class="op">.</span> <span class="fu">filter</span> ((<span class="op">/=</span> <span class="dv">0</span>) <span class="op">.</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a>$ <span class="ex">runhaskell</span> 4for3.hs</span>
-<span id="cb8-2"><a href="#cb8-2"></a>จำนวนคน<span class="ex">?</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="op">&gt;</span> <span class="ex">6</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="ex">500</span></span></code></pre></div>
-<p>argument ของ map คือ function <code>const :: Int -&gt; a -&gt; Int</code> ที่ไม่สนใจสมาชิกใน List เดิมว่าคืออะไร เปลี่ยนให้เป็น <code>100 :: Int</code></p>
+<p>การแสดงการ compose ที่ชัดเจนจากได้จากการเขียนด้วยภาษา functional เช่น
+Haskell</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ot">main ::</span> <span class="dt">IO</span> ()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> <span class="kw">do</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">putStr</span> <span class="st">&quot;จำนวนคน?\n&gt; &quot;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">readLn</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span> <span class="op">$</span> compute [<span class="dv">1</span><span class="op">..</span>n]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  main</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="ot">compute ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>compute <span class="ot">=</span> <span class="fu">sum</span> <span class="op">.</span> <span class="fu">map</span> (<span class="fu">const</span> <span class="dv">100</span>) <span class="op">.</span> <span class="fu">filter</span> ((<span class="op">/=</span> <span class="dv">0</span>) <span class="op">.</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> runhaskell 4for3.hs</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">จำนวนคน?</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> 6</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">500</span></span></code></pre></div>
+<p>argument ของ map คือ function
+<code>const :: Int -&gt; a -&gt; Int</code> ที่ไม่สนใจสมาชิกใน List
+เดิมว่าคืออะไร เปลี่ยนให้เป็น <code>100 :: Int</code></p>
 <p>argument ของ filter ดูจะอ่านยากหน่อย เพราะลดรูปไปอยู่ในแบบ point free</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1"></a>λx <span class="ot">-&gt;</span> x <span class="ot">`mod`</span> <span class="dv">4</span> <span class="op">/=</span> <span class="dv">0</span>  <span class="op">~~</span> λx <span class="ot">-&gt;</span> (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">$</span> <span class="fu">mod</span> x <span class="dv">4</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>                         λx <span class="ot">-&gt;</span> (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">$</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span> x</span>
-<span id="cb9-3"><a href="#cb9-3"></a>                         (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">.</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span></span></code></pre></div>
-<p>หากแยก filter predicate กับ mapping function ออกมาและเขียน type กำกับเพื่อให้อ่านง่ายขึ้น</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1"></a><span class="ot">compute ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>compute <span class="ot">=</span> <span class="fu">sum</span> <span class="op">.</span> <span class="fu">map</span> m <span class="op">.</span> <span class="fu">filter</span> p</span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="kw">where</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="ot">    p ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a>    p x <span class="ot">=</span> x <span class="ot">`mod`</span> <span class="dv">4</span> <span class="op">/=</span> <span class="dv">0</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="ot">    m ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a>    m _ <span class="ot">=</span> <span class="dv">100</span></span></code></pre></div>
-<p><a href="../../posts/recursive_data_function-th_2">ตอนหน้า</a> เขียนเรื่องของโครงสร้าง recursive ของ List และ fold เพื่อสร้าง high order function ของ List (map, filter, sum)</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>λx <span class="ot">-&gt;</span> x <span class="ot">`mod`</span> <span class="dv">4</span> <span class="op">/=</span> <span class="dv">0</span>  <span class="op">~~</span> λx <span class="ot">-&gt;</span> (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">$</span> <span class="fu">mod</span> x <span class="dv">4</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                         λx <span class="ot">-&gt;</span> (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">$</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span> x</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                         (<span class="op">/=</span> <span class="dv">0</span>) <span class="op">.</span> <span class="fu">flip</span> <span class="fu">mod</span> <span class="dv">4</span></span></code></pre></div>
+<p>หากแยก filter predicate กับ mapping function ออกมาและเขียน type
+กำกับเพื่อให้อ่านง่ายขึ้น</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ot">compute ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>compute <span class="ot">=</span> <span class="fu">sum</span> <span class="op">.</span> <span class="fu">map</span> m <span class="op">.</span> <span class="fu">filter</span> p</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ot">    p ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    p x <span class="ot">=</span> x <span class="ot">`mod`</span> <span class="dv">4</span> <span class="op">/=</span> <span class="dv">0</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="ot">    m ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    m _ <span class="ot">=</span> <span class="dv">100</span></span></code></pre></div>
+<p><a href="../../posts/recursive_data_function-th_2">ตอนหน้า</a>
+เขียนเรื่องของโครงสร้าง recursive ของ List และ fold เพื่อสร้าง high order
+function ของ List (map, filter, sum)</p>
     </div>
 
   <!-- socials -->

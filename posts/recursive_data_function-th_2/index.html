@@ -86,11 +86,11 @@
               <br>
               <span>About me</span>
             </a>
-            <a class="nav-itme nav-link nav-btn text-center" href="../../me/tipjar">
-              <i class="material-icons">attach_money</i>
-              <br>
-              <span>Tip jar</span>
-            </a>
+            <!-- <a class="nav-itme nav-link nav-btn text-center" href="/me/tipjar"> -->
+              <!-- <i class="material-icons">attach_money</i> -->
+              <!-- <br> -->
+              <!-- <span>Tip jar</span> -->
+            <!-- </a> -->
           </div>
         </div>
       </nav>
@@ -114,81 +114,89 @@
     <div>
         <br />
         <p>| <a href="../../posts/recursive_data_function-th_1">ตอนที่ 1</a> | <a href="../../posts/recursive_data_function-th_2">ตอนที่ 2</a> | <a href="../../posts/recursive_data_function-th_3">ตอนที่ 3</a> |</p>
-<p><em>TLDR:</em> Recursive algorithm ทำงานกับ recursive data type ได้อย่างเป็นธรรมชาติ เพราะเดินไปตามโครงสร้างของข้อมูล</p>
+<p><em>TLDR:</em> Recursive algorithm ทำงานกับ recursive data type
+ได้อย่างเป็นธรรมชาติ เพราะเดินไปตามโครงสร้างของข้อมูล</p>
 <h2 id="ตอนที่-2--recursive-data-type">ตอนที่ 2 : Recursive data type</h2>
 <h3 id="list">List</h3>
 <p>Concept ของ List ใน Haskell นิยามแบบ recursive ได้ประมาณนี้</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">data</span> <span class="dt">List</span> a <span class="ot">=</span> <span class="dt">Empty</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>            <span class="op">|</span> <span class="dt">Cons</span> a (<span class="dt">List</span> a)</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="ot">xs ::</span> <span class="dt">List</span> <span class="dt">Int</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>xs <span class="ot">=</span> <span class="dt">Cons</span> <span class="dv">1</span> (<span class="dt">Cons</span> <span class="dv">2</span> (<span class="dt">Cons</span> <span class="dv">3</span> <span class="dt">Empty</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">List</span> a <span class="ot">=</span> <span class="dt">Empty</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>            <span class="op">|</span> <span class="dt">Cons</span> a (<span class="dt">List</span> a)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ot">xs ::</span> <span class="dt">List</span> <span class="dt">Int</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>xs <span class="ot">=</span> <span class="dt">Cons</span> <span class="dv">1</span> (<span class="dt">Cons</span> <span class="dv">2</span> (<span class="dt">Cons</span> <span class="dv">3</span> <span class="dt">Empty</span>))</span></code></pre></div>
 <p>อ่านเป็นภาษามนุษย์ได้ประมาณว่า</p>
 <blockquote>
-<p>List ของ a เป็นได้สองแบบคือ Empty หรือ การต่อกัน (Cons) ของ a กับ List ของ a</p>
+<p>List ของ a เป็นได้สองแบบคือ Empty หรือ การต่อกัน (Cons) ของ a กับ List ของ
+a</p>
 </blockquote>
-<p>เพื่อความสะดวกในการเขียนและอ่าน Haskell มีการใช้ syntactic sugar ด้วยการใช้ <code>[]</code> สำหรับ <code>Empty</code> และ <code>:</code> สำหรับ <code>Cons</code></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1"></a>λ<span class="op">&gt;</span> <span class="op">:</span>i []</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">data</span> [] a <span class="ot">=</span> [] <span class="op">|</span> a <span class="op">:</span> [a]  <span class="co">-- Defined in ‘GHC.Types’</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="ot">xs ::</span> [<span class="dt">Int</span>]</span>
-<span id="cb2-5"><a href="#cb2-5"></a>xs <span class="ot">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]              <span class="co">-- 1 : 2 : 3 : []</span></span></code></pre></div>
+<p>เพื่อความสะดวกในการเขียนและอ่าน Haskell มีการใช้ syntactic sugar ด้วยการใช้
+<code>[]</code> สำหรับ <code>Empty</code> และ <code>:</code> สำหรับ
+<code>Cons</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>λ<span class="op">&gt;</span> <span class="op">:</span>i []</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> [] a <span class="ot">=</span> [] <span class="op">|</span> a <span class="op">:</span> [a]  <span class="co">-- Defined in ‘GHC.Types’</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ot">xs ::</span> [<span class="dt">Int</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>xs <span class="ot">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]              <span class="co">-- 1 : 2 : 3 : []</span></span></code></pre></div>
 <h3 id="function-ของ-list">Function ของ List</h3>
-<p>function ที่ทำงานกับ List นิยามตามโครงสร้างของ List เองแยกเป็น 2 กรณี ได้แก่</p>
-<ul>
-<li>กรณี Empty ([])</li>
-<li>กรณี Cons (x:xs)</li>
-</ul>
+<p>function ที่ทำงานกับ List นิยามตามโครงสร้างของ List เองแยกเป็น 2 กรณี ได้แก่ -
+กรณี Empty ([]) - กรณี Cons (x:xs)</p>
 <p>ตัวอย่าง: <code>map</code></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">map</span><span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [b]</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">map</span> _ []     <span class="ot">=</span> []</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">map</span> f (x<span class="op">:</span>xs) <span class="ot">=</span> f x <span class="op">:</span> <span class="fu">map</span> xs</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1"></a>λ<span class="op">&gt;</span> <span class="fu">map</span> (<span class="op">+</span><span class="dv">1</span>) [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
-<span id="cb4-2"><a href="#cb4-2"></a>[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span><span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [b]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span> _ []     <span class="ot">=</span> []</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span> f (x<span class="op">:</span>xs) <span class="ot">=</span> f x <span class="op">:</span> <span class="fu">map</span> xs</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>λ<span class="op">&gt;</span> <span class="fu">map</span> (<span class="op">+</span><span class="dv">1</span>) [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</span></code></pre></div>
 <p>ตัวอย่าง: <code>filter</code></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">filter</span><span class="ot"> ::</span> (a <span class="ot">-&gt;</span> <span class="dt">Bool</span>) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [a]</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">filter</span> _ []     <span class="ot">=</span> []</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">filter</span> p (x<span class="op">:</span>xs) <span class="op">|</span> p x       <span class="ot">=</span> x <span class="op">:</span> <span class="fu">filter</span> p xs</span>
-<span id="cb5-4"><a href="#cb5-4"></a>                <span class="op">|</span> <span class="fu">otherwise</span> <span class="ot">=</span> <span class="fu">filter</span> p xs</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1"></a>λ<span class="op">&gt;</span> <span class="fu">filter</span> (<span class="op">&gt;</span><span class="dv">1</span>) [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
-<span id="cb6-2"><a href="#cb6-2"></a>[<span class="dv">2</span>,<span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span><span class="ot"> ::</span> (a <span class="ot">-&gt;</span> <span class="dt">Bool</span>) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [a]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span> _ []     <span class="ot">=</span> []</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span> p (x<span class="op">:</span>xs) <span class="op">|</span> p x       <span class="ot">=</span> x <span class="op">:</span> <span class="fu">filter</span> p xs</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                <span class="op">|</span> <span class="fu">otherwise</span> <span class="ot">=</span> <span class="fu">filter</span> p xs</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>λ<span class="op">&gt;</span> <span class="fu">filter</span> (<span class="op">&gt;</span><span class="dv">1</span>) [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,<span class="dv">3</span>]</span></code></pre></div>
 <p>ตัวอย่าง: <code>sum</code> (Int specialiaztion เพื่อความเข้าใจง่าย)</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">sum</span><span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">sum</span> []     <span class="ot">=</span> <span class="dv">0</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">sum</span> (x<span class="op">:</span>xs) <span class="ot">=</span> x <span class="op">+</span> <span class="fu">sum</span> xs</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1"></a>λ<span class="op">&gt;</span> <span class="fu">sum</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="dv">6</span></span></code></pre></div>
-<p>จะเห็นได้ว่า <code>map</code> และ <code>filter</code> มีโครงสร้างคล้ายคลึงกันมาก (<code>sum</code> ยกไว้ก่อน ในภายหลังจะแสดงให้เห็นว่ามีโครงสร้างไม่ต่างกัน)</p>
-<p>ด้วยเหตุนี้จึงมีการแยกหัวใจ (essense) ของ function บน List ออกมาเป็น <code>foldr</code></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">foldr</span><span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">foldr</span> f z []     <span class="ot">=</span> z</span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">foldr</span> f z (x<span class="op">:</span>xs) <span class="ot">=</span> x <span class="ot">`f`</span> <span class="fu">foldr</span> f z xs</span></code></pre></div>
-<p>และเขียน <code>map</code>, <code>filter</code> และ <code>sum</code> ในรูปของ <code>foldr</code></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">-- map f = foldr (\x xs -&gt; f x : xs) []</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="co">--       = foldr (\x xs -&gt; (:) (f x) xs) []</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co">--       = foldr (\x -&gt; (:) (f x)) []</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">--       = foldr (\x -&gt; ((:) . f) x) []</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="fu">map</span><span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [b]</span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="fu">map</span> f <span class="ot">=</span> <span class="fu">foldr</span> ((<span class="op">:</span>) <span class="op">.</span> f) []</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">-- filter p = foldr (\x xs -&gt; if p x then x : xs else xs) []</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="fu">filter</span><span class="ot"> ::</span> (a <span class="ot">-&gt;</span> <span class="dt">Bool</span>) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [a]</span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="fu">filter</span> p <span class="ot">=</span> <span class="fu">foldr</span> g []</span>
-<span id="cb11-5"><a href="#cb11-5"></a>  <span class="kw">where</span> g x xs <span class="op">|</span> p x       <span class="ot">=</span> x <span class="op">:</span> xs</span>
-<span id="cb11-6"><a href="#cb11-6"></a>               <span class="op">|</span> <span class="fu">otherwise</span> <span class="ot">=</span> xs</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">sum</span><span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">sum</span> <span class="ot">=</span> <span class="fu">foldr</span> (<span class="op">+</span>) <span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span><span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span> []     <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span> (x<span class="op">:</span>xs) <span class="ot">=</span> x <span class="op">+</span> <span class="fu">sum</span> xs</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>λ<span class="op">&gt;</span> <span class="fu">sum</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span></span></code></pre></div>
+<p>จะเห็นได้ว่า <code>map</code> และ <code>filter</code>
+มีโครงสร้างคล้ายคลึงกันมาก (<code>sum</code> ยกไว้ก่อน
+ในภายหลังจะแสดงให้เห็นว่ามีโครงสร้างไม่ต่างกัน)</p>
+<p>ด้วยเหตุนี้จึงมีการแยกหัวใจ (essense) ของ function บน List ออกมาเป็น
+<code>foldr</code></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">foldr</span><span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> b</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">foldr</span> f z []     <span class="ot">=</span> z</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">foldr</span> f z (x<span class="op">:</span>xs) <span class="ot">=</span> x <span class="ot">`f`</span> <span class="fu">foldr</span> f z xs</span></code></pre></div>
+<p>และเขียน <code>map</code>, <code>filter</code> และ <code>sum</code>
+ในรูปของ <code>foldr</code></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- map f = foldr (\x xs -&gt; f x : xs) []</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">--       = foldr (\x xs -&gt; (:) (f x) xs) []</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">--       = foldr (\x -&gt; (:) (f x)) []</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">--       = foldr (\x -&gt; ((:) . f) x) []</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span><span class="ot"> ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [b]</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span> f <span class="ot">=</span> <span class="fu">foldr</span> ((<span class="op">:</span>) <span class="op">.</span> f) []</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- filter p = foldr (\x xs -&gt; if p x then x : xs else xs) []</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span><span class="ot"> ::</span> (a <span class="ot">-&gt;</span> <span class="dt">Bool</span>) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [a]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span> p <span class="ot">=</span> <span class="fu">foldr</span> g []</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span> g x xs <span class="op">|</span> p x       <span class="ot">=</span> x <span class="op">:</span> xs</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>               <span class="op">|</span> <span class="fu">otherwise</span> <span class="ot">=</span> xs</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span><span class="ot"> ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span> <span class="ot">=</span> <span class="fu">foldr</span> (<span class="op">+</span>) <span class="dv">0</span></span></code></pre></div>
 <h3 id="list-comprehension">List comprehension</h3>
-<p>ใน Python มีการยุบรวม <code>map</code> และ <code>filter</code> เป็น expression เดียวกันโดยใข้ List comprehension</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="op">&gt;&gt;</span> xs <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="op">&gt;&gt;</span> [i <span class="op">*</span> i <span class="cf">for</span> i <span class="kw">in</span> xs <span class="cf">if</span> i <span class="op">&gt;</span> <span class="dv">2</span>]</span>
-<span id="cb13-3"><a href="#cb13-3"></a>[<span class="dv">9</span>, <span class="dv">16</span>]</span></code></pre></div>
-<p>ใน Haskell ก็มี List comprehension เช่นเดียวกัน ซึ่งมีไวยากรณ์ไกล้เคียงกับ <a href="https://en.wikipedia.org/wiki/Set-builder_notation">set builder notation</a></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1"></a>λ<span class="op">&gt;</span> xs <span class="ot">=</span>  [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</span>
-<span id="cb14-2"><a href="#cb14-2"></a>λ<span class="op">&gt;</span> [ i <span class="op">*</span> i <span class="op">|</span> i <span class="ot">&lt;-</span> xs, i <span class="op">&gt;</span> <span class="dv">2</span>]</span>
-<span id="cb14-3"><a href="#cb14-3"></a>[<span class="dv">9</span>,<span class="dv">16</span>]</span></code></pre></div>
-<p><a href="../../posts/recursive_data_function-th_3">ตอนหน้า</a> เขียนเรื่องการเปลี่ยนรูปของข้อมูล</p>
+<p>ใน Python มีการยุบรวม <code>map</code> และ <code>filter</code> เป็น
+expression เดียวกันโดยใข้ List comprehension</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> xs <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> [i <span class="op">*</span> i <span class="cf">for</span> i <span class="kw">in</span> xs <span class="cf">if</span> i <span class="op">&gt;</span> <span class="dv">2</span>]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">9</span>, <span class="dv">16</span>]</span></code></pre></div>
+<p>ใน Haskell ก็มี List comprehension เช่นเดียวกัน ซึ่งมีไวยากรณ์ไกล้เคียงกับ <a href="https://en.wikipedia.org/wiki/Set-builder_notation">set builder
+notation</a></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>λ<span class="op">&gt;</span> xs <span class="ot">=</span>  [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>λ<span class="op">&gt;</span> [ i <span class="op">*</span> i <span class="op">|</span> i <span class="ot">&lt;-</span> xs, i <span class="op">&gt;</span> <span class="dv">2</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">9</span>,<span class="dv">16</span>]</span></code></pre></div>
+<p><a href="../../posts/recursive_data_function-th_3">ตอนหน้า</a>
+เขียนเรื่องการเปลี่ยนรูปของข้อมูล</p>
     </div>
 
   <!-- socials -->

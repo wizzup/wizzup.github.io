@@ -29,7 +29,9 @@
     <!-- twitter metadata -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="wizzup: Autotools ตามที่เข้าใจ - Hello world" />
-    <meta name="twitter:description" content=" <p>บทความนี้นำเสนอตัวอย่างการสร้าง <code>Hello world</code> application ที่เขียนด้วยภาษา <code>C</code> โดยใช้ <code>GNU autotools</code> เป็นเครื่องมือจัดการโครงการในระดับเบื้องต้น  " />
+    <meta name="twitter:description" content=" <p>บทความนี้นำเสนอตัวอย่างการสร้าง <code>Hello world</code> application
+ที่เขียนด้วยภาษา <code>C</code> โดยใช้ <code>GNU autotools</code>
+เป็นเครื่องมือจัดการโครงการในระดับเบื้องต้น  " />
     <meta name="twitter:site" content="@wizzup" />
     <meta name="twitter:creator" content="@wizzup" />
 
@@ -41,7 +43,9 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="wizzup" />
     <meta property="og:title" content="wizzup: Autotools ตามที่เข้าใจ - Hello world" />
-    <meta property="og:description" content=" <p>บทความนี้นำเสนอตัวอย่างการสร้าง <code>Hello world</code> application ที่เขียนด้วยภาษา <code>C</code> โดยใช้ <code>GNU autotools</code> เป็นเครื่องมือจัดการโครงการในระดับเบื้องต้น  " />
+    <meta property="og:description" content=" <p>บทความนี้นำเสนอตัวอย่างการสร้าง <code>Hello world</code> application
+ที่เขียนด้วยภาษา <code>C</code> โดยใช้ <code>GNU autotools</code>
+เป็นเครื่องมือจัดการโครงการในระดับเบื้องต้น  " />
     <meta property="og:image" content="https://wizzup.github.io/images/ogimage-def.gif" />
 
     <!-- canonical link -->
@@ -86,11 +90,11 @@
               <br>
               <span>About me</span>
             </a>
-            <a class="nav-itme nav-link nav-btn text-center" href="../../me/tipjar">
-              <i class="material-icons">attach_money</i>
-              <br>
-              <span>Tip jar</span>
-            </a>
+            <!-- <a class="nav-itme nav-link nav-btn text-center" href="/me/tipjar"> -->
+              <!-- <i class="material-icons">attach_money</i> -->
+              <!-- <br> -->
+              <!-- <span>Tip jar</span> -->
+            <!-- </a> -->
           </div>
         </div>
       </nav>
@@ -113,16 +117,28 @@
     </div>
     <div>
         <br />
-        <p>บทความนี้นำเสนอตัวอย่างการสร้าง <code>Hello world</code> application ที่เขียนด้วยภาษา <code>C</code> โดยใช้ <code>GNU autotools</code> เป็นเครื่องมือจัดการโครงการในระดับเบื้องต้น <!--more--> ตัวอย่างโครงการขนาดเล็กมีไฟล์ source เพียงไฟล์เดียว ไม่รวมการใช้งาน library ภายนอก, เครื่องมือเสริมของ <code>autotools</code> (เช่น <code>aclocal</code>, <code>autoheader</code>, <code>libtool</code>) และโครงการขนาดใหญ่ ที่มีไฟล์ header และ source จำนวนมาก</p>
+        <p>บทความนี้นำเสนอตัวอย่างการสร้าง <code>Hello world</code> application
+ที่เขียนด้วยภาษา <code>C</code> โดยใช้ <code>GNU autotools</code>
+เป็นเครื่องมือจัดการโครงการในระดับเบื้องต้น <!--more--> ตัวอย่างโครงการขนาดเล็กมีไฟล์
+source เพียงไฟล์เดียว ไม่รวมการใช้งาน library ภายนอก, เครื่องมือเสริมของ
+<code>autotools</code> (เช่น <code>aclocal</code>,
+<code>autoheader</code>, <code>libtool</code>) และโครงการขนาดใหญ่ ที่มีไฟล์
+header และ source จำนวนมาก</p>
 <p>ไฟล์ที่สร้างขึ้นทั้งหมด อยู่ใน <a href="https://gist.github.com/wizzup/1298a13da32ab80bff7ca2856e5e2b67">gist</a></p>
 <p><img src="https://devmanual.gentoo.org/general-concepts/autotools/diagram.png" /></p>
-<p>รูปประกอบจาก <a href="https://devmanual.gentoo.org/general-concepts/autotools/">gentoo.org</a> (CC BY-SA 3.0)</p>
+<p>รูปประกอบจาก <a href="https://devmanual.gentoo.org/general-concepts/autotools/">gentoo.org</a>
+(CC BY-SA 3.0)</p>
 <ul>
-<li><p><code>autoconf</code> ช่วยในการค้นหาและตั้งค่าเครื่องมือที่จำเป็นต้องใช้เช่น compiler, library และสร้าง <code>Makefile</code></p></li>
-<li><p><code>automake</code> สร้าง <code>Makefile.in</code> จากโครงแบบ <code>Makefile.am</code></p></li>
+<li><p><code>autoconf</code> ช่วยในการค้นหาและตั้งค่าเครื่องมือที่จำเป็นต้องใช้เช่น
+compiler, library และสร้าง <code>Makefile</code></p></li>
+<li><p><code>automake</code> สร้าง <code>Makefile.in</code> จากโครงแบบ
+<code>Makefile.am</code></p></li>
 </ul>
-<p>ในการใช้งานปกติ สามารถใช้ <code>autoreconf</code> ซึ่งเป็น script ในระดับที่<a href="https://stackoverflow.com/questions/27285052/difference-between-autoconf-and-autoreconf">สูงกว่า</a> ไม่จำเป็นต้องเรียกใช้ <code>autoconf</code> และ <code>automake</code> เอง</p>
-<h2 id="0-สิ่งที่ต้องติดตั้งเรียบร้อยแล้วได้แก่-automake-autoconf-และ-c-compiler-gcc">0. สิ่งที่ต้องติดตั้งเรียบร้อยแล้วได้แก่ <code>automake</code>, <code>autoconf</code> และ C compiler (<code>gcc</code>)</h2>
+<p>ในการใช้งานปกติ สามารถใช้ <code>autoreconf</code> ซึ่งเป็น script ในระดับที่<a href="https://stackoverflow.com/questions/27285052/difference-between-autoconf-and-autoreconf">สูงกว่า</a>
+ไม่จำเป็นต้องเรียกใช้ <code>autoconf</code> และ <code>automake</code> เอง</p>
+<h2 id="0-สิ่งที่ต้องติดตั้งเรียบร้อยแล้วได้แก่-automake-autoconf-และ-c-compiler-gcc">0.
+สิ่งที่ต้องติดตั้งเรียบร้อยแล้วได้แก่ <code>automake</code>, <code>autoconf</code>
+และ C compiler (<code>gcc</code>)</h2>
 <pre><code>$ automake --version
 automake (GNU automake) 1.16.1
 ...
@@ -134,9 +150,17 @@ autoconf (GNU Autoconf) 2.69
 $ cc --version
 gcc (GCC) 7.4.0
 ...</code></pre>
-<h2 id="1-เริ่มต้นด้วยไฟล์ที่จำเป็น-configureac-และ-makefileam">1. เริ่มต้นด้วยไฟล์ที่จำเป็น <code>configure.ac</code> และ <code>Makefile.am</code></h2>
-<h3 id="11-configureac-สร้างใหม่หรือแก้จากต้นแบบ-configurescan-ที่สร้างด้วย-autoscan">1.1 <code>configure.ac</code> สร้างใหม่หรือแก้จากต้นแบบ <code>configure.scan</code> ที่สร้างด้วย <code>autoscan</code></h3>
-<p>ไฟล์ <code>configure.ac</code> อาจพบอยู่ในชื่อ <code>configure.in</code> ในบางโครงการที่เป็นโครงการเก่า อย่างไรก็ตาม <a href="https://stackoverflow.com/questions/3782994/any-difference-between-configure-ac-and-configure-in-and-makefile-am-and-makefi">แนะนำ</a>ให้ใช้ <code>.ac</code> สำหรับโครงการใหม่ เพื่อบ่งชี้ว่าเป็น input ของ <code>autoconf</code> และไม่ให้สับสนกับ <code>.in</code> ทีสร้างระหว่างการทำงานของเครื่องมืออื่น</p>
+<h2 id="1-เริ่มต้นด้วยไฟล์ที่จำเป็น-configureac-และ-makefileam">1.
+เริ่มต้นด้วยไฟล์ที่จำเป็น <code>configure.ac</code> และ
+<code>Makefile.am</code></h2>
+<h3 id="11-configureac-สร้างใหม่หรือแก้จากต้นแบบ-configurescan-ที่สร้างด้วย-autoscan">1.1
+<code>configure.ac</code> สร้างใหม่หรือแก้จากต้นแบบ
+<code>configure.scan</code> ที่สร้างด้วย <code>autoscan</code></h3>
+<p>ไฟล์ <code>configure.ac</code> อาจพบอยู่ในชื่อ <code>configure.in</code>
+ในบางโครงการที่เป็นโครงการเก่า อย่างไรก็ตาม <a href="https://stackoverflow.com/questions/3782994/any-difference-between-configure-ac-and-configure-in-and-makefile-am-and-makefi">แนะนำ</a>ให้ใช้
+<code>.ac</code> สำหรับโครงการใหม่ เพื่อบ่งชี้ว่าเป็น input ของ
+<code>autoconf</code> และไม่ให้สับสนกับ <code>.in</code>
+ทีสร้างระหว่างการทำงานของเครื่องมืออื่น</p>
 <script src="https://gist.github.com/wizzup/1298a13da32ab80bff7ca2856e5e2b67.js?file=configure.ac"></script>
 <!-- ``` -->
 <!-- # กำหนด version ต่ำสุด ของ autoconf -->
@@ -177,15 +201,19 @@ gcc (GCC) 7.4.0
 <!-- ``` -->
 <h2 id="2-script-และ-application">2. script และ application</h2>
 <h3 id="21-configure-script">2.1 <code>configure</code> script</h3>
-<p>เรียก <code>autoreconf</code> เพื่อสร้าง <code>configure</code> (ถ้าพบปัญหาอาจต้องใช้ <code>autoreconf -f</code> ร่วมกับ <code>automake --add-missing</code>)</p>
+<p>เรียก <code>autoreconf</code> เพื่อสร้าง <code>configure</code>
+(ถ้าพบปัญหาอาจต้องใช้ <code>autoreconf -f</code> ร่วมกับ
+<code>automake --add-missing</code>)</p>
 <pre><code>$ autoreconf --install</code></pre>
-<p>GNU package ระดับมืออาชีพ อาจมีแถม <code>autogen.sh</code> script เพื่อสร้าง <code>configure</code> script ในลักษณะเดียวกัน</p>
+<p>GNU package ระดับมืออาชีพ อาจมีแถม <code>autogen.sh</code> script เพื่อสร้าง
+<code>configure</code> script ในลักษณะเดียวกัน</p>
 <pre><code>#! /bin/sh
 
 aclocal \
 &amp;&amp; automake --add-missing \
 &amp;&amp; autoconf</code></pre>
-<p>อย่างไรก็ตามข้อมูลจาก<a href="https://stackoverflow.com/questions/1970926/whats-the-point-of-aclocal">บางแหล่ง</a>ชึ้ว่า <code>aclocal</code> อาจไม่จำเป็นต้องใช้</p>
+<p>อย่างไรก็ตามข้อมูลจาก<a href="https://stackoverflow.com/questions/1970926/whats-the-point-of-aclocal">บางแหล่ง</a>ชึ้ว่า
+<code>aclocal</code> อาจไม่จำเป็นต้องใช้</p>
 <h3 id="22-makefile">2.2 <code>Makefile</code></h3>
 <p>เรียก <code>configure</code> เพื่อสร้าง <code>Makefile</code></p>
 <pre><code>$ ./configure
@@ -366,7 +394,9 @@ Hello World</code></pre>
         metadata 
         missing  
         teasers  
-        teaser      <p>บทความนี้นำเสนอตัวอย่างการสร้าง <code>Hello world</code> application ที่เขียนด้วยภาษา <code>C</code> โดยใช้ <code>GNU autotools</code> เป็นเครื่องมือจัดการโครงการในระดับเบื้องต้น   
+        teaser      <p>บทความนี้นำเสนอตัวอย่างการสร้าง <code>Hello world</code> application
+ที่เขียนด้วยภาษา <code>C</code> โดยใช้ <code>GNU autotools</code>
+เป็นเครื่องมือจัดการโครงการในระดับเบื้องต้น   
         snippet  
         </code>
       </pre>
